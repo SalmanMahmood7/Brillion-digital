@@ -1,0 +1,185 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Grid Pattern Definitions -->
+    <pattern id="primaryGrid" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+      <path d="M 100 0 L 0 0 0 100" fill="none" stroke="#1e40af" stroke-width="0.3" opacity="0.06"/>
+      <circle cx="0" cy="0" r="1" fill="#0891b2" opacity="0.04"/>
+    </pattern>
+    
+    <pattern id="secondaryGrid" x="0" y="0" width="150" height="150" patternUnits="userSpaceOnUse">
+      <path d="M 150 0 L 0 0 0 150" fill="none" stroke="#0f766e" stroke-width="0.2" opacity="0.04"/>
+      <path d="M 75 0 L 75 150 M 0 75 L 150 75" fill="none" stroke="#14b8a6" stroke-width="0.15" opacity="0.03"/>
+    </pattern>
+    
+    <!-- Wave Gradient Definitions -->
+    <linearGradient id="waveGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.08"/>
+      <stop offset="50%" stop-color="#0891b2" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="#14b8a6" stop-opacity="0.06"/>
+    </linearGradient>
+    
+    <linearGradient id="waveGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0f766e" stop-opacity="0.06"/>
+      <stop offset="50%" stop-color="#0ea5e9" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.05"/>
+    </linearGradient>
+    
+    <linearGradient id="waveGrad3" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#0d9488" stop-opacity="0.04"/>
+      <stop offset="50%" stop-color="#1e40af" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#0891b2" stop-opacity="0.03"/>
+    </linearGradient>
+    
+    <!-- Geometric Accent Patterns -->
+    <pattern id="hexGrid" x="0" y="0" width="120" height="104" patternUnits="userSpaceOnUse">
+      <polygon points="60,4 104,30 104,82 60,108 16,82 16,30" 
+               fill="none" stroke="#0ea5e9" stroke-width="0.4" opacity="0.025"/>
+    </pattern>
+    
+    <!-- Flow Animation Paths -->
+    <path id="flowPath1" d="M0,300 Q480,200 960,300 T1920,300"/>
+    <path id="flowPath2" d="M0,500 Q640,400 1280,500 T2560,500"/>
+    <path id="flowPath3" d="M0,700 Q560,600 1120,700 T2240,700"/>
+  </defs>
+  
+  <!-- Base Canvas -->
+  <rect width="100%" height="100%" fill="transparent"/>
+  
+  <!-- Primary Grid Layer -->
+  <g opacity="0.8">
+    <rect width="100%" height="100%" fill="url(#primaryGrid)">
+      <animateTransform attributeName="transform" type="translate" 
+                        values="0,0;-50,0;0,0" dur="80s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  
+  <!-- Secondary Grid Overlay -->
+  <g opacity="0.6">
+    <rect width="100%" height="100%" fill="url(#secondaryGrid)">
+      <animateTransform attributeName="transform" type="translate" 
+                        values="0,0;75,0;0,0" dur="120s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  
+  <!-- Hexagonal Accent Grid -->
+  <g opacity="0.4">
+    <rect width="100%" height="100%" fill="url(#hexGrid)">
+      <animateTransform attributeName="transform" type="translate" 
+                        values="0,0;-60,0;0,0" dur="100s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+  
+  <!-- Flowing Wave Lines -->
+  <g opacity="0.7">
+    <!-- Wave Layer 1 -->
+    <path d="M0,250 Q480,150 960,250 T1920,250 L1920,0 L0,0 Z" 
+          fill="url(#waveGrad1)">
+      <animateTransform attributeName="transform" type="translate" 
+                        values="0,0;-200,0;0,0" dur="40s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Wave Layer 2 -->
+    <path d="M0,450 Q640,350 1280,450 T2560,450 L2560,0 L0,0 Z" 
+          fill="url(#waveGrad2)" opacity="0.6">
+      <animateTransform attributeName="transform" type="translate" 
+                        values="0,0;300,0;0,0" dur="60s" repeatCount="indefinite"/>
+    </path>
+    
+    <!-- Wave Layer 3 -->
+    <path d="M0,650 Q560,550 1120,650 T2240,650 L2240,0 L0,0 Z" 
+          fill="url(#waveGrad3)" opacity="0.4">
+      <animateTransform attributeName="transform" type="translate" 
+                        values="0,0;-150,0;0,0" dur="70s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Floating Geometric Elements -->
+  <g opacity="0.15">
+    <!-- Animated Dots -->
+    <circle cx="200" cy="200" r="2" fill="#1e40af">
+      <animateTransform attributeName="transform" type="translate" 
+                        values="0,0;50,-30;-30,50;0,0" dur="45s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.05;0.20;0.05" dur="30s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle cx="800" cy="400" r="1.5" fill="#0891b2">
+      <animateTransform attributeName="transform" type="translate" 
+                        values="0,0;-40,40;60,-20;0,0" dur="55s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.03;0.15;0.03" dur="35s" repeatCount="indefinite"/>
+    </circle>
+    
+    <circle cx="1400" cy="300" r="1.8" fill="#14b8a6">
+      <animateTransform attributeName="transform" type="translate" 
+                        values="0,0;30,60;-50,-40;0,0" dur="48s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.04;0.18;0.04" dur="32s" repeatCount="indefinite"/>
+    </circle>
+    
+    <!-- Geometric Shapes -->
+    <rect x="600" y="150" width="8" height="8" fill="#0f766e" transform="rotate(45 604 154)">
+      <animateTransform attributeName="transform" type="rotate" 
+                        values="45 604 154;405 604 154;45 604 154" dur="60s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.02;0.12;0.02" dur="40s" repeatCount="indefinite"/>
+    </rect>
+    
+    <polygon points="1200,500 1210,490 1220,500 1210,510" fill="#0ea5e9">
+      <animateTransform attributeName="transform" type="translate" 
+                        values="0,0;-20,30;40,-10;0,0" dur="65s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.03;0.15;0.03" dur="45s" repeatCount="indefinite"/>
+    </polygon>
+  </g>
+  
+  <!-- Structural Lines -->
+  <g opacity="0.08" stroke="#1e40af" stroke-width="0.5" fill="none">
+    <!-- Horizontal Guidelines -->
+    <line x1="0" y1="200" x2="1920" y2="200">
+      <animate attributeName="opacity" values="0.02;0.10;0.02" dur="50s" repeatCount="indefinite"/>
+    </line>
+    <line x1="0" y1="540" x2="1920" y2="540">
+      <animate attributeName="opacity" values="0.01;0.08;0.01" dur="60s" repeatCount="indefinite"/>
+    </line>
+    <line x1="0" y1="800" x2="1920" y2="800">
+      <animate attributeName="opacity" values="0.01;0.06;0.01" dur="70s" repeatCount="indefinite"/>
+    </line>
+    
+    <!-- Vertical Guidelines -->
+    <line x1="480" y1="0" x2="480" y2="1080">
+      <animate attributeName="opacity" values="0.02;0.08;0.02" dur="55s" repeatCount="indefinite"/>
+    </line>
+    <line x1="960" y1="0" x2="960" y2="1080">
+      <animate attributeName="opacity" values="0.01;0.07;0.01" dur="65s" repeatCount="indefinite"/>
+    </line>
+    <line x1="1440" y1="0" x2="1440" y2="1080">
+      <animate attributeName="opacity" values="0.01;0.06;0.01" dur="75s" repeatCount="indefinite"/>
+    </line>
+  </g>
+  
+  <!-- Data Flow Visualization -->
+  <g opacity="0.04" stroke="#0891b2" stroke-width="1" fill="none">
+    <path d="M100,100 L200,150 L350,120 L500,180 L700,140">
+      <animate attributeName="stroke-dasharray" values="0,1000;50,950;0,1000" dur="15s" repeatCount="indefinite"/>
+    </path>
+    <path d="M300,300 L450,250 L600,280 L800,230 L1000,270">
+      <animate attributeName="stroke-dasharray" values="0,1000;50,950;0,1000" dur="20s" repeatCount="indefinite"/>
+    </path>
+    <path d="M200,600 L400,550 L650,580 L900,540 L1200,570">
+      <animate attributeName="stroke-dasharray" values="0,1000;50,950;0,1000" dur="18s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Performance Optimization -->
+  <style>
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+    
+    /* Optimize for mobile */
+    @media (max-width: 768px) {
+      .complex-animation {
+        animation-duration: 120s;
+      }
+    }
+  </style>
+</svg>

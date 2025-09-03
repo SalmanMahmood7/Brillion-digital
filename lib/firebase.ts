@@ -1,0 +1,32 @@
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyDGuY1jWV470qgKYHFZ3yoGaF6tiY9BPPQ",
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "brilliongroup-ca.firebaseapp.com",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "brilliongroup-ca",
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "brilliongroup-ca.firebasestorage.app",
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "738403545427",
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "1:738403545427:web:c30dcdb127475b9c7af1a6",
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || "G-3WK4KKYKYC"
+};
+
+// Initialize Firebase only if it hasn't been initialized already
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+
+let db: ReturnType<typeof getFirestore>;
+let auth: ReturnType<typeof getAuth>;
+
+try {
+  db = getFirestore(app);
+  auth = getAuth(app);
+  
+  console.log('✅ Firebase initialized successfully');
+} catch (error) {
+  console.error('❌ Firebase initialization error:', error);
+  throw error;
+}
+
+export { db, auth };
+export default app;

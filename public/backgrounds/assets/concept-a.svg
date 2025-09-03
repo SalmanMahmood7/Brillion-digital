@@ -1,0 +1,137 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <!-- Gradient Mesh Definitions -->
+    <radialGradient id="meshGrad1" cx="20%" cy="30%" r="45%">
+      <stop offset="0%" stop-color="#1e3a8a" stop-opacity="0.12"/>
+      <stop offset="50%" stop-color="#0891b2" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    
+    <radialGradient id="meshGrad2" cx="80%" cy="20%" r="40%">
+      <stop offset="0%" stop-color="#0f766e" stop-opacity="0.10"/>
+      <stop offset="50%" stop-color="#0ea5e9" stop-opacity="0.06"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    
+    <radialGradient id="meshGrad3" cx="60%" cy="80%" r="35%">
+      <stop offset="0%" stop-color="#1e40af" stop-opacity="0.08"/>
+      <stop offset="50%" stop-color="#14b8a6" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    
+    <radialGradient id="meshGrad4" cx="10%" cy="70%" r="30%">
+      <stop offset="0%" stop-color="#0d9488" stop-opacity="0.06"/>
+      <stop offset="50%" stop-color="#3b82f6" stop-opacity="0.04"/>
+      <stop offset="100%" stop-color="transparent"/>
+    </radialGradient>
+    
+    <!-- Particle Dot Patterns -->
+    <pattern id="particleDots1" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+      <circle cx="30" cy="30" r="1.5" fill="#1e40af" opacity="0.15">
+        <animate attributeName="opacity" values="0.05;0.25;0.05" dur="8s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="80" cy="70" r="1" fill="#0891b2" opacity="0.12">
+        <animate attributeName="opacity" values="0.03;0.20;0.03" dur="12s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="60" cy="100" r="0.8" fill="#14b8a6" opacity="0.10">
+        <animate attributeName="opacity" values="0.02;0.18;0.02" dur="15s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="100" cy="20" r="1.2" fill="#0f766e" opacity="0.08">
+        <animate attributeName="opacity" values="0.01;0.15;0.01" dur="10s" repeatCount="indefinite"/>
+      </circle>
+    </pattern>
+    
+    <pattern id="particleDots2" x="0" y="0" width="150" height="150" patternUnits="userSpaceOnUse">
+      <circle cx="40" cy="50" r="0.9" fill="#3b82f6" opacity="0.08">
+        <animate attributeName="opacity" values="0.02;0.16;0.02" dur="14s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="110" cy="90" r="1.3" fill="#0d9488" opacity="0.12">
+        <animate attributeName="opacity" values="0.03;0.20;0.03" dur="9s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="25" cy="120" r="0.7" fill="#0ea5e9" opacity="0.06">
+        <animate attributeName="opacity" values="0.01;0.12;0.01" dur="16s" repeatCount="indefinite"/>
+      </circle>
+    </pattern>
+    
+    <!-- Subtle Noise Filter -->
+    <filter id="noise" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence baseFrequency="0.9" numOctaves="4" result="noise"/>
+      <feColorMatrix in="noise" type="saturate" values="0"/>
+      <feComponentTransfer>
+        <feFuncA type="discrete" tableValues="0.02"/>
+      </feComponentTransfer>
+      <feComposite operator="over" in2="SourceGraphic"/>
+    </filter>
+    
+    <!-- Mesh Flow Animation -->
+    <animateTransform id="meshFlow1" attributeName="transform" type="translate" 
+                      values="0,0;-30,-20;20,-40;0,0" dur="45s" repeatCount="indefinite"/>
+    <animateTransform id="meshFlow2" attributeName="transform" type="translate" 
+                      values="0,0;40,20;-20,30;0,0" dur="60s" repeatCount="indefinite"/>
+    <animateTransform id="meshFlow3" attributeName="transform" type="translate" 
+                      values="0,0;-20,35;30,-15;0,0" dur="50s" repeatCount="indefinite"/>
+  </defs>
+  
+  <!-- Base Canvas -->
+  <rect width="100%" height="100%" fill="#fafafa" opacity="0.01"/>
+  
+  <!-- Gradient Mesh Layers -->
+  <g opacity="0.8">
+    <circle cx="20%" cy="30%" r="45%" fill="url(#meshGrad1)">
+      <animateTransform attributeName="transform" type="translate" 
+                        values="0,0;-30,-20;20,-40;0,0" dur="45s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="40%;50%;40%" dur="35s" repeatCount="indefinite"/>
+    </circle>
+    
+    <ellipse cx="80%" cy="20%" rx="40%" ry="35%" fill="url(#meshGrad2)">
+      <animateTransform attributeName="transform" type="translate" 
+                        values="0,0;40,20;-20,30;0,0" dur="60s" repeatCount="indefinite"/>
+      <animate attributeName="rx" values="35%;45%;35%" dur="40s" repeatCount="indefinite"/>
+    </ellipse>
+    
+    <circle cx="60%" cy="80%" r="35%" fill="url(#meshGrad3)">
+      <animateTransform attributeName="transform" type="translate" 
+                        values="0,0;-20,35;30,-15;0,0" dur="50s" repeatCount="indefinite"/>
+      <animate attributeName="r" values="30%;40%;30%" dur="38s" repeatCount="indefinite"/>
+    </circle>
+    
+    <ellipse cx="10%" cy="70%" rx="30%" ry="25%" fill="url(#meshGrad4)">
+      <animateTransform attributeName="transform" type="translate" 
+                        values="0,0;25,-30;-35,20;0,0" dur="55s" repeatCount="indefinite"/>
+      <animate attributeName="ry" values="20%;30%;20%" dur="42s" repeatCount="indefinite"/>
+    </ellipse>
+  </g>
+  
+  <!-- Particle Dot Overlays -->
+  <g opacity="0.6">
+    <rect width="100%" height="100%" fill="url(#particleDots1)"/>
+    <rect width="100%" height="100%" fill="url(#particleDots2)" transform="translate(75, 75)"/>
+  </g>
+  
+  <!-- Connecting Lines (Subtle) -->
+  <g opacity="0.03" stroke="#1e40af" stroke-width="0.5" fill="none">
+    <path d="M200,300 Q600,200 1000,400 T1400,350">
+      <animate attributeName="opacity" values="0.01;0.06;0.01" dur="25s" repeatCount="indefinite"/>
+    </path>
+    <path d="M100,600 Q500,500 900,700 T1300,650">
+      <animate attributeName="opacity" values="0.01;0.05;0.01" dur="30s" repeatCount="indefinite"/>
+    </path>
+    <path d="M400,150 Q800,100 1200,250 T1600,200">
+      <animate attributeName="opacity" values="0.01;0.04;0.01" dur="35s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Subtle Noise Texture -->
+  <rect width="100%" height="100%" fill="white" filter="url(#noise)" opacity="0.25"/>
+  
+  <!-- Performance Optimization: Static fallback for reduced motion -->
+  <style>
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</svg>
