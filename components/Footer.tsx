@@ -1,124 +1,123 @@
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { 
-  Linkedin, 
-  Twitter, 
-  Mail, 
-  Phone, 
-  MapPin
-} from "lucide-react";
+import { ArrowRight, Phone, Mail, MapPin, Facebook, Linkedin, Twitter } from "lucide-react";
 
 const Footer = () => {
-  const footerSections = [
-    {
-      title: "Services",
-      links: [
-        "Digital Advisory",
-        "Data & Analytics", 
-        "Application Development",
-        "Cloud Services"
-      ]
-    },
-    {
-      title: "Company",
-      links: [
-        "About Us",
-        "Work",
-        "Contact",
-        "Careers"
-      ]
-    }
-  ];
-
   return (
-    <footer className="relative bg-white text-gray-900 border-t border-gray-100 z-20">
-      {/* Solid background overlay to block any animated backgrounds */}
-      <div className="absolute inset-0 bg-white"></div>
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Main Footer Content */}
-        <div className="py-6 sm:py-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-6 sm:mb-8">
-            {/* Company Info */}
-            <div className="space-y-4">
-              <div className="flex items-center group">
-                <div className="flex flex-col">
-                  <span className="text-2xl font-black bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
-                    BRILLION
-                  </span>
-                  <span className="text-[10px] font-medium text-gray-500 -mt-1 tracking-[0.2em]">
-                    DIGITAL
-                  </span>
-                </div>
-              </div>
-              <p className="text-sm text-gray-400 leading-relaxed">
-                Digital transformation and technology consulting services.
-              </p>
-              <div className="flex space-x-3">
-                <button className="h-9 w-9 rounded-lg border border-slate-600/50 text-gray-400 hover:bg-slate-700/30 hover:text-white hover:border-slate-500/70 transition-all duration-200 flex items-center justify-center">
-                  <Linkedin className="h-4 w-4" />
-                </button>
-                <button className="h-9 w-9 rounded-lg border border-slate-600/50 text-gray-400 hover:bg-slate-700/30 hover:text-white hover:border-slate-500/70 transition-all duration-200 flex items-center justify-center">
-                  <Twitter className="h-4 w-4" />
+    <footer className="relative">
+
+      {/* Main Footer */}
+      <div className="bg-slate-800 text-white">
+        <div className="max-w-7xl mx-auto px-6 py-16">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+            {/* Column 1 */}
+            <div className="space-y-6">
+              <ul className="space-y-4">
+                <li>
+                  <a href="/services" className="text-gray-300 hover:text-white transition-colors duration-200">
+                    Services
+                  </a>
+                </li>
+                <li>
+                  <a href="/work" className="text-gray-300 hover:text-white transition-colors duration-200">
+                    Work
+                  </a>
+                </li>
+                <li>
+                  <a href="/about" className="text-gray-300 hover:text-white transition-colors duration-200">
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a href="/insights" className="text-gray-300 hover:text-white transition-colors duration-200">
+                    Insights
+                  </a>
+                </li>
+              </ul>
+              
+              <div className="pt-8">
+                <button className="flex items-center text-gray-400 hover:text-white transition-colors duration-200 text-sm">
+                  <span className="mr-2">▷</span>
+                  Cookie Consent
                 </button>
               </div>
             </div>
 
-            {/* Links Grid */}
-            {footerSections.map((section, index) => (
-              <div key={index} className="space-y-3">
-                <h4 className="text-sm font-semibold text-gray-900">{section.title}</h4>
-                <ul className="space-y-2">
-                  {section.links.map((link, linkIndex) => (
-                    <li key={linkIndex}>
-                      <a 
-                        href="#" 
-                        className="text-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
-                      >
-                        {link}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+            {/* Column 2 */}
+            <div className="space-y-6">
+              <ul className="space-y-4">
+                <li>
+                  <a href="/careers" className="text-gray-300 hover:text-white transition-colors duration-200">
+                    Careers
+                  </a>
+                </li>
+                <li>
+                  <a href="/contact" className="text-gray-300 hover:text-white transition-colors duration-200">
+                    Contact
+                  </a>
+                </li>
+                <li>
+                  <a href="/find-advisor" className="text-gray-300 hover:text-white transition-colors duration-200">
+                    Find an Advisor
+                  </a>
+                </li>
+                <li>
+                  <a href="/find-office" className="text-gray-300 hover:text-white transition-colors duration-200">
+                    Find an Office
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-            {/* Contact Info */}
-            <div className="space-y-3">
-              <h4 className="text-sm font-semibold text-gray-900">Contact</h4>
-              <div className="space-y-2 text-sm text-gray-600">
-                <div className="flex items-center space-x-2">
-                  <Phone className="h-4 w-4" />
-                  <span>1-800-BRILLION</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Mail className="h-4 w-4" />
-                  <span>hello@brilliondigital.ca</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <MapPin className="h-4 w-4" />
-                  <span>Canada</span>
-                </div>
+            {/* Column 3 - Stay in touch */}
+            <div className="md:col-span-2 space-y-6">
+              <h3 className="text-xl font-bold text-white">Stay in touch!</h3>
+              <p className="text-gray-300 text-lg">
+                Get the scoop on new insights, stories, events, and more.
+              </p>
+              
+              <div className="space-y-4">
+                <a 
+                  href="/newsletter" 
+                  className="flex items-center text-gray-300 hover:text-white transition-colors duration-200"
+                >
+                  Subscribe to our newsletter
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </a>
+                
+                <a 
+                  href="/linkedin" 
+                  className="flex items-center text-gray-300 hover:text-white transition-colors duration-200"
+                >
+                  Find us on LinkedIn
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </a>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="h-px bg-slate-700/50" />
-
-        {/* Bottom Footer */}
-        <div className="py-3 sm:py-4">
-          <div className="flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0 text-center sm:text-left">
-            <div className="flex items-center space-x-4 text-sm text-gray-400">
-              <span>© 2024 BRILLION Digital. All rights reserved.</span>
-            </div>
-            
-            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-6 text-sm text-gray-400">
-              <a href="#" className="hover:text-blue-600 transition-colors duration-200">
-                Privacy Policy
-              </a>
-              <a href="#" className="hover:text-blue-600 transition-colors duration-200">
-                Terms of Service
-              </a>
+        {/* Bottom Section */}
+        <div className="border-t border-gray-700">
+          <div className="max-w-7xl mx-auto px-6 py-6">
+            <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+              <div className="flex items-center space-x-6 text-sm text-gray-400">
+                <span>© Copyright 2025 BRILLION Digital. All Rights Reserved</span>
+                <a href="/privacy-policy" className="text-blue-400 hover:text-blue-300 transition-colors duration-200">
+                  Privacy Policy
+                </a>
+                <span>|</span>
+                <a href="/terms" className="text-blue-400 hover:text-blue-300 transition-colors duration-200">
+                  Terms of Service
+                </a>
+              </div>
+              
+              {/* Brillion Digital Logo */}
+              <div className="flex items-center">
+                <img 
+                  src="/brillion-logo-high-quality.png" 
+                  alt="BRILLION Digital" 
+                  className="h-10 w-auto"
+                />
+              </div>
             </div>
           </div>
         </div>

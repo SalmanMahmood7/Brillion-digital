@@ -193,6 +193,23 @@ export default function ContentPage() {
     setContent(content.filter(item => item.id !== contentId))
   }
 
+  const handleViewContent = (contentItem: Content) => {
+    if (contentItem.type === "article") {
+      // Map article titles to slugs for navigation
+      const titleToSlugMap: { [key: string]: string } = {
+        "Digital Transformation in 2024": "microsoft-365-team-adoption",
+        "Cloud Services Overview": "cloud-migration-best-practices",
+        "Cybersecurity Best Practices": "cloud-security-2024"
+      }
+      
+      const slug = titleToSlugMap[contentItem.title] || contentItem.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+      router.push(`/insights/${slug}`)
+    } else {
+      // For pages and media, you could implement different logic
+      console.log("Viewing:", contentItem.title)
+    }
+  }
+
   const getStatusBadge = (status: Content["status"]) => {
     const variants = {
       published: "default",
@@ -201,8 +218,8 @@ export default function ContentPage() {
     } as const
     
     const colors = {
-      published: "bg-blue-100 text-blue-800",
-      draft: "bg-yellow-100 text-yellow-800",
+      published: "bg-green-100 text-green-800",
+      draft: "bg-orange-100 text-orange-800",
       archived: "bg-gray-100 text-gray-800"
     }
     
@@ -227,13 +244,13 @@ export default function ContentPage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-foreground">Content Management</h1>
-            <p className="text-muted-foreground mt-1">Create and manage your website content</p>
+            <h1 className="text-2xl font-bold text-gray-900">Content Management</h1>
+            <p className="text-gray-600 mt-1">Create and manage your website content</p>
           </div>
           
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <Button>
+              <Button className="bg-[#f97316] hover:bg-[#ea580c] text-white">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Content
               </Button>
@@ -293,7 +310,7 @@ export default function ContentPage() {
                 </div>
               </div>
               <DialogFooter>
-                <Button onClick={handleAddContent}>Add Content</Button>
+                <Button onClick={handleAddContent} className="bg-[#f97316] hover:bg-[#ea580c] text-white">Add Content</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -304,10 +321,10 @@ export default function ContentPage() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center">
-                <FileText className="h-8 w-8 text-blue-600" />
+                <FileText className="h-8 w-8 text-[#f97316]" />
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-muted-foreground">Total Content</p>
-                  <p className="text-2xl font-bold">{content.length}</p>
+                  <p className="text-sm font-medium text-gray-600">Total Content</p>
+                  <p className="text-2xl font-bold text-gray-900">{content.length}</p>
                 </div>
               </div>
             </CardContent>
@@ -315,10 +332,10 @@ export default function ContentPage() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center">
-                <Eye className="h-8 w-8 text-blue-600" />
+                <Eye className="h-8 w-8 text-[#f97316]" />
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-muted-foreground">Published</p>
-                  <p className="text-2xl font-bold">{content.filter(c => c.status === "published").length}</p>
+                  <p className="text-sm font-medium text-gray-600">Published</p>
+                  <p className="text-2xl font-bold text-gray-900">{content.filter(c => c.status === "published").length}</p>
                 </div>
               </div>
             </CardContent>
@@ -326,10 +343,10 @@ export default function ContentPage() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center">
-                <FileText className="h-8 w-8 text-yellow-600" />
+                <FileText className="h-8 w-8 text-[#f97316]" />
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-muted-foreground">Drafts</p>
-                  <p className="text-2xl font-bold">{content.filter(c => c.status === "draft").length}</p>
+                  <p className="text-sm font-medium text-gray-600">Drafts</p>
+                  <p className="text-2xl font-bold text-gray-900">{content.filter(c => c.status === "draft").length}</p>
                 </div>
               </div>
             </CardContent>
@@ -337,10 +354,10 @@ export default function ContentPage() {
           <Card>
             <CardContent className="p-4">
               <div className="flex items-center">
-                <Image className="h-8 w-8 text-purple-600" />
+                <Image className="h-8 w-8 text-[#f97316]" />
                 <div className="ml-4">
-                  <p className="text-sm font-medium text-muted-foreground">Media</p>
-                  <p className="text-2xl font-bold">{content.filter(c => c.type === "media").length}</p>
+                  <p className="text-sm font-medium text-gray-600">Media</p>
+                  <p className="text-2xl font-bold text-gray-900">{content.filter(c => c.type === "media").length}</p>
                 </div>
               </div>
             </CardContent>
@@ -355,7 +372,7 @@ export default function ContentPage() {
             </CardDescription>
             <div className="flex items-center space-x-2">
               <div className="relative flex-1 max-w-sm">
-                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
                 <Input
                   placeholder="Search content..."
                   value={searchTerm}
@@ -407,7 +424,7 @@ export default function ContentPage() {
                       <div className="max-w-xs">
                         <div className="font-medium">{item.title}</div>
                         {item.excerpt && (
-                          <div className="text-sm text-muted-foreground truncate">{item.excerpt}</div>
+                          <div className="text-sm text-gray-600 truncate">{item.excerpt}</div>
                         )}
                       </div>
                     </TableCell>
@@ -423,7 +440,7 @@ export default function ContentPage() {
                       {item.views ? item.views.toLocaleString() : "-"}
                     </TableCell>
                     <TableCell>
-                      <div className="flex items-center text-sm text-muted-foreground">
+                      <div className="flex items-center text-sm text-gray-600">
                         <Calendar className="h-3 w-3 mr-1" />
                         {item.updatedAt}
                       </div>
@@ -437,7 +454,7 @@ export default function ContentPage() {
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
                           <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                          <DropdownMenuItem>
+                          <DropdownMenuItem onClick={() => handleViewContent(item)}>
                             <Eye className="h-4 w-4 mr-2" />
                             View
                           </DropdownMenuItem>
@@ -521,7 +538,7 @@ export default function ContentPage() {
             </div>
           </div>
           <DialogFooter>
-            <Button onClick={handleUpdateContent}>Save Changes</Button>
+            <Button onClick={handleUpdateContent} className="bg-[#f97316] hover:bg-[#ea580c] text-white">Save Changes</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

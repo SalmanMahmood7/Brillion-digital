@@ -1,189 +1,374 @@
 "use client";
 
 import PageLayout from "@/components/PageLayout";
-import { Button } from "@/components/ui/button";
-import { Globe, CheckCircle, ArrowRight, Server, Layers, Settings, Database, Users, Zap } from "lucide-react";
+import { Layers, CheckCircle, Database, Users, Settings, ArrowRight } from "lucide-react";
 
 export default function DigitalPlatforms() {
-  const services = [
-    {
-      title: "Enterprise Resource Planning (ERP)",
-      description: "Comprehensive ERP solutions that integrate all business processes into a unified system. We implement and customize ERP platforms to streamline operations, improve efficiency, and provide real-time business insights.",
-      icon: Database,
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop&auto=format",
-      features: ["Process Integration", "Custom Workflows", "Real-time Analytics"]
-    },
-    {
-      title: "Customer Relationship Management (CRM)",
-      description: "Powerful CRM platforms that enhance customer relationships and drive sales growth. We configure CRM systems to manage leads, automate sales processes, and provide comprehensive customer insights.",
-      icon: Users,
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop&auto=format",
-      features: ["Lead Management", "Sales Automation", "Customer Analytics"]
-    },
-    {
-      title: "Content Management Systems",
-      description: "Modern CMS solutions for dynamic content management and digital experiences. We build and customize content platforms that empower teams to create, manage, and publish content efficiently.",
-      icon: Layers,
-      image: "https://images.unsplash.com/photo-1432888622747-4eb9a8efeb07?w=500&h=300&fit=crop&auto=format",
-      features: ["Content Publishing", "Multi-channel Delivery", "User Management"]
-    },
-    {
-      title: "E-commerce Platforms",
-      description: "Scalable e-commerce solutions that drive online sales and enhance customer experiences. We develop custom online stores with advanced features, payment integrations, and mobile optimization.",
-      icon: Globe,
-      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop&auto=format",
-      features: ["Online Store Setup", "Payment Integration", "Mobile Commerce"]
-    },
-    {
-      title: "Platform Integration Services",
-      description: "Seamless integration between different digital platforms and systems. We connect disparate systems, enable data synchronization, and create unified digital ecosystems for improved efficiency.",
-      icon: Settings,
-      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500&h=300&fit=crop&auto=format",
-      features: ["API Integration", "Data Synchronization", "System Connectivity"]
-    },
-    {
-      title: "Platform Performance Optimization",
-      description: "Optimize platform performance for speed, scalability, and reliability. We analyze system performance, implement optimizations, and ensure your platforms can handle growing business demands.",
-      icon: Zap,
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop&auto=format",
-      features: ["Performance Tuning", "Scalability Planning", "System Monitoring"]
-    }
-  ];
-
   return (
     <PageLayout>
-      <div className="relative min-h-screen bg-white overflow-hidden">
+      <div className="min-h-screen bg-white">
 
         {/* Hero Section */}
-        <section className="relative z-10 pt-32 pb-20">
-          <div className="relative w-full py-16 overflow-hidden">
-            {/* Background Image */}
-            <div className="absolute inset-0 z-0">
-              <img 
-                src="/images/digital-platforms-hero.jpg" 
-                alt="Digital Platforms Background"
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-500/90 to-blue-600/90"></div>
-            </div>
+        <section className="relative bg-slate-900 h-[70vh] flex items-center">
+          {/* Background Image */}
+          <div className="absolute inset-0">
+            <img 
+              src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+              alt="Digital Platforms Background"
+              className="w-full h-full object-cover opacity-20"
+            />
+            <div className="absolute inset-0 bg-slate-900/80"></div>
+          </div>
 
-            <div className="relative z-10 container mx-auto px-6 lg:px-12 max-w-7xl">
-              <div className="max-w-4xl mx-auto text-center space-y-6">
-                <h1 className="text-5xl lg:text-6xl font-black text-white">
-                  Digital Platform Excellence
-                </h1>
-                
-                <p className="text-lg text-white/90 max-w-2xl mx-auto">
-                  Transform your business with powerful digital platforms that streamline operations and enhance customer experiences.
-                </p>
+          <div className="relative z-10 container mx-auto px-6 md:px-8 lg:px-12 max-w-6xl">
+            <div className="text-center space-y-8 pt-20">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8">
+                Digital Platforms
+              </h1>
+              
+              <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Boost growth and productivity using ERP, CRM, and CMS platforms tailored to your business needs.
+              </p>
+              
+              <div className="pt-8">
+                <button className="inline-flex items-center px-8 py-4 border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white font-semibold rounded-full transition-all duration-300 bg-transparent" style={{ borderColor: '#f97316', color: '#f97316' }}>
+                  Explore Platforms
+                </button>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Services Section */}
-        <section className="relative z-10 py-20 bg-white">
-          <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
+        {/* Services Section - Redesigned */}
+        <section className="relative z-10 py-24 bg-gradient-to-b from-white to-gray-50">
+          <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                Our Platform <span className="text-[#f97316]">Solutions</span>
+              </h2>
+              <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+                Transform your business operations with enterprise-grade digital platforms tailored to your needs
+              </p>
+            </div>
             
-            {/* Services Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {services.map((service, index) => {
-                const IconComponent = service.icon;
-                return (
-                  <div key={index} className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border-2 border-gray-100 hover:border-blue-200">
-                    
-                    <div className="flex h-full">
-                      {/* Service Image */}
-                      <div className="relative w-1/2 min-h-[280px] overflow-hidden">
-                        <img 
-                          src={service.image} 
-                          alt={service.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/80 to-transparent" />
-                        
-                        {/* Icon Badge */}
-                        <div className="absolute top-4 left-4">
-                          <div className="p-3 bg-white/20 backdrop-blur-sm rounded-xl border border-white/30">
-                            <IconComponent className="h-6 w-6 text-white" />
-                          </div>
-                        </div>
+            <div className="grid lg:grid-cols-3 gap-8">
+              
+              {/* ERP System Card */}
+              <div className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                    alt="ERP System Implementation"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                  <div className="absolute bottom-4 left-6">
+                    <div className="w-12 h-12 bg-white/90 backdrop-blur rounded-lg flex items-center justify-center">
+                      <Database className="w-6 h-6 text-blue-600" />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-6 space-y-4">
+                  <h3 className="text-2xl font-bold text-gray-900">ERP System Implementation</h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Streamline your entire business operations with integrated ERP solutions that unify all processes into a single, powerful platform.
+                  </p>
+                  
+                  <div className="space-y-3 pt-2">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CheckCircle className="w-3 h-3 text-blue-600" />
                       </div>
+                      <span className="text-sm text-gray-700">End-to-end Process Integration</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CheckCircle className="w-3 h-3 text-blue-600" />
+                      </div>
+                      <span className="text-sm text-gray-700">Custom Workflow Automation</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CheckCircle className="w-3 h-3 text-blue-600" />
+                      </div>
+                      <span className="text-sm text-gray-700">Real-time Business Analytics</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-5 h-5 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CheckCircle className="w-3 h-3 text-blue-600" />
+                      </div>
+                      <span className="text-sm text-gray-700">Multi-department Collaboration</span>
+                    </div>
+                  </div>
+                  
+                  <div className="pt-4">
+                    <button className="text-blue-600 font-semibold flex items-center group/btn">
+                      Learn More
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              </div>
 
-                      {/* Content */}
-                      <div className="w-1/2 p-6 flex flex-col justify-between">
-                        <div>
-                          <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight">
-                            {service.title}
-                          </h3>
-                          
-                          <p className="text-gray-600 mb-4 text-sm leading-relaxed line-clamp-4">
-                            {service.description}
-                          </p>
+              {/* CRM Platform Card */}
+              <div className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                    alt="CRM Platform Development"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                  <div className="absolute bottom-4 left-6">
+                    <div className="w-12 h-12 bg-white/90 backdrop-blur rounded-lg flex items-center justify-center">
+                      <Users className="w-6 h-6 text-green-600" />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-6 space-y-4">
+                  <h3 className="text-2xl font-bold text-gray-900">CRM Platform Development</h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Build lasting customer relationships with intelligent CRM platforms that drive engagement, sales, and customer satisfaction.
+                  </p>
+                  
+                  <div className="space-y-3 pt-2">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CheckCircle className="w-3 h-3 text-green-600" />
+                      </div>
+                      <span className="text-sm text-gray-700">360° Customer View</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CheckCircle className="w-3 h-3 text-green-600" />
+                      </div>
+                      <span className="text-sm text-gray-700">Sales Pipeline Automation</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CheckCircle className="w-3 h-3 text-green-600" />
+                      </div>
+                      <span className="text-sm text-gray-700">Advanced Lead Scoring</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-5 h-5 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CheckCircle className="w-3 h-3 text-green-600" />
+                      </div>
+                      <span className="text-sm text-gray-700">Customer Journey Mapping</span>
+                    </div>
+                  </div>
+                  
+                  <div className="pt-4">
+                    <button className="text-green-600 font-semibold flex items-center group/btn">
+                      Learn More
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              </div>
 
-                          {/* Features */}
-                          <div className="space-y-2 mb-6">
-                            {service.features.map((feature, idx) => (
-                              <div key={idx} className="flex items-center space-x-2">
-                                <div className="w-2 h-2 bg-blue-600 rounded-full flex-shrink-0"></div>
-                                <span className="text-sm text-gray-700 font-medium">{feature}</span>
-                              </div>
-                            ))}
-                          </div>
-                        </div>
+              {/* CMS Solutions Card */}
+              <div className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
+                <div className="relative h-48 overflow-hidden">
+                  <img 
+                    src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                    alt="Content Management Solutions"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                  <div className="absolute bottom-4 left-6">
+                    <div className="w-12 h-12 bg-white/90 backdrop-blur rounded-lg flex items-center justify-center">
+                      <Settings className="w-6 h-6 text-purple-600" />
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-6 space-y-4">
+                  <h3 className="text-2xl font-bold text-gray-900">Content Management Solutions</h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Empower your team with modern CMS platforms for seamless content creation, management, and multi-channel delivery.
+                  </p>
+                  
+                  <div className="space-y-3 pt-2">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-5 h-5 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CheckCircle className="w-3 h-3 text-purple-600" />
+                      </div>
+                      <span className="text-sm text-gray-700">Headless CMS Architecture</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-5 h-5 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CheckCircle className="w-3 h-3 text-purple-600" />
+                      </div>
+                      <span className="text-sm text-gray-700">Omnichannel Publishing</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-5 h-5 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CheckCircle className="w-3 h-3 text-purple-600" />
+                      </div>
+                      <span className="text-sm text-gray-700">AI-Powered Personalization</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-5 h-5 bg-purple-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <CheckCircle className="w-3 h-3 text-purple-600" />
+                      </div>
+                      <span className="text-sm text-gray-700">Version Control & Workflows</span>
+                    </div>
+                  </div>
+                  
+                  <div className="pt-4">
+                    <button className="text-purple-600 font-semibold flex items-center group/btn">
+                      Learn More
+                      <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                    </button>
+                  </div>
+                </div>
+              </div>
 
-                        {/* Action Button */}
-                        <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl py-3 transition-all duration-300 shadow-md hover:shadow-lg">
-                          Implement Platform
-                          <ArrowRight className="ml-2 h-4 w-4" />
-                        </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Competitive Advantage Section */}
+        <section className="relative z-10 py-24 bg-gray-50">
+          <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+            
+            {/* Main Content Grid */}
+            <div className="grid lg:grid-cols-5 gap-16 items-start mb-12">
+              
+              {/* Left Side - Larger Image */}
+              <div className="lg:col-span-2">
+                <div className="sticky top-8">
+                  <div className="relative overflow-hidden rounded-3xl shadow-2xl">
+                    <img 
+                      src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
+                      alt="Strategic Digital Platform Consulting"
+                      className="w-full h-[600px] object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    
+                    {/* Bottom overlay text */}
+                    <div className="absolute bottom-8 left-8 right-8">
+                      <div className="text-white">
+                        <h3 className="text-2xl font-bold mb-2">Your Success Partners</h3>
+                        <p className="text-white/90 text-lg">Certified experts driving your competitive advantage</p>
                       </div>
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              </div>
+
+              {/* Right Side - Content */}
+              <div className="lg:col-span-3 space-y-8">
+                <div>
+                  <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
+                    Navigate Your Growth with <span className="text-[#f97316]">Strategic Platform Solutions</span>
+                  </h2>
+                  
+                  <div className="w-24 h-1 bg-[#f97316] rounded-full mb-8"></div>
+                </div>
+                
+                <div className="prose prose-lg max-w-none">
+                  <p className="text-xl text-gray-700 leading-relaxed mb-6">
+                    In today's accelerated environment you need something that gives you a <strong>definitive competitive advantage</strong> to outpace your competitors.
+                  </p>
+                  
+                  <p className="text-lg text-gray-600 leading-relaxed mb-6">
+                    Managing your organization effectively and securing stronger customer loyalty means having the right platforms and experiences in place to support your strategy and operations.
+                  </p>
+                  
+                  <p className="text-lg text-gray-600 leading-relaxed mb-8">
+                    Our team of certified experts help you navigate this uncharted growth opportunity, acting as your <strong>advisors, architects, and implementation specialists</strong>. Because we don't just source and tailor your platforms, we elevate and optimize them to maximize your productivity.
+                  </p>
+                  
+                  <div className="bg-orange-50 border-l-4 border-[#f97316] p-6 rounded-r-lg mb-8">
+                    <p className="text-lg text-gray-700 italic">
+                      "From designing the experience and strategy that your customers want, to being supported by the right insights, tools, and platforms, our team has a single focus – <strong className="text-[#f97316]">your success</strong>."
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            {/* Bottom CTA */}
-            <div className="text-center mt-20">
-              <div className="bg-gradient-to-r from-blue-600 to-blue-600 rounded-3xl p-12 text-white">
-                <Server className="h-16 w-16 mx-auto mb-6 text-white" />
-                <h3 className="text-3xl font-bold mb-4">Ready to transform with digital platforms?</h3>
-                <p className="text-lg mb-8 opacity-90">Streamline your operations with our comprehensive platform solutions</p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all">
-                    Platform Assessment
-                  </Button>
-                  <Button className="bg-blue-600 text-white px-8 py-4 rounded-2xl font-semibold shadow-lg">
-                    View Solutions
-                  </Button>
+            {/* Full Width Benefits Grid - Spans across both image and text areas */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
+                    <Users className="w-7 h-7 text-blue-600" />
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 mb-2">Expert Advisory</h4>
+                  <p className="text-gray-600 text-sm leading-relaxed">Certified specialists guide your digital transformation journey</p>
+                </div>
+              </div>
+              
+              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-4">
+                    <Settings className="w-7 h-7 text-green-600" />
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 mb-2">Optimized Solutions</h4>
+                  <p className="text-gray-600 text-sm leading-relaxed">Elevate and optimize platforms for maximum productivity</p>
+                </div>
+              </div>
+              
+              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
+                    <Layers className="w-7 h-7 text-purple-600" />
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 mb-2">Strategic Design</h4>
+                  <p className="text-gray-600 text-sm leading-relaxed">Platform architecture aligned with your business goals</p>
+                </div>
+              </div>
+              
+              <div className="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
+                <div className="flex flex-col items-center text-center">
+                  <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
+                    <CheckCircle className="w-7 h-7 text-orange-600" />
+                  </div>
+                  <h4 className="text-lg font-bold text-gray-900 mb-2">Success-Focused</h4>
+                  <p className="text-gray-600 text-sm leading-relaxed">Customer-centric approach for measurable results</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="relative z-10 mb-20">
+          <div className="relative bg-slate-800 overflow-hidden">
+            {/* Background Image */}
+            <div className="absolute inset-0">
+              <img 
+                src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=2000&auto=format&fit=crop" 
+                alt="Digital Platform Solutions"
+                className="w-full h-full object-cover opacity-40"
+              />
+              <div className="absolute inset-0 bg-black/50"></div>
+            </div>
+            
+            <div className="relative z-10 container mx-auto px-6 md:px-8 lg:px-12 1.25xl:px-16 max-w-7xl py-24">
+              <div className="text-center max-w-4xl mx-auto">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6">
+                  Transform Your Business With <span className="text-[#f97316]">Enterprise Digital Platforms</span> Built For Growth
+                </h2>
+                <p className="text-white/90 mb-10 text-lg leading-relaxed max-w-3xl mx-auto">
+                  Partner with our platform experts to streamline operations, enhance customer experiences, and drive digital transformation across your organization.
+                </p>
+                <div className="flex justify-center">
+                  <button className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
+                    Request A Platform Consultation
+                  </button>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* CSS Animations */}
-        <style jsx>{`
-          @keyframes float-slow {
-            0%, 100% { transform: translateY(0px) translateX(0px); }
-            33% { transform: translateY(-20px) translateX(10px); }
-            66% { transform: translateY(10px) translateX(-5px); }
-          }
-          
-          @keyframes wave {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-800px); }
-          }
-          
-          .animate-float-slow {
-            animation: float-slow ease-in-out infinite;
-          }
-          
-          .animate-wave {
-            animation: wave 20s linear infinite;
-          }
-        `}</style>
       </div>
     </PageLayout>
   );

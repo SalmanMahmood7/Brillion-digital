@@ -150,8 +150,8 @@ export default function AdminDashboard() {
       change: dashboardStats.changes.users,
       trend: "up",
       icon: Users,
-      color: "text-blue-600",
-      bgColor: "bg-blue-100",
+      color: "text-[#f97316]",
+      bgColor: "bg-orange-100",
     },
     {
       title: "Page Views",
@@ -159,8 +159,8 @@ export default function AdminDashboard() {
       change: dashboardStats.changes.pageViews,
       trend: "up",
       icon: Eye,
-      color: "text-blue-600",
-      bgColor: "bg-blue-100",
+      color: "text-[#f97316]",
+      bgColor: "bg-orange-100",
     },
     {
       title: "Articles",
@@ -168,8 +168,8 @@ export default function AdminDashboard() {
       change: dashboardStats.changes.articles,
       trend: "up",
       icon: FileText,
-      color: "text-purple-600",
-      bgColor: "bg-purple-100",
+      color: "text-[#f97316]",
+      bgColor: "bg-orange-100",
     },
     {
       title: "Conversion Rate",
@@ -177,23 +177,23 @@ export default function AdminDashboard() {
       change: dashboardStats.changes.conversionRate,
       trend: "up",
       icon: TrendingUp,
-      color: "text-blue-600",
-      bgColor: "bg-blue-100",
+      color: "text-[#f97316]",
+      bgColor: "bg-orange-100",
     },
   ] : []
 
   const getActivityIcon = (type: string) => {
     switch (type) {
       case "user":
-        return <Users className="h-4 w-4 text-blue-500" />
+        return <Users className="h-4 w-4 text-[#f97316]" />
       case "content":
-        return <FileText className="h-4 w-4 text-blue-500" />
+        return <FileText className="h-4 w-4 text-[#f97316]" />
       case "contact":
-        return <MessageSquare className="h-4 w-4 text-purple-500" />
+        return <MessageSquare className="h-4 w-4 text-[#f97316]" />
       case "inquiry":
-        return <Star className="h-4 w-4 text-blue-500" />
+        return <Star className="h-4 w-4 text-[#f97316]" />
       default:
-        return <Activity className="h-4 w-4 text-muted-foreground" />
+        return <Activity className="h-4 w-4 text-gray-500" />
     }
   }
 
@@ -202,16 +202,16 @@ export default function AdminDashboard() {
       {loading ? (
         <div className="flex items-center justify-center h-screen">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto"></div>
-            <p className="mt-4 text-muted-foreground">Loading dashboard data...</p>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#f97316] mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading dashboard data...</p>
           </div>
         </div>
       ) : (
       <div className="space-y-6">
         {/* Welcome Section */}
         <div>
-          <h1 className="text-2xl font-display font-bold text-foreground">Welcome back!</h1>
-          <p className="text-muted-foreground mt-1">Here's what's happening with your website today.</p>
+          <h1 className="text-2xl font-bold text-gray-900">Welcome back!</h1>
+          <p className="text-gray-600 mt-1">Here's what's happening with your website today.</p>
         </div>
 
         {/* Stats Grid */}
@@ -221,13 +221,13 @@ export default function AdminDashboard() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">{stat.title}</p>
-                    <p className="text-2xl font-display font-bold text-foreground mt-1">{stat.value}</p>
+                    <p className="text-sm font-medium text-gray-600">{stat.title}</p>
+                    <p className="text-2xl font-bold text-gray-900 mt-1">{stat.value}</p>
                     <div className="flex items-center mt-2">
-                      <Badge variant={stat.trend === "up" ? "default" : "secondary"} className="text-xs">
+                      <Badge variant={stat.trend === "up" ? "default" : "secondary"} className="text-xs bg-[#f97316] hover:bg-[#ea580c]">
                         {stat.change}
                       </Badge>
-                      <span className="text-xs text-muted-foreground ml-2">from last month</span>
+                      <span className="text-xs text-gray-500 ml-2">from last month</span>
                     </div>
                   </div>
                   <div className={`p-3 rounded-full ${stat.bgColor}`}>
@@ -257,10 +257,10 @@ export default function AdminDashboard() {
                       {getActivityIcon(activity.type)}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-foreground">{activity.action}</p>
-                      <p className="text-sm text-muted-foreground truncate">{activity.user}</p>
+                      <p className="text-sm font-medium text-gray-900">{activity.action}</p>
+                      <p className="text-sm text-gray-600 truncate">{activity.user}</p>
                     </div>
-                    <div className="flex items-center text-xs text-muted-foreground/70">
+                    <div className="flex items-center text-xs text-gray-500">
                       <Clock className="h-3 w-3 mr-1" />
                       {formatTime(activity.time)}
                     </div>
@@ -284,14 +284,14 @@ export default function AdminDashboard() {
                 {topPages.map((page, index) => (
                   <div key={index} className="flex items-center justify-between">
                     <div className="flex-1">
-                      <p className="text-sm font-medium text-foreground">{page.path}</p>
+                      <p className="text-sm font-medium text-gray-900">{page.path}</p>
                       <div className="mt-1">
                         <Progress value={(page.views / (topPages[0]?.views || 12420)) * 100} className="h-2" />
                       </div>
                     </div>
                     <div className="ml-4 text-right">
-                      <p className="text-sm font-medium text-foreground">{page.views.toLocaleString()}</p>
-                      <p className="text-xs text-blue-600">{page.change}</p>
+                      <p className="text-sm font-medium text-gray-900">{page.views.toLocaleString()}</p>
+                      <p className="text-xs text-[#f97316]">{page.change}</p>
                     </div>
                   </div>
                 ))}
@@ -308,21 +308,21 @@ export default function AdminDashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <button className="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-colors">
-                <Users className="h-8 w-8 text-blue-600 mb-2" />
-                <span className="text-sm font-medium">Add User</span>
+              <button className="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:border-[#f97316] hover:bg-orange-50 transition-colors">
+                <Users className="h-8 w-8 text-[#f97316] mb-2" />
+                <span className="text-sm font-medium text-gray-700">Add User</span>
               </button>
-              <button className="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-colors">
-                <FileText className="h-8 w-8 text-blue-600 mb-2" />
-                <span className="text-sm font-medium">New Article</span>
+              <button className="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:border-[#f97316] hover:bg-orange-50 transition-colors">
+                <FileText className="h-8 w-8 text-[#f97316] mb-2" />
+                <span className="text-sm font-medium text-gray-700">New Article</span>
               </button>
-              <button className="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:border-purple-300 hover:bg-purple-50 transition-colors">
-                <MessageSquare className="h-8 w-8 text-purple-600 mb-2" />
-                <span className="text-sm font-medium">View Messages</span>
+              <button className="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:border-[#f97316] hover:bg-orange-50 transition-colors">
+                <MessageSquare className="h-8 w-8 text-[#f97316] mb-2" />
+                <span className="text-sm font-medium text-gray-700">View Messages</span>
               </button>
-              <button className="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-colors">
-                <TrendingUp className="h-8 w-8 text-blue-600 mb-2" />
-                <span className="text-sm font-medium">Analytics</span>
+              <button className="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:border-[#f97316] hover:bg-orange-50 transition-colors">
+                <TrendingUp className="h-8 w-8 text-[#f97316] mb-2" />
+                <span className="text-sm font-medium text-gray-700">Analytics</span>
               </button>
             </div>
           </CardContent>

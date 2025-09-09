@@ -2,6 +2,7 @@
 
 import Hero from "@/components/Hero";
 import WhatWeDoSection from "@/components/WhatWeDoSection";
+import InsightsSection from "@/components/InsightsSection";
 import PageLayout from "@/components/PageLayout";
 import { useEffect } from "react";
 import { useScrollReveal } from "@/lib/scroll-reveal";
@@ -20,7 +21,9 @@ export default function Home() {
         {/* Page Content */}
         <div className="relative z-10">
           <Hero />
+          <InsightsSection />
           <WhatWeDoSection />
+          
         </div>
 
         {/* CSS Animations */}

@@ -1,544 +1,650 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { 
-  Brain, 
-  BarChart3, 
-  Code, 
-  Globe, 
-  Shield, 
-  Cloud,
-  ArrowRight,
-  Zap,
-  Database,
-  Cpu,
-  Sparkles,
-  Star,
-  Play,
-  Settings,
-  Lightbulb,
-  Rocket,
-  Target,
-  Users,
-  Award,
-  TrendingUp
-} from "lucide-react";
-
-interface Service {
-  id: string;
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  description: string;
-  href: string;
-  color: string;
-  features: string[];
-}
-
-const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
-  Brain,
-  BarChart3,
-  Code,
-  Globe,
-  Shield,
-  Cloud,
-  Settings,
-  Lightbulb,
-  Rocket,
-  Zap,
-  Database,
-  Cpu
-};
+import React, { useState, useEffect } from "react";
+import { ArrowRight, Brain, BarChart3, Code, Globe, Shield, Cloud, ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 const WhatWeDoSection = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
-  const [clickedCardIndex, setClickedCardIndex] = useState<number | null>(null);
-  const [services, setServices] = useState<Service[]>([]);
-  const [loading, setLoading] = useState(true);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isTablet, setIsTablet] = useState(false);
 
+  // Check screen size
   useEffect(() => {
-    const loadServices = async () => {
-      setLoading(true);
-      
-      try {
-        // Import servicesService dynamically to avoid SSR issues
-        const { servicesService } = await import("@/lib/firebase-services");
-        
-        // Add timeout to prevent hanging
-        const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Firebase request timeout')), 2000)
-        );
-        
-        const firebaseServices = await Promise.race([
-          servicesService.getAll(),
-          timeoutPromise
-        ]) as any[];
-        
-        // Only use Firebase data if we actually got services
-        if (firebaseServices && firebaseServices.length > 0) {
-          // Map Firebase services to our component's Service interface
-          const mappedServices: Service[] = firebaseServices.map((service, index) => {
-            // Get icon component from map
-            const IconComponent = iconMap[service.icon] || Brain;
-
-            // Generate gradient colors based on index
-            const gradients = [
-              "from-blue-600 to-blue-500",
-              "from-emerald-600 to-emerald-500", 
-              "from-purple-600 to-purple-500",
-              "from-blue-600 to-blue-500",
-              "from-blue-600 to-blue-500",
-              "from-cyan-600 to-cyan-500"
-            ];
-
-            return {
-              id: service.id || `service-${index}`,
-              icon: IconComponent,
-              title: service.title,
-              description: service.description,
-              href: service.href,
-              color: gradients[index % gradients.length],
-              features: ["Custom Solutions", "Expert Support", "Scalable Architecture"]
-            };
-          });
-          
-          setServices(mappedServices);
-        } else {
-          throw new Error('No services found in Firebase');
-        }
-      } catch (error) {
-        console.error('Error loading services from Firebase:', error);
-        // Fallback services for better user experience
-        const fallbackServices: Service[] = [
-          {
-            id: 'digital-advisory',
-            icon: Brain,
-            title: 'Digital Advisory',
-            description: 'Strategic guidance to accelerate your digital transformation journey.',
-            href: '/services/digital-advisory',
-            color: 'from-blue-600 to-blue-500',
-            features: ['Digital Strategy', 'Process Optimization', 'Technology Roadmap']
-          },
-          {
-            id: 'data-analytics',
-            icon: BarChart3,
-            title: 'Data & Analytics',
-            description: 'Transform raw data into actionable intelligence that drives business growth.',
-            href: '/services/applied-data-analytics',
-            color: 'from-emerald-600 to-emerald-500',
-            features: ['Data Science', 'Machine Learning', 'Business Intelligence']
-          },
-          {
-            id: 'application-development',
-            icon: Code,
-            title: 'Application Development',
-            description: 'Custom applications built with modern technologies to solve unique challenges.',
-            href: '/services/application-development',
-            color: 'from-purple-600 to-purple-500',
-            features: ['Custom Development', 'Modern Technologies', 'Unique Solutions']
-          },
-          {
-            id: 'digital-platforms',
-            icon: Globe,
-            title: 'Digital Platforms',
-            description: 'Boost growth and productivity using ERP, CRM, and CMS platforms.',
-            href: '/services/digital-platforms',
-            color: 'from-blue-600 to-blue-500',
-            features: ['ERP Solutions', 'CRM Systems', 'Content Management']
-          },
-          {
-            id: 'cyber-security',
-            icon: Shield,
-            title: 'Cyber Security & Privacy',
-            description: 'Minimize threats and proactively protect your most valuable assets.',
-            href: '/services/cyber-security-privacy',
-            color: 'from-blue-600 to-blue-500',
-            features: ['Threat Protection', 'Privacy Compliance', 'Security Audits']
-          },
-          {
-            id: 'cloud-services',
-            icon: Cloud,
-            title: 'Cloud Services',
-            description: 'Cloud migration and optimization services to accelerate transformation.',
-            href: '/services/cloud-services',
-            color: 'from-cyan-600 to-cyan-500',
-            features: ['Cloud Migration', 'Infrastructure Optimization', 'Scalable Solutions']
-          }
-        ];
-        setServices(fallbackServices);
-      } finally {
-        setLoading(false);
-      }
+    const checkScreenSize = () => {
+      setIsMobile(window.innerWidth < 768);
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1024);
     };
-
-    // Delay loading slightly to prioritize initial render
-    const timer = setTimeout(loadServices, 100);
-    return () => clearTimeout(timer);
+    
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  const handleServiceClick = (service: Service, index: number) => {
-    setSelectedService(service);
-    setClickedCardIndex(index);
+  const getCardsPerSlide = () => {
+    if (isMobile) return 1;
+    if (isTablet) return 2;
+    return 3;
   };
 
-  const handleCloseDetails = () => {
-    setSelectedService(null);
-    setClickedCardIndex(null);
+  const getTotalSlides = () => {
+    return Math.ceil(services.length / getCardsPerSlide());
   };
 
-  return (
-    <div className="relative min-h-screen py-20 bg-gray-50">
-      <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center px-6 py-3 bg-blue-50 rounded-full border border-blue-200 mb-8">
-            <Rocket className="w-5 h-5 text-blue-600 mr-2" />
-            <span className="text-blue-800 text-sm font-semibold tracking-wide">DIGITAL SOLUTIONS</span>
-            <Star className="w-5 h-5 text-blue-600 ml-2" />
-          </div>
+  const services = [
+    {
+      id: 'digital-advisory',
+      title: 'Digital Advisory',
+      description: 'Understand, anticipate, and accelerate with confidence.',
+      fullDescription: 'Strategic guidance to accelerate your digital transformation journey with expert consulting and roadmap development.',
+      features: ['Digital Strategy Development', 'Technology Assessment & Planning', 'Change Management Support', 'Digital Transformation Roadmaps'],
+      benefits: ['Accelerated Innovation', '25% Faster Implementation', 'Reduced Risk', 'Strategic Alignment'],
+      icon: Brain,
+      image: '/images/digital-advisory-hero.jpg',
+      href: '/services/digital-advisory'
+    },
+    {
+      id: 'data-analytics',
+      title: 'Applied Data & Analytics',
+      description: 'Harness your data to fuel digital transformation.',
+      fullDescription: 'Transform raw data into actionable intelligence that drives business growth through advanced analytics and machine learning.',
+      features: ['Advanced Analytics Solutions', 'Machine Learning Implementation', 'Data Science Consulting', 'Business Intelligence Systems'],
+      benefits: ['Data-Driven Decisions', '40% Better Insights', 'Predictive Capabilities', 'Automated Reporting'],
+      icon: BarChart3,
+      image: '/images/insights-hero.jpg',
+      href: '/services/applied-data-analytics'
+    },
+    {
+      id: 'application-development',
+      title: 'Application Development',
+      description: 'Upgrade the way you work and captivate your customers.',
+      fullDescription: 'Custom applications built with modern technologies to solve unique business challenges and drive innovation.',
+      features: ['Custom Application Development', 'Modern Technology Stack', 'API Development & Integration', 'Scalable Architecture Design'],
+      benefits: ['Enhanced User Experience', '60% Faster Performance', 'Seamless Integration', 'Future-Ready Solutions'],
+      icon: Code,
+      image: '/images/work-hero.jpg',
+      href: '/services/application-development'
+    },
+    {
+      id: 'digital-platforms',
+      title: 'Digital Platforms',
+      description: 'Boost your growth and productivity using modern platforms and tools.',
+      fullDescription: 'Boost growth and productivity using ERP, CRM, and CMS platforms tailored to your business needs.',
+      features: ['ERP System Implementation', 'CRM Platform Development', 'Content Management Solutions', 'Platform Integration Services'],
+      benefits: ['Streamlined Operations', '35% Productivity Gain', 'Unified Data Management', 'Automated Workflows'],
+      icon: Globe,
+      image: '/images/digital-platforms-hero.jpg',
+      href: '/services/digital-platforms'
+    },
+    {
+      id: 'cyber-security',
+      title: 'Cyber Security & Privacy',
+      description: 'Minimize threats and proactively protect your most valuable assets.',
+      fullDescription: 'Comprehensive security solutions to protect your digital assets and ensure compliance with privacy regulations.',
+      features: ['Advanced Threat Protection', 'Privacy Compliance Management', 'Security Assessment & Auditing', 'Incident Response Planning'],
+      benefits: ['99.9% Threat Prevention', 'Regulatory Compliance', '24/7 Monitoring', 'Rapid Response'],
+      icon: Shield,
+      image: '/images/cyber-security-hero.jpg',
+      href: '/services/cyber-security-privacy'
+    },
+    {
+      id: 'cloud-services',
+      title: 'Cloud Services',
+      description: 'Gain efficiencies and amplify innovation by leveraging the cloud.',
+      fullDescription: 'Cloud migration and optimization services to accelerate digital transformation and improve scalability.',
+      features: ['Cloud Migration Strategy', 'Infrastructure Optimization', 'Multi-Cloud Management', 'Cost Optimization Solutions'],
+      benefits: ['50% Cost Reduction', 'Enhanced Scalability', 'Improved Performance', 'Global Accessibility'],
+      icon: Cloud,
+      image: '/images/cloud-services-hero.jpg',
+      href: '/services/cloud-services'
+    }
+  ];
+
+  // Auto-play functionality
+  useEffect(() => {
+    if (!isAutoPlaying) return;
+    
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => {
+        const cardsPerSlide = getCardsPerSlide();
+        const maxSlide = services.length - cardsPerSlide;
+        return prev >= maxSlide ? 0 : prev + cardsPerSlide;
+      });
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [isAutoPlaying, services.length, isMobile, isTablet]);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => {
+      const cardsPerSlide = getCardsPerSlide();
+      const maxSlide = services.length - cardsPerSlide;
+      return prev >= maxSlide ? 0 : prev + cardsPerSlide;
+    });
+    setIsAutoPlaying(false);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => {
+      const cardsPerSlide = getCardsPerSlide();
+      const maxSlide = services.length - cardsPerSlide;
+      return prev <= 0 ? maxSlide : prev - cardsPerSlide;
+    });
+    setIsAutoPlaying(false);
+  };
+
+  const goToSlide = (slideIndex: number) => {
+    const cardsPerSlide = getCardsPerSlide();
+    setCurrentSlide(slideIndex * cardsPerSlide);
+    setIsAutoPlaying(false);
+  };
+
+  const BarChartVisualization = () => (
+    <div className="absolute inset-0 opacity-30">
+      <div className="absolute right-0 top-0 w-2/3 h-full">
+        <div className="flex items-end justify-end h-full gap-1 pr-4 pb-8">
+          {[0.3, 0.6, 0.4, 0.8, 0.5, 0.7, 0.6, 0.9, 0.4, 0.7, 0.5, 0.8, 0.3, 0.6, 0.9].map((height, i) => (
+            <div
+              key={i}
+              className={`w-1.5 rounded-t transition-all duration-300 ${
+                i < 8 ? 'bg-gradient-to-t from-teal-400 to-cyan-300' : 
+                i < 12 ? 'bg-gradient-to-t from-orange-400 to-red-300' :
+                'bg-gradient-to-t from-purple-400 to-pink-300'
+              }`}
+              style={{ height: `${height * 80}%` }}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+
+  const DotMatrixPattern = () => (
+    <div className="absolute inset-0 opacity-40">
+      <div className="absolute left-0 top-0 w-2/3 h-full">
+        <div className="grid grid-cols-10 gap-2 h-full items-center pl-4 pt-8">
+          {Array.from({ length: 100 }, (_, i) => {
+            const row = Math.floor(i / 10);
+            const col = i % 10;
+            const baseColors = [
+              'bg-pink-400', 'bg-rose-400', 'bg-orange-400', 'bg-amber-400',
+              'bg-yellow-400', 'bg-teal-400', 'bg-cyan-400', 'bg-blue-400',
+              'bg-indigo-400', 'bg-purple-400'
+            ];
+            const color = baseColors[(row + col) % baseColors.length];
+            const sizes = ['w-1 h-1', 'w-1.5 h-1.5', 'w-2 h-2'];
+            const size = sizes[i % sizes.length];
+            const opacity = 0.3 + (Math.sin(i * 0.1) * 0.4);
+            return (
+              <div
+                key={i}
+                className={`${color} ${size} rounded-full transition-all duration-500`}
+                style={{ opacity: Math.abs(opacity) }}
+              />
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+
+  const NetworkPattern = () => (
+    <div className="absolute inset-0 opacity-30">
+      <div className="absolute left-0 top-0 w-3/4 h-full">
+        <svg className="w-full h-full" viewBox="0 0 200 150">
+          <defs>
+            <linearGradient id="netGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#14b8a6" />
+              <stop offset="100%" stopColor="#06b6d4" />
+            </linearGradient>
+            <linearGradient id="netGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#f97316" />
+              <stop offset="100%" stopColor="#ef4444" />
+            </linearGradient>
+          </defs>
           
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 md:mb-8">
-            <span className="text-gray-900">What We</span>{" "}
-            <span className="text-blue-600">Do</span>
-          </h2>
+          {/* Connection lines */}
+          <line x1="20" y1="30" x2="180" y2="30" stroke="url(#netGrad1)" strokeWidth="1.5" opacity="0.4"/>
+          <line x1="20" y1="30" x2="20" y2="120" stroke="url(#netGrad1)" strokeWidth="1.5" opacity="0.4"/>
+          <line x1="180" y1="30" x2="180" y2="120" stroke="url(#netGrad2)" strokeWidth="1.5" opacity="0.4"/>
+          <line x1="20" y1="120" x2="180" y2="120" stroke="url(#netGrad2)" strokeWidth="1.5" opacity="0.4"/>
+          <line x1="20" y1="30" x2="100" y2="75" stroke="url(#netGrad1)" strokeWidth="1.5" opacity="0.4"/>
+          <line x1="180" y1="30" x2="100" y2="75" stroke="url(#netGrad2)" strokeWidth="1.5" opacity="0.4"/>
+          <line x1="20" y1="120" x2="100" y2="75" stroke="url(#netGrad1)" strokeWidth="1.5" opacity="0.4"/>
+          <line x1="180" y1="120" x2="100" y2="75" stroke="url(#netGrad2)" strokeWidth="1.5" opacity="0.4"/>
+          <line x1="60" y1="50" x2="140" y2="100" stroke="url(#netGrad1)" strokeWidth="1" opacity="0.3"/>
+          <line x1="140" y1="50" x2="60" y2="100" stroke="url(#netGrad2)" strokeWidth="1" opacity="0.3"/>
           
-          <p className="text-xl text-gray-600 leading-relaxed max-w-4xl mx-auto mb-12">
-            Transforming businesses through cutting-edge technology solutions and strategic digital innovation.
-          </p>
+          {/* Nodes */}
+          <circle cx="20" cy="30" r="5" fill="url(#netGrad1)"/>
+          <circle cx="180" cy="30" r="5" fill="url(#netGrad2)"/>
+          <circle cx="100" cy="75" r="6" fill="url(#netGrad1)"/>
+          <circle cx="20" cy="120" r="5" fill="url(#netGrad2)"/>
+          <circle cx="180" cy="120" r="5" fill="url(#netGrad1)"/>
+          <circle cx="60" cy="50" r="4" fill="url(#netGrad2)"/>
+          <circle cx="140" cy="100" r="4" fill="url(#netGrad1)"/>
+          <circle cx="140" cy="50" r="3" fill="url(#netGrad2)"/>
+          <circle cx="60" cy="100" r="3" fill="url(#netGrad1)"/>
+        </svg>
+      </div>
+    </div>
+  );
+
+  const CloudPattern = () => (
+    <div className="absolute inset-0 opacity-30">
+      <div className="absolute left-0 top-0 w-3/4 h-full">
+        <div className="relative w-full h-full flex items-center justify-start pl-8">
+          {/* Background circles */}
+          <div className="absolute w-20 h-20 bg-gradient-to-br from-blue-400 to-cyan-300 rounded-full opacity-20 top-8 left-12"></div>
+          <div className="absolute w-16 h-16 bg-gradient-to-br from-indigo-400 to-purple-300 rounded-full opacity-25 top-4 left-24"></div>
+          <div className="absolute w-24 h-24 bg-gradient-to-br from-teal-400 to-green-300 rounded-full opacity-15 bottom-8 left-8"></div>
+          <div className="absolute w-12 h-12 bg-gradient-to-br from-orange-400 to-yellow-300 rounded-full opacity-30 bottom-12 left-20"></div>
           
-          <div className="flex flex-wrap justify-center gap-8 mb-12">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-1">150+</div>
-              <div className="text-sm text-gray-500">Projects Delivered</div>
+          {/* Main cloud */}
+          <svg className="w-32 h-32 text-white/40" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+          </svg>
+          
+          {/* Secondary clouds */}
+          <svg className="absolute w-20 h-20 text-white/20 top-12 left-32" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+          </svg>
+          
+          <svg className="absolute w-16 h-16 text-white/15 bottom-16 left-36" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+
+  const ShieldPattern = () => (
+    <div className="absolute inset-0 opacity-30">
+      <div className="absolute right-0 top-0 w-2/3 h-full flex items-center justify-center">
+        <div className="relative">
+          {/* Multiple shield layers */}
+          <svg className="w-24 h-24 absolute" viewBox="0 0 100 100">
+            <defs>
+              <linearGradient id="shieldGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#10b981" />
+                <stop offset="100%" stopColor="#14b8a6" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M50 10 L75 22 L75 45 C75 65 50 85 50 85 C50 85 25 65 25 45 L25 22 Z"
+              fill="url(#shieldGrad1)"
+              opacity="0.4"
+            />
+            <polyline
+              points="35,42 45,52 65,32"
+              stroke="white"
+              strokeWidth="2"
+              fill="none"
+              opacity="0.8"
+            />
+          </svg>
+          
+          {/* Secondary shields */}
+          <svg className="w-16 h-16 absolute top-8 -left-4" viewBox="0 0 100 100">
+            <path
+              d="M50 15 L70 25 L70 45 C70 60 50 80 50 80 C50 80 30 60 30 45 L30 25 Z"
+              fill="url(#shieldGrad1)"
+              opacity="0.2"
+            />
+          </svg>
+          
+          <svg className="w-12 h-12 absolute -top-2 right-2" viewBox="0 0 100 100">
+            <path
+              d="M50 20 L65 28 L65 45 C65 58 50 75 50 75 C50 75 35 58 35 45 L35 28 Z"
+              fill="url(#shieldGrad1)"
+              opacity="0.3"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  );
+
+  const CodePattern = () => (
+    <div className="absolute inset-0 opacity-25">
+      <div className="absolute right-0 top-0 w-3/4 h-full">
+        <div className="relative w-full h-full flex items-center justify-end pr-6">
+          <div className="font-mono text-xs space-y-2 text-white">
+            <div className="opacity-80">
+              <span className="text-pink-300">function</span>{' '}
+              <span className="text-blue-300">buildApp</span>
+              <span className="text-yellow-300">()</span>{' '}
+              <span className="text-white">{'{'}</span>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-emerald-600 mb-1">98%</div>
-              <div className="text-sm text-gray-500">Client Satisfaction</div>
+            <div className="pl-4 opacity-70">
+              <span className="text-green-300">const</span>{' '}
+              <span className="text-cyan-300">data</span>{' '}
+              <span className="text-white">=</span>{' '}
+              <span className="text-orange-300">fetch</span>
+              <span className="text-yellow-300">()</span>
+              <span className="text-white">;</span>
             </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-1">24/7</div>
-              <div className="text-sm text-gray-500">Support Available</div>
+            <div className="pl-4 opacity-60">
+              <span className="text-purple-300">return</span>{' '}
+              <span className="text-teal-300">process</span>
+              <span className="text-yellow-300">(data)</span>
+              <span className="text-white">;</span>
+            </div>
+            <div className="opacity-80">
+              <span className="text-white">{'}'}</span>
+            </div>
+            <div className="opacity-50">
+              <span className="text-gray-400">// Transform ideas to reality</span>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  );
 
-        {loading ? (
-          <div className="flex items-center justify-center py-20">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
-              <p className="text-gray-600">Loading our services...</p>
-            </div>
-          </div>
-        ) : (
-          <div className="relative overflow-hidden">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:hidden gap-4 sm:gap-6 mb-12">
+  return (
+    <section className="py-20 bg-white">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+        
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            What we do
+          </h2>
+          <p className="text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+            We combine inspiration and expertise to deliver purpose-driven strategies and solutions that transform your business.
+          </p>
+        </div>
+
+        {/* Services Slider Container */}
+        <div className="relative">
+          <div className="overflow-hidden">
+            <div 
+              className="flex transition-transform duration-700 ease-in-out"
+              style={{
+                transform: `translateX(-${(currentSlide / getCardsPerSlide()) * 100}%)`,
+              }}
+            >
               {services.map((service, index) => {
                 const IconComponent = service.icon;
+                
                 return (
                   <div
-                    key={index}
-                    className={`group relative overflow-hidden rounded-2xl bg-gradient-to-br ${service.color} transform hover:scale-105 transition-all duration-500 cursor-pointer p-6`}
-                    onClick={() => handleServiceClick(service, index)}
+                    key={service.id}
+                    className="w-full md:w-1/2 lg:w-1/3 flex-shrink-0 px-4"
                   >
-                    <div className="absolute inset-0 bg-black/10"></div>
-                    <div className="relative z-10">
-                      <div className="inline-flex items-center px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full mb-4">
-                        <IconComponent className="w-4 h-4 text-white mr-2" />
-                        <span className="text-xs font-semibold text-white">SERVICE</span>
+                    <a href={service.href} className="block">
+                      <div className="flip-box h-80 md:h-96">
+                        <div 
+                          className={`flip-box-inner ${hoveredCard === index ? 'flipped' : ''}`}
+                          onMouseEnter={() => setHoveredCard(index)}
+                          onMouseLeave={() => setHoveredCard(null)}
+                        >
+                          {/* Front Side - Image */}
+                          <div className="flip-box-front">
+                            <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-lg">
+                              {/* Service Image */}
+                              <Image
+                                src={service.image}
+                                alt={service.title}
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                              />
+                              
+                              {/* Service-specific overlay */}
+                              {service.id === 'cyber-security' ? (
+                                <div className="absolute inset-0">
+                                  {/* Cybersecurity themed overlay */}
+                                  <div className="absolute inset-0 bg-gradient-to-t from-red-900/80 via-purple-900/40 to-blue-900/20"></div>
+                                  
+                                  {/* Security-themed elements */}
+                                  <div className="absolute inset-0 opacity-30">
+                                    {/* Shield icons */}
+                                    <div className="absolute top-4 left-4 w-8 h-10 border-2 border-green-400/60 rounded-t-lg">
+                                      <div className="w-3 h-3 bg-green-400/80 rounded-full mx-auto mt-2"></div>
+                                    </div>
+                                    <div className="absolute top-6 right-6 w-6 h-8 border-2 border-green-400/40 rounded-t-lg">
+                                      <div className="w-2 h-2 bg-green-400/60 rounded-full mx-auto mt-1"></div>
+                                    </div>
+                                    
+                                    {/* Lock elements */}
+                                    <div className="absolute bottom-12 left-6 w-4 h-6 border-2 border-yellow-400/60 rounded-t-md">
+                                      <div className="w-2 h-2 bg-yellow-400/80 rounded-full mx-auto mt-1"></div>
+                                    </div>
+                                    
+                                    {/* Binary code pattern */}
+                                    <div className="absolute top-8 left-12 text-green-400/40 text-xs font-mono">
+                                      <div>101010</div>
+                                      <div>110011</div>
+                                    </div>
+                                    <div className="absolute bottom-8 right-8 text-green-400/30 text-xs font-mono">
+                                      <div>001101</div>
+                                      <div>101110</div>
+                                    </div>
+                                    
+                                    {/* Security bars/alerts */}
+                                    <div className="absolute top-12 right-12 space-y-1">
+                                      <div className="w-12 h-1 bg-red-400/60 rounded"></div>
+                                      <div className="w-8 h-1 bg-yellow-400/50 rounded"></div>
+                                      <div className="w-10 h-1 bg-green-400/40 rounded"></div>
+                                    </div>
+                                    
+                                    {/* Network security nodes */}
+                                    <div className="absolute bottom-16 left-12 w-2 h-2 bg-blue-400/70 rounded-full"></div>
+                                    <div className="absolute bottom-20 left-16 w-1.5 h-1.5 bg-blue-400/50 rounded-full"></div>
+                                    <div className="absolute bottom-14 left-20 w-1 h-1 bg-blue-400/40 rounded-full"></div>
+                                    
+                                    {/* Connection lines */}
+                                    <svg className="absolute bottom-14 left-12 w-12 h-8" viewBox="0 0 48 32">
+                                      <line x1="0" y1="16" x2="16" y2="8" stroke="rgba(96, 165, 250, 0.3)" strokeWidth="1"/>
+                                      <line x1="0" y1="16" x2="32" y2="24" stroke="rgba(96, 165, 250, 0.2)" strokeWidth="1"/>
+                                    </svg>
+                                  </div>
+                                  
+                                  {/* Text readability gradient at bottom */}
+                                  <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-black/80 to-transparent"></div>
+                                </div>
+                              ) : (
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10"></div>
+                              )}
+                              
+                              {/* Title at bottom */}
+                              <div className="absolute bottom-0 left-0 right-0 p-6">
+                                <h4 className="text-white text-xl font-bold drop-shadow-lg">
+                                  {service.title}
+                                </h4>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Back Side - Details */}
+                          <div className="flip-box-back">
+                            <div className={`w-full h-full rounded-2xl shadow-lg p-6 flex flex-col justify-center text-white ${
+                              index % 3 === 0 ? 'bg-gradient-to-br from-blue-600 to-blue-800' : 
+                              index % 3 === 1 ? 'bg-gradient-to-br from-purple-600 to-purple-800' : 
+                              'bg-gradient-to-br from-green-600 to-green-800'
+                            }`}>
+                              <div className="mb-4">
+                                <IconComponent className="w-10 h-10 text-white mb-4" />
+                                <h4 className="text-xl font-bold mb-3">
+                                  {service.title}
+                                </h4>
+                              </div>
+                              <p className="text-white/90 text-base leading-relaxed">
+                                {service.description}
+                              </p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <h3 className="text-xl font-bold text-white mb-2">{service.title}</h3>
-                      <p className="text-white/80 text-sm leading-relaxed mb-4">{service.description}</p>
-                      <button className="text-white font-semibold text-sm hover:text-white/80 transition-colors">
-                        Learn More →
-                      </button>
-                    </div>
+
+                      {/* Title below card */}
+                      <h4 className="text-center mt-6 text-lg font-semibold text-gray-900">
+                        {service.title}
+                      </h4>
+                    </a>
                   </div>
                 );
               })}
             </div>
-            
-            <div className="hidden lg:grid xl:grid-cols-12 xl:grid-rows-8 lg:grid-cols-10 lg:grid-rows-7 gap-4 lg:gap-6 h-[600px] lg:h-[700px] xl:h-[800px] mt-12">
-              
-              {services[0] && (() => {
-                const IconComponent = services[0].icon;
-                return (
-                  <div className={`xl:col-span-5 xl:row-span-4 lg:col-span-4 lg:row-span-3 group relative overflow-hidden rounded-3xl bg-gradient-to-br ${services[0].color} transform hover:scale-105 transition-all duration-700 cursor-pointer`}
-                       onClick={() => handleServiceClick(services[0], 0)}
-                       onMouseEnter={() => setHoveredCard(0)}
-                       onMouseLeave={() => setHoveredCard(null)}>
-                    <div className="absolute inset-0 bg-black/20"></div>
-                    <div className="absolute inset-0 bg-gradient-to-br from-transparent via-black/10 to-black/30"></div>
-                    
-                    <div className="absolute inset-0 opacity-20" style={{
-                      backgroundImage: `
-                        polygon(0 0, 100% 0, 85% 100%, 0 100%),
-                        polygon(85% 0, 100% 0, 100% 80%, 70% 100%)
-                      `,
-                      backgroundSize: '60px 60px, 40px 40px'
-                    }}></div>
-                    
-                    <div className="relative z-10 h-full flex flex-col justify-between p-8">
-                      <div>
-                        <div className="inline-flex items-center px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full mb-4">
-                          <Star className="w-3 h-3 text-white mr-2" />
-                          <span className="text-xs font-semibold text-white">FLAGSHIP</span>
-                        </div>
-                        <IconComponent className="h-12 w-12 text-white mb-4" />
-                      </div>
-                      
-                      <div>
-                        <h3 className="text-3xl font-black text-white mb-3">{services[0].title}</h3>
-                        <p className="text-white/80 text-sm leading-relaxed mb-4">{services[0].description}</p>
-                        <button className="text-white font-semibold text-sm hover:text-white/80 transition-colors">
-                          Explore →
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })()}
-
-              {services[1] && (() => {
-                const IconComponent = services[1].icon;
-                return (
-                  <div className={`xl:col-span-4 xl:row-span-3 lg:col-span-3 lg:row-span-2 group relative overflow-hidden rounded-2xl bg-gradient-to-br ${services[1].color} transform hover:scale-105 transition-all duration-500 cursor-pointer`}
-                       onClick={() => handleServiceClick(services[1], 1)}
-                       onMouseEnter={() => setHoveredCard(1)}
-                       onMouseLeave={() => setHoveredCard(null)}>
-                    <div className="absolute inset-0 bg-black/10"></div>
-                    <div className="absolute inset-0" style={{
-                      backgroundImage: `radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 1px, transparent 1px),
-                                       radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 1px, transparent 1px)`,
-                      backgroundSize: '40px 40px, 30px 30px'
-                    }}></div>
-                    
-                    <div className="relative z-10 h-full flex flex-col justify-between p-6">
-                      <div className="flex justify-between items-start">
-                        <IconComponent className="h-10 w-10 text-white" />
-                        <div className="text-right">
-                          <div className="text-2xl font-bold text-white">98%</div>
-                          <div className="text-white/70 text-xs">Accuracy</div>
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <h3 className="text-xl font-bold text-white mb-2">{services[1].title}</h3>
-                        <p className="text-white/80 text-xs leading-relaxed">{services[1].description}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })()}
-
-              {services[2] && (() => {
-                const IconComponent = services[2].icon;
-                return (
-                  <div className={`xl:col-span-3 xl:row-span-2 lg:col-span-3 lg:row-span-2 group relative overflow-hidden rounded-xl bg-gradient-to-br ${services[2].color} transform hover:scale-105 transition-all duration-500 cursor-pointer`}
-                       onClick={() => handleServiceClick(services[2], 2)}
-                       onMouseEnter={() => setHoveredCard(2)}
-                       onMouseLeave={() => setHoveredCard(null)}>
-                    <div className="absolute inset-0 bg-black/10"></div>
-                    <div className="absolute inset-0 opacity-20" style={{
-                      backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,0.1) 10px, rgba(255,255,255,0.1) 20px)`
-                    }}></div>
-                    
-                    <div className="relative z-10 h-full flex flex-col justify-center items-center text-center p-4">
-                      <IconComponent className="h-8 w-8 text-white mb-3" />
-                      <h3 className="text-lg font-bold text-white mb-1">{services[2].title}</h3>
-                      <p className="text-white/70 text-xs">Custom Solutions</p>
-                    </div>
-                  </div>
-                );
-              })()}
-
-              {services[3] && (() => {
-                const IconComponent = services[3].icon;
-                return (
-                  <div className={`xl:col-span-7 xl:row-span-2 lg:col-span-6 lg:row-span-2 group relative overflow-hidden rounded-2xl bg-gradient-to-br ${services[3].color} transform hover:scale-105 transition-all duration-500 cursor-pointer`}
-                       onClick={() => handleServiceClick(services[3], 3)}
-                       onMouseEnter={() => setHoveredCard(3)}
-                       onMouseLeave={() => setHoveredCard(null)}>
-                    <div className="absolute inset-0 bg-black/10"></div>
-                    <div className="absolute inset-0" style={{
-                      backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(255,255,255,0.1) 90deg, transparent 180deg, rgba(255,255,255,0.1) 270deg, transparent 360deg)`,
-                      backgroundSize: '80px 80px'
-                    }}></div>
-                    
-                    <div className="relative z-10 h-full flex items-center justify-between p-6">
-                      <div className="flex items-center space-x-4">
-                        <IconComponent className="h-10 w-10 text-white" />
-                        <div>
-                          <h3 className="text-2xl font-bold text-white mb-1">{services[3].title}</h3>
-                          <p className="text-white/80 text-sm">{services[3].description}</p>
-                        </div>
-                      </div>
-                      
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="text-center">
-                          <div className="text-xl font-bold text-white">25+</div>
-                          <div className="text-white/70 text-xs">Platforms</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-xl font-bold text-white">150+</div>
-                          <div className="text-white/70 text-xs">Projects</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })()}
-
-              {services[4] && (() => {
-                const IconComponent = services[4].icon;
-                return (
-                  <div className={`xl:col-span-3 xl:row-span-4 lg:col-span-3 lg:row-span-3 group relative overflow-hidden rounded-2xl bg-gradient-to-b ${services[4].color} transform hover:scale-105 transition-all duration-500 cursor-pointer`}
-                       onClick={() => handleServiceClick(services[4], 4)}
-                       onMouseEnter={() => setHoveredCard(4)}
-                       onMouseLeave={() => setHoveredCard(null)}>
-                    <div className="absolute inset-0 bg-black/20"></div>
-                    <div className="absolute inset-0" style={{
-                      backgroundImage: `linear-gradient(30deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%),
-                                       linear-gradient(150deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%)`,
-                      backgroundSize: '60px 60px'
-                    }}></div>
-                    
-                    <div className="relative z-10 h-full flex flex-col justify-between p-6 text-center">
-                      <div>
-                        <div className="inline-flex items-center px-3 py-1 bg-white/20 backdrop-blur-sm rounded-full mb-4">
-                          <IconComponent className="w-3 h-3 text-white mr-2" />
-                          <span className="text-xs font-semibold text-white">SECURE</span>
-                        </div>
-                        <IconComponent className="h-12 w-12 text-white mx-auto" />
-                      </div>
-                      
-                      <div>
-                        <h3 className="text-2xl font-bold text-white mb-3">{services[4].title}</h3>
-                        <p className="text-white/80 text-sm leading-relaxed mb-4">{services[4].description}</p>
-                        <div className="text-center">
-                          <div className="text-3xl font-bold text-white">100%</div>
-                          <div className="text-white/70 text-xs">Protected</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })()}
-
-              {services[5] && (() => {
-                const IconComponent = services[5].icon;
-                return (
-                  <div className={`xl:col-span-2 xl:row-span-2 lg:col-span-1 lg:row-span-2 group relative overflow-hidden rounded-xl bg-gradient-to-br ${services[5].color} transform hover:scale-105 transition-all duration-500 cursor-pointer`}
-                       onClick={() => handleServiceClick(services[5], 5)}
-                       onMouseEnter={() => setHoveredCard(5)}
-                       onMouseLeave={() => setHoveredCard(null)}>
-                    <div className="absolute inset-0 bg-black/10"></div>
-                    <div className="absolute inset-0 opacity-30" style={{
-                      backgroundImage: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 2px, transparent 2px)`,
-                      backgroundSize: '20px 20px'
-                    }}></div>
-                    
-                    <div className="relative z-10 h-full flex flex-col justify-center items-center p-4">
-                      <IconComponent className="h-10 w-10 text-white mb-2" />
-                      <h3 className="text-sm font-bold text-white text-center leading-tight">{services[5].title}</h3>
-                    </div>
-                  </div>
-                );
-              })()}
-            </div>
-            
-            <div className="text-center">
-              <div className="inline-flex items-center px-8 py-4 bg-blue-50 border border-blue-200 rounded-xl mb-8">
-                <Award className="h-6 w-6 text-blue-600 mr-3" />
-                <span className="text-blue-800 font-semibold">Industry-Leading Solutions</span>
-                <TrendingUp className="h-6 w-6 text-blue-600 ml-3" />
-              </div>
-              
-              <p className="text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                Each service is designed with scalability, security, and performance in mind, ensuring your business stays ahead in the digital landscape.
-              </p>
-            </div>
           </div>
-        )}
+          
+          {/* Navigation Controls */}
+          <div className="flex items-center justify-center mt-12 space-x-8">
+            <button
+              onClick={prevSlide}
+              className="p-4 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={currentSlide === 0}
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            
+            {/* Slide Indicators */}
+            <div className="flex space-x-2">
+              {Array.from({ length: getTotalSlides() }, (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    Math.floor(currentSlide / getCardsPerSlide()) === index
+                      ? 'bg-blue-600' 
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                />
+              ))}
+            </div>
+            
+            <button
+              onClick={nextSlide}
+              className="p-4 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={currentSlide >= services.length - getCardsPerSlide()}
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+        
       </div>
-
-      {selectedService && clickedCardIndex !== null && (() => {
-        const IconComponent = selectedService.icon;
-        return (
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div 
-              className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-              onClick={handleCloseDetails}
-            ></div>
-            
-            <div className="relative w-full max-w-2xl mx-4">
-              <div className="relative bg-white border border-gray-200 rounded-xl p-8 shadow-xl">
-                <div className="flex items-center justify-between mb-6">
-                  <div className="flex items-center space-x-4">
-                    <div className={`p-3 bg-gradient-to-br ${selectedService.color} rounded-lg`}>
-                      <IconComponent className="h-6 w-6 text-white" />
-                    </div>
-                    
-                    <div>
-                      <h3 className="text-xl font-bold text-gray-900">
-                        {selectedService.title}
-                      </h3>
-                      <div className={`h-0.5 w-12 bg-gradient-to-r ${selectedService.color} rounded-full mt-1`}></div>
-                    </div>
-                  </div>
-                  
-                  <button
-                    onClick={handleCloseDetails}
-                    className="w-8 h-8 bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center text-gray-500 hover:text-gray-700 transition-colors duration-200"
-                  >
-                    <span className="text-lg font-bold">×</span>
-                  </button>
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <h4 className="text-base font-bold text-gray-900 mb-3">
-                      Overview
-                    </h4>
-                    <p className="text-sm text-gray-600 leading-relaxed mb-4">
-                      {selectedService.description}
-                    </p>
-                    
-                    <a
-                      href={selectedService.href}
-                      className={`inline-flex items-center px-4 py-2 bg-gradient-to-r ${selectedService.color} text-white font-semibold text-sm rounded-lg hover:shadow-lg transition-all duration-200`}
-                    >
-                      <Play className="w-4 h-4 mr-2" />
-                      <span>Explore Solutions</span>
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </a>
-                  </div>
-                  
-                  <div>
-                    <h4 className="text-base font-bold text-gray-900 mb-3">
-                      Key Features
-                    </h4>
-                    
-                    <div className="space-y-2">
-                      {selectedService.features.map((feature, index) => (
-                        <div 
-                          key={index}
-                          className="bg-gray-50 border border-gray-200 rounded-lg p-3"
-                        >
-                          <span className="text-gray-700 font-medium text-sm">
-                            {feature}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      })()}
-    </div>
+      
+      {/* Custom CSS for Flip Card Slider */}
+      <style jsx>{`
+        /* Flip Card Styles */
+        .flip-box {
+          perspective: 1000px;
+        }
+        
+        .flip-box-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          transition: transform 0.6s;
+          transform-style: preserve-3d;
+        }
+        
+        .flip-box-inner.flipped {
+          transform: rotateY(180deg);
+        }
+        
+        .flip-box-front,
+        .flip-box-back {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          backface-visibility: hidden;
+          border-radius: 1rem;
+        }
+        
+        .flip-box-back {
+          transform: rotateY(180deg);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+          .text-4xl {
+            font-size: 2rem !important;
+          }
+          
+          .md\\:text-5xl {
+            font-size: 2.5rem !important;
+          }
+          
+          .text-lg {
+            font-size: 1rem !important;
+          }
+          
+          .h-80 {
+            height: 18rem !important;
+          }
+          
+          .md\\:h-96 {
+            height: 20rem !important;
+          }
+          
+          .p-6 {
+            padding: 1rem !important;
+          }
+        }
+        
+        @media (max-width: 640px) {
+          .mb-16 {
+            margin-bottom: 2rem !important;
+          }
+          
+          .py-20 {
+            padding-top: 3rem !important;
+            padding-bottom: 3rem !important;
+          }
+          
+          .mt-12 {
+            margin-top: 2rem !important;
+          }
+          
+          .space-x-8 > :not([hidden]) ~ :not([hidden]) {
+            margin-left: 1rem !important;
+          }
+          
+          .px-4 {
+            padding-left: 0.5rem !important;
+            padding-right: 0.5rem !important;
+          }
+          
+          .h-80 {
+            height: 16rem !important;
+          }
+          
+          .md\\:h-96 {
+            height: 18rem !important;
+          }
+          
+          .text-xl {
+            font-size: 1.125rem !important;
+          }
+          
+          .w-16 {
+            width: 3rem !important;
+          }
+          
+          .h-16 {
+            height: 3rem !important;
+          }
+        }
+        
+        /* Hover effects */
+        .flip-box:hover .flip-box-inner {
+          transform: rotateY(180deg);
+        }
+        
+        /* Smooth transitions */
+        .flip-box-front,
+        .flip-box-back {
+          transition: all 0.3s ease;
+        }
+      `}</style>
+    </section>
   );
 };
 
