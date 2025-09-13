@@ -15,7 +15,8 @@ import {
   LogOut,
   Menu,
   X,
-  Layers
+  Layers,
+  Video
 } from "lucide-react"
 
 const sidebarItems = [
@@ -28,6 +29,11 @@ const sidebarItems = [
     title: "Services",
     href: "/admin/services",
     icon: Layers,
+  },
+  {
+    title: "Webinars",
+    href: "/admin/webinars",
+    icon: Video,
   },
   {
     title: "Users",

@@ -1,9 +1,137 @@
 "use client";
 
 import PageLayout from "@/components/PageLayout";
-import { Cloud, CheckCircle, Server, Shield, Database, ArrowRight, Zap, Monitor, Settings, Users, Globe, Container, Layers, Lock, Cpu, Network, RefreshCw, Search, Palette, Wrench, Rocket } from "lucide-react";
+import { Cloud, CheckCircle, Server, Shield, Database, ArrowRight, Zap, Monitor, Settings, Users, Globe, Container, Layers, Lock, Cpu, Network, RefreshCw, Search, Palette, Wrench } from "lucide-react";
+import { useState } from "react";
+import ServiceDetailModal from "@/components/ServiceDetailModal";
+import { getTechnologyUrl } from "@/lib/technology-utils";
 
 export default function CloudServices() {
+  const [selectedService, setSelectedService] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleLearnMore = (serviceKey) => {
+    setSelectedService(servicesData[serviceKey]);
+    setShowModal(true);
+  };
+
+  const servicesData = {
+    cloudMigration: {
+      title: "Cloud Migration",
+      description: "Seamless migration of applications and data to cloud platforms",
+      fullDescription: "Migrate your entire infrastructure to the cloud with zero downtime and maximum efficiency. Our expert team handles everything from assessment to post-migration optimization, ensuring your applications perform better in the cloud than on-premises.",
+      features: [
+        {
+          title: "Zero-Downtime Migration",
+          description: "Seamless migration with continuous availability",
+          icon: RefreshCw
+        },
+        {
+          title: "Data Transfer Optimization",
+          description: "Secure and efficient data migration strategies",
+          icon: Database
+        },
+        {
+          title: "Application Modernization",
+          description: "Refactor applications for cloud-native performance",
+          icon: Zap
+        },
+        {
+          title: "Hybrid Cloud Setup",
+          description: "Flexible hybrid cloud architecture implementation",
+          icon: Globe
+        }
+      ],
+      benefits: [
+        {
+          title: "Cost Reduction",
+          description: "Average reduction in infrastructure costs",
+          metric: "40-60%"
+        },
+        {
+          title: "Performance Improvement",
+          description: "Faster application response times",
+          metric: "+200%"
+        },
+        {
+          title: "Scalability",
+          description: "Dynamic scaling capability",
+          metric: "10x faster"
+        }
+      ],
+      process: [
+        {
+          step: 1,
+          title: "Assessment & Planning",
+          description: "Comprehensive infrastructure assessment and migration strategy",
+          duration: "2-3 weeks"
+        },
+        {
+          step: 2,
+          title: "Migration Design",
+          description: "Design cloud architecture and migration roadmap",
+          duration: "1-2 weeks"
+        },
+        {
+          step: 3,
+          title: "Pilot Migration",
+          description: "Test migration with non-critical applications",
+          duration: "2-4 weeks"
+        },
+        {
+          step: 4,
+          title: "Full Migration",
+          description: "Complete migration with monitoring and optimization",
+          duration: "4-12 weeks"
+        }
+      ],
+      technologies: ["AWS Migration Hub", "Azure Migrate", "Google Cloud Migrate", "VMware vMotion", "Docker", "Kubernetes"],
+      caseStudy: {
+        client: "Financial Services Company",
+        challenge: "Legacy infrastructure costing $500K annually with limited scalability",
+        solution: "Complete AWS migration with containerization and auto-scaling",
+        results: [
+          "65% reduction in infrastructure costs",
+          "99.9% uptime achievement",
+          "300% improvement in deployment speed",
+          "Zero security incidents post-migration"
+        ]
+      },
+      deliverables: [
+        "Migration assessment report",
+        "Cloud architecture design",
+        "Migrated applications and data",
+        "Performance optimization",
+        "Security configuration",
+        "Documentation and training"
+      ]
+    },
+    cloudSecurity: {
+      title: "Cloud Security",
+      description: "Comprehensive security solutions for cloud infrastructure",
+      fullDescription: "Protect your cloud infrastructure with enterprise-grade security solutions. Our comprehensive approach covers identity management, data encryption, compliance monitoring, and threat protection across multi-cloud environments.",
+    },
+    cloudMonitoring: {
+      title: "Cloud Monitoring",
+      description: "24/7 monitoring and optimization of cloud resources",
+      fullDescription: "Ensure optimal cloud performance with continuous monitoring, automated optimization, and proactive issue resolution. Our monitoring solutions provide real-time insights and automated responses to maintain peak efficiency.",
+    },
+    databaseService: {
+      title: "Database as a Service",
+      description: "Managed database solutions with high availability",
+      fullDescription: "Leverage fully managed database services for maximum reliability and performance. Our DBaaS solutions handle maintenance, scaling, and optimization while you focus on your applications.",
+    },
+    containerization: {
+      title: "Containerization",
+      description: "Docker and Kubernetes deployment and management",
+      fullDescription: "Modernize your applications with containerization for improved scalability, portability, and deployment efficiency. Our container solutions enable microservices architecture and DevOps best practices.",
+    },
+    serverless: {
+      title: "Serverless Computing",
+      description: "Event-driven serverless architecture and deployment",
+      fullDescription: "Build scalable, cost-effective applications with serverless architecture. Pay only for what you use while enjoying automatic scaling and reduced operational overhead.",
+    }
+  };
   const cloudServices = [
     {
       icon: Cloud,
@@ -165,13 +293,13 @@ export default function CloudServices() {
               </p>
               
               <div className="pt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300">
+                <a href="/contact" className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300">
                   Start Cloud Journey
                   <ArrowRight className="ml-2 w-5 h-5" />
-                </button>
-                <button className="inline-flex items-center px-8 py-4 border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold rounded-full transition-all duration-300">
+                </a>
+                <a href="/contact" className="inline-flex items-center px-8 py-4 border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold rounded-full transition-all duration-300">
                   Cloud Assessment
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -183,7 +311,7 @@ export default function CloudServices() {
             
             {/* Header Section */}
             <div className="text-center mb-20">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-blue-900 mb-6">
                 Transform Your Business With <span className="text-[#f97316]">Enterprise Cloud Solutions</span>
               </h2>
               <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
@@ -213,7 +341,7 @@ export default function CloudServices() {
                   </div>
                 </div>
                 <div className="p-8">
-                  <h4 className="text-xl font-semibold text-gray-900 mb-4">Seamless Cloud Transformation</h4>
+                  <h4 className="text-xl font-semibold text-blue-900 mb-4">Seamless Cloud Transformation</h4>
                   <p className="text-gray-600 mb-6 leading-relaxed">
                     Migrate your applications and infrastructure to AWS, Azure, or Google Cloud with zero downtime. Our proven migration methodology ensures smooth transition while optimizing for performance and cost.
                   </p>
@@ -231,7 +359,10 @@ export default function CloudServices() {
                       <span className="text-gray-700">Post-migration optimization & support</span>
                     </li>
                   </ul>
-                  <button className="inline-flex items-center text-[#f97316] font-semibold hover:text-[#ea580c] transition-colors group/btn">
+                  <button 
+                    onClick={() => handleLearnMore('cloudMigration')}
+                    className="inline-flex items-center text-[#f97316] font-semibold hover:text-[#ea580c] transition-colors group/btn"
+                  >
                     Learn More 
                     <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                   </button>
@@ -257,7 +388,7 @@ export default function CloudServices() {
                   </div>
                 </div>
                 <div className="p-8">
-                  <h4 className="text-xl font-semibold text-gray-900 mb-4">Enterprise-Grade Protection</h4>
+                  <h4 className="text-xl font-semibold text-blue-900 mb-4">Enterprise-Grade Protection</h4>
                   <p className="text-gray-600 mb-6 leading-relaxed">
                     Implement comprehensive security measures to protect your cloud infrastructure. Our multi-layered security approach ensures compliance and protects against evolving threats.
                   </p>
@@ -275,7 +406,10 @@ export default function CloudServices() {
                       <span className="text-gray-700">24/7 threat detection & response</span>
                     </li>
                   </ul>
-                  <button className="inline-flex items-center text-[#f97316] font-semibold hover:text-[#ea580c] transition-colors group/btn">
+                  <button 
+                    onClick={() => handleLearnMore('cloudSecurity')}
+                    className="inline-flex items-center text-[#f97316] font-semibold hover:text-[#ea580c] transition-colors group/btn"
+                  >
                     Learn More 
                     <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                   </button>
@@ -301,7 +435,7 @@ export default function CloudServices() {
                   </div>
                 </div>
                 <div className="p-8">
-                  <h4 className="text-xl font-semibold text-gray-900 mb-4">Intelligent Analytics & Optimization</h4>
+                  <h4 className="text-xl font-semibold text-blue-900 mb-4">Intelligent Analytics & Optimization</h4>
                   <p className="text-gray-600 mb-6 leading-relaxed">
                     Transform cloud operations with AI-powered monitoring and analytics. Maximize performance while minimizing costs through intelligent resource optimization.
                   </p>
@@ -319,7 +453,10 @@ export default function CloudServices() {
                       <span className="text-gray-700">Predictive analytics & insights</span>
                     </li>
                   </ul>
-                  <button className="inline-flex items-center text-[#f97316] font-semibold hover:text-[#ea580c] transition-colors group/btn">
+                  <button 
+                    onClick={() => handleLearnMore('cloudMonitoring')}
+                    className="inline-flex items-center text-[#f97316] font-semibold hover:text-[#ea580c] transition-colors group/btn"
+                  >
                     Learn More 
                     <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                   </button>
@@ -345,7 +482,7 @@ export default function CloudServices() {
                   </div>
                 </div>
                 <div className="p-8">
-                  <h4 className="text-xl font-semibold text-gray-900 mb-4">Accelerate Development & Deployment</h4>
+                  <h4 className="text-xl font-semibold text-blue-900 mb-4">Accelerate Development & Deployment</h4>
                   <p className="text-gray-600 mb-6 leading-relaxed">
                     Implement modern DevOps practices with containerization and CI/CD pipelines. Achieve faster deployments and improved scalability with Kubernetes and Docker.
                   </p>
@@ -363,7 +500,10 @@ export default function CloudServices() {
                       <span className="text-gray-700">Microservices architecture</span>
                     </li>
                   </ul>
-                  <button className="inline-flex items-center text-[#f97316] font-semibold hover:text-[#ea580c] transition-colors group/btn">
+                  <button 
+                    onClick={() => handleLearnMore('containerization')}
+                    className="inline-flex items-center text-[#f97316] font-semibold hover:text-[#ea580c] transition-colors group/btn"
+                  >
                     Learn More 
                     <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
                   </button>
@@ -380,7 +520,7 @@ export default function CloudServices() {
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             <div className="text-center space-y-8 mb-16">
               <h2 className="text-4xl md:text-5xl font-bold">
-                <span className="text-gray-900">Leading Cloud </span>
+                <span className="text-blue-900">Leading Cloud </span>
                 <span className="text-[#f97316]">Platforms & Technologies</span>
               </h2>
               
@@ -411,7 +551,7 @@ export default function CloudServices() {
                     </span>
                     
                     {/* Title */}
-                    <h4 className="font-bold text-lg text-gray-900 mb-2 group-hover:text-[#f97316] transition-colors">
+                    <h4 className="font-bold text-lg text-blue-900 mb-2 group-hover:text-[#f97316] transition-colors">
                       {platform.name}
                     </h4>
                     
@@ -420,11 +560,11 @@ export default function CloudServices() {
                       {platform.description}
                     </p>
                     
-                    {/* Hover Arrow */}
-                    <div className="mt-4 flex items-center text-[#f97316] opacity-0 group-hover:opacity-100 transition-opacity">
-                      <span className="text-sm font-medium">Learn more</span>
+                    {/* Explore Technology Link */}
+                    <a href={getTechnologyUrl(platform.name)} className="mt-4 flex items-center text-[#f97316] opacity-0 group-hover:opacity-100 transition-opacity hover:text-[#ea580c]">
+                      <span className="text-sm font-medium">Explore Technology</span>
                       <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                    </div>
+                    </a>
                   </div>
                   
                   {/* Bottom Border Accent */}
@@ -468,9 +608,9 @@ export default function CloudServices() {
                   Connect with our Canada-based cloud experts to accelerate your digital transformation. Partner with industry leaders in cloud services to scale your business infrastructure and drive innovation.
                 </p>
                 <div className="flex justify-center">
-                  <button className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
+                  <a href="/contact" className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
                     Schedule A Cloud Consultation
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -478,6 +618,18 @@ export default function CloudServices() {
         </section>
 
       </div>
+
+      {/* Service Detail Modal */}
+      {selectedService && (
+        <ServiceDetailModal
+          isOpen={showModal}
+          onClose={() => {
+            setShowModal(false);
+            setSelectedService(null);
+          }}
+          service={selectedService}
+        />
+      )}
     </PageLayout>
   );
 }

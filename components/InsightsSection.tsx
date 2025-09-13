@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import AuthButton from "@/components/auth/AuthButton";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Calendar, User, BookOpen, TrendingUp, Shield, Database } from "lucide-react";
 
@@ -140,23 +141,23 @@ export default function InsightsSection() {
                   className="group cursor-pointer"
                 >
                   {/* Article Card */}
-                  <div className="bg-white rounded-lg border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 group-hover:border-gray-200">
+                  <div className="bg-white rounded-lg border border-blue-100 overflow-hidden hover:shadow-lg transition-all duration-300 group-hover:border-orange-200">
                     
                     <div className="p-6 pb-4">
                       {/* Category Badge */}
                       <div className="mb-4">
-                        <span className="inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full">
+                        <span className="inline-flex items-center px-3 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full">
                           📄 {article.category}
                         </span>
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors duration-300 leading-tight">
+                      <h3 className="text-xl font-bold text-blue-900 mb-3 group-hover:text-orange-600 transition-colors duration-300 leading-tight">
                         {article.title}
                       </h3>
                       
                       {/* Excerpt */}
-                      <p className="text-gray-600 leading-relaxed text-sm">
+                      <p className="text-blue-700 leading-relaxed text-sm">
                         {article.excerpt}
                       </p>
                     </div>
@@ -189,14 +190,14 @@ export default function InsightsSection() {
                 
                 {/* Main Heading */}
                 <div>
-                  <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-                    Our latest<br />thinking
+                  <h2 className="text-4xl md:text-5xl font-bold leading-tight">
+                    <span className="text-blue-900">Our</span> <span className="text-[#f97316]">latest</span><br /><span className="text-blue-900">thinking</span>
                   </h2>
                 </div>
                 
                 {/* Description */}
                 <div>
-                  <p className="text-lg text-gray-600 leading-relaxed">
+                  <p className="text-lg text-blue-700 leading-relaxed">
                     Deep insights into technology topics that matter.
                   </p>
                 </div>
@@ -213,9 +214,9 @@ export default function InsightsSection() {
                 </div>
 
                 {/* Additional content to ensure scrolling is visible */}
-                <div className="pt-12 space-y-4 border-t border-gray-200">
-                  <h3 className="text-xl font-semibold text-gray-800">Topics We Cover</h3>
-                  <ul className="space-y-2 text-gray-600">
+                <div className="pt-12 space-y-4 border-t border-blue-200">
+                  <h3 className="text-xl font-semibold text-blue-900">Topics We Cover</h3>
+                  <ul className="space-y-2 text-blue-700">
                     <li className="flex items-center"><span className="w-2 h-2 bg-orange-600 rounded-full mr-3"></span>Digital Transformation</li>
                     <li className="flex items-center"><span className="w-2 h-2 bg-orange-600 rounded-full mr-3"></span>Cloud Solutions</li>
                     <li className="flex items-center"><span className="w-2 h-2 bg-orange-600 rounded-full mr-3"></span>AI & Machine Learning</li>

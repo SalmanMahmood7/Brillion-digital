@@ -3,8 +3,260 @@
 import PageLayout from "@/components/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Settings, CheckCircle, ArrowRight, Monitor, Shield, HeadphonesIcon, Server, Wrench, Clock } from "lucide-react";
+import { useState } from "react";
+import ServiceDetailModal from "@/components/ServiceDetailModal";
 
 export default function ManagedITServices() {
+  const [selectedService, setSelectedService] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleLearnMore = (serviceKey) => {
+    setSelectedService(servicesData[serviceKey]);
+    setShowModal(true);
+  };
+
+  const servicesData = {
+    itSupport: {
+      title: "24/7 IT Support & Monitoring",
+      description: "Round-the-clock IT support and proactive monitoring",
+      fullDescription: "Comprehensive 24/7 IT support and monitoring services that ensure your systems are always running optimally. Our expert team provides immediate response to issues, continuous system health monitoring, and proactive maintenance to prevent downtime before it affects your business operations.",
+      features: [
+        {
+          title: "Real-Time Monitoring",
+          description: "Continuous 24/7 monitoring of all your IT systems and infrastructure",
+          icon: "Monitor"
+        },
+        {
+          title: "Instant Alert System",
+          description: "Immediate notifications when issues are detected or performance drops",
+          icon: "Bell"
+        },
+        {
+          title: "Remote Resolution", 
+          description: "Most issues resolved remotely without disrupting your workflow",
+          icon: "Wifi"
+        }
+      ],
+      benefits: [
+        {
+          title: "99.9% Uptime Guarantee",
+          description: "Ensure maximum availability with our proactive monitoring approach",
+          metric: "Less than 1 hour downtime per month"
+        },
+        {
+          title: "Faster Response Times",
+          description: "Average response time of under 15 minutes for critical issues",
+          metric: "15 minute response time"
+        }
+      ],
+      caseStudy: {
+        client: "TechCorp Solutions",
+        challenge: "Frequent system outages affecting 200+ employees",
+        solution: "Implemented 24/7 monitoring with predictive maintenance",
+        result: "Reduced downtime by 95% and saved $50,000 annually"
+      },
+    },
+    infrastructure: {
+      title: "Infrastructure Management",
+      description: "Comprehensive management of IT infrastructure",
+      fullDescription: "Complete management of your IT infrastructure including servers, networks, cloud resources, and hardware. We ensure optimal performance, security, and scalability of your entire technology foundation while reducing operational complexity.",
+      features: [
+        {
+          title: "Server Management",
+          description: "Full management and optimization of physical and virtual servers",
+          icon: "Server"
+        },
+        {
+          title: "Network Optimization",
+          description: "Design, implement, and maintain high-performance network infrastructure",
+          icon: "Network"
+        },
+        {
+          title: "Cloud Integration",
+          description: "Seamless integration and management of cloud resources",
+          icon: "Cloud"
+        }
+      ],
+      benefits: [
+        {
+          title: "Improved Performance",
+          description: "Optimized infrastructure delivers up to 40% better performance",
+          metric: "40% performance increase"
+        },
+        {
+          title: "Cost Reduction",
+          description: "Efficient resource management reduces infrastructure costs",
+          metric: "25% cost savings"
+        }
+      ],
+      caseStudy: {
+        client: "Global Manufacturing Inc",
+        challenge: "Aging infrastructure causing performance bottlenecks",
+        solution: "Complete infrastructure modernization with hybrid cloud approach",
+        result: "Improved system performance by 60% and reduced costs by 30%"
+      },
+    },
+    cybersecurity: {
+      title: "Cybersecurity Management",
+      description: "Proactive cybersecurity services to protect your business",
+      fullDescription: "Advanced cybersecurity management services that protect your business from evolving threats through proactive monitoring, security protocols, incident response, and comprehensive security assessments to keep your data and operations safe.",
+      features: [
+        {
+          title: "Threat Detection & Response",
+          description: "Advanced AI-powered threat detection with rapid incident response",
+          icon: "Shield"
+        },
+        {
+          title: "Security Assessment",
+          description: "Regular vulnerability assessments and penetration testing",
+          icon: "Search"
+        },
+        {
+          title: "Compliance Management",
+          description: "Ensure compliance with industry standards and regulations",
+          icon: "FileText"
+        }
+      ],
+      benefits: [
+        {
+          title: "Reduced Security Incidents",
+          description: "Proactive approach reduces security incidents by up to 90%",
+          metric: "90% reduction in incidents"
+        },
+        {
+          title: "Compliance Assurance",
+          description: "Maintain compliance with GDPR, HIPAA, and other regulations",
+          metric: "100% compliance rate"
+        }
+      ],
+      caseStudy: {
+        client: "Healthcare Partners LLC",
+        challenge: "Meeting HIPAA compliance while protecting patient data",
+        solution: "Comprehensive cybersecurity framework with 24/7 monitoring",
+        result: "Achieved full HIPAA compliance and prevented 15+ potential breaches"
+      },
+    },
+    helpDesk: {
+      title: "Help Desk Services",
+      description: "Professional help desk support for employees",
+      fullDescription: "Professional help desk support services providing technical assistance, troubleshooting, and user support to maintain productivity. Our certified technicians resolve issues quickly while providing excellent customer service to keep your team focused on their core responsibilities.",
+      features: [
+        {
+          title: "Multi-Channel Support",
+          description: "Support via phone, email, chat, and remote assistance",
+          icon: "Headphones"
+        },
+        {
+          title: "Ticket Management",
+          description: "Comprehensive ticketing system for tracking and resolution",
+          icon: "Ticket"
+        },
+        {
+          title: "User Training",
+          description: "Ongoing user education and software training programs",
+          icon: "GraduationCap"
+        }
+      ],
+      benefits: [
+        {
+          title: "Improved Productivity",
+          description: "Quick resolution times keep employees productive",
+          metric: "Average 2-hour resolution"
+        },
+        {
+          title: "User Satisfaction",
+          description: "High satisfaction rates with professional support",
+          metric: "95% satisfaction rate"
+        }
+      ],
+      caseStudy: {
+        client: "Creative Agency Pro",
+        challenge: "Frequent software issues disrupting creative workflows",
+        solution: "Dedicated help desk with specialized creative software expertise",
+        result: "Reduced support tickets by 60% and improved employee satisfaction"
+      },
+    },
+    maintenance: {
+      title: "Proactive Maintenance",
+      description: "Preventive maintenance services to avoid system downtime",
+      fullDescription: "Preventive maintenance services to avoid system downtime and extend equipment life. We perform regular updates, patches, optimizations, and hardware maintenance to keep your systems running smoothly and prevent costly emergency repairs.",
+      features: [
+        {
+          title: "Scheduled Maintenance",
+          description: "Regular system updates and preventive maintenance routines",
+          icon: "Calendar"
+        },
+        {
+          title: "Performance Optimization",
+          description: "Continuous optimization to maintain peak system performance",
+          icon: "Zap"
+        },
+        {
+          title: "Hardware Health Checks",
+          description: "Regular hardware diagnostics to prevent failures",
+          icon: "Wrench"
+        }
+      ],
+      benefits: [
+        {
+          title: "Extended Equipment Life",
+          description: "Proper maintenance extends hardware lifespan by up to 50%",
+          metric: "50% longer equipment life"
+        },
+        {
+          title: "Reduced Emergency Repairs",
+          description: "Preventive approach reduces emergency repairs by 80%",
+          metric: "80% fewer emergencies"
+        }
+      ],
+      caseStudy: {
+        client: "Manufacturing Excellence Corp",
+        challenge: "Frequent equipment failures causing production delays",
+        solution: "Comprehensive preventive maintenance program",
+        result: "Eliminated unplanned downtime and saved $75,000 in repair costs"
+      },
+    },
+    continuity: {
+      title: "Business Continuity Planning",
+      description: "Comprehensive disaster recovery and business continuity solutions",
+      fullDescription: "Comprehensive disaster recovery and business continuity solutions that ensure your business can continue operating during unexpected events. We develop backup strategies, recovery plans, and continuity procedures to minimize disruption and protect your operations.",
+      features: [
+        {
+          title: "Disaster Recovery Planning",
+          description: "Complete disaster recovery strategies and implementation",
+          icon: "Shield"
+        },
+        {
+          title: "Automated Backups",
+          description: "Reliable automated backup solutions with multiple recovery points",
+          icon: "HardDrive"
+        },
+        {
+          title: "Business Impact Analysis",
+          description: "Detailed analysis of critical business functions and dependencies",
+          icon: "BarChart"
+        }
+      ],
+      benefits: [
+        {
+          title: "Rapid Recovery",
+          description: "Resume operations within hours instead of days or weeks",
+          metric: "4-hour recovery time"
+        },
+        {
+          title: "Data Protection",
+          description: "99.9% data recovery rate with multiple backup locations",
+          metric: "99.9% data recovery"
+        }
+      ],
+      caseStudy: {
+        client: "Financial Services Group",
+        challenge: "Need for robust disaster recovery to meet regulatory requirements",
+        solution: "Multi-tier backup and recovery system with automated failover",
+        result: "Achieved RTO of 2 hours and RPO of 15 minutes, exceeding compliance requirements"
+      },
+    }
+  };
   const services = [
     {
       title: "24/7 IT Support & Monitoring",
@@ -113,7 +365,7 @@ export default function ManagedITServices() {
                       {/* Content */}
                       <div className="w-1/2 p-6 flex flex-col justify-between">
                         <div>
-                          <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight">
+                          <h3 className="text-xl font-bold text-blue-900 mb-3 leading-tight">
                             {service.title}
                           </h3>
                           
@@ -133,8 +385,14 @@ export default function ManagedITServices() {
                         </div>
 
                         {/* Action Button */}
-                        <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl py-3 transition-all duration-300 shadow-md hover:shadow-lg">
-                          Get Support
+                        <Button 
+                          onClick={() => {
+                            const serviceKeys = ['itSupport', 'infrastructure', 'cybersecurity', 'helpDesk', 'maintenance', 'continuity'];
+                            handleLearnMore(serviceKeys[index]);
+                          }}
+                          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold rounded-xl py-3 transition-all duration-300 shadow-md hover:shadow-lg"
+                        >
+                          Learn More
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
                       </div>
@@ -162,6 +420,18 @@ export default function ManagedITServices() {
             </div>
           </div>
         </section>
+
+        {/* Service Detail Modal */}
+        {selectedService && (
+          <ServiceDetailModal
+            isOpen={showModal}
+            onClose={() => {
+              setShowModal(false);
+              setSelectedService(null);
+            }}
+            service={selectedService}
+          />
+        )}
 
         {/* CSS Animations */}
         <style jsx>{`

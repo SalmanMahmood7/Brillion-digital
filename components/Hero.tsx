@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight, Zap, Shield, Globe, TrendingUp } from "lucide-react";
+import AuthButton from "@/components/auth/AuthButton";
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -14,15 +16,17 @@ const Hero = () => {
       subtitle: "Transform Your Business",
       description: "Cutting-edge digital solutions that inspire, innovate, and drive unprecedented growth for your organization.",
       image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80",
-      cta: "Start Your Journey"
+      cta: "Start Your Journey",
+      href: "/services"
     },
     {
       id: 2,
       title: "Cloud Excellence Achieved",
       subtitle: "Scalable Solutions",
       description: "Harness the power of cloud computing with enterprise-grade security, reliability, and performance optimization.",
-      image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      cta: "Explore Cloud Services"
+      image: "https://images.unsplash.com/photo-1629904853893-c2c8981a1dc5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      cta: "Explore Cloud Services",
+      href: "/services/cloud-services"
     },
     {
       id: 3,
@@ -30,7 +34,8 @@ const Hero = () => {
       subtitle: "Intelligent Automation",
       description: "Leverage artificial intelligence and machine learning to automate processes and unlock new business opportunities.",
       image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      cta: "Discover AI Solutions"
+      cta: "Discover AI Solutions",
+      href: "/services/ai-smart-solutions"
     },
     {
       id: 4,
@@ -38,7 +43,17 @@ const Hero = () => {
       subtitle: "Protected & Secure",
       description: "Comprehensive security solutions that protect your digital assets with enterprise-grade encryption and monitoring.",
       image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      cta: "Secure Your Business"
+      cta: "Secure Your Business",
+      href: "/services/cyber-security"
+    },
+    {
+      id: 5,
+      title: "Microsoft 365 Excellence",
+      subtitle: "Dynamics 365 & Microsoft Solutions",
+      description: "Transform your business with Microsoft's comprehensive ecosystem including Dynamics 365, Power Platform, and Office 365.",
+      image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      cta: "Explore Microsoft Solutions",
+      href: "/services/dynamics-365-microsoft"
     }
   ];
 
@@ -95,11 +110,11 @@ const Hero = () => {
           {/* Slide Content */}
           <div className="max-w-4xl mx-auto space-y-6">
             <div className="space-y-4">
-              <h2 className="text-lg md:text-xl font-semibold text-orange-300 tracking-wide uppercase">
+              <h2 className="text-lg md:text-xl font-semibold text-[#f97316] tracking-wide uppercase">
                 {slides[currentSlide].subtitle}
               </h2>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black leading-tight whitespace-nowrap">
                 {slides[currentSlide].title}
               </h1>
               
@@ -127,12 +142,16 @@ const Hero = () => {
 
             {/* CTA Button */}
             <div className="flex justify-center">
-              <button className="group relative overflow-hidden bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white px-12 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-orange-500/25">
+              <AuthButton
+                href={slides[currentSlide].href}
+                requireAuth={slides[currentSlide].href.includes('ai-smart-solutions') || slides[currentSlide].href.includes('cyber-security')}
+                className="group relative overflow-hidden bg-transparent text-white hover:bg-white hover:text-blue-900 px-12 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/25 inline-flex items-center justify-center"
+              >
                 <span className="relative z-10 flex items-center justify-center">
                   {slides[currentSlide].cta}
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </span>
-              </button>
+              </AuthButton>
             </div>
           </div>
         </div>
@@ -157,22 +176,6 @@ const Hero = () => {
         </button>
       </div>
 
-      {/* Slide Indicators */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-        <div className="flex space-x-3">
-          {slides.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentSlide 
-                  ? 'bg-white scale-125' 
-                  : 'bg-white/50 hover:bg-white/75'
-              }`}
-            />
-          ))}
-        </div>
-      </div>
 
 
       {/* CSS Animations */}

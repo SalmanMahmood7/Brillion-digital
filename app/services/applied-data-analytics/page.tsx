@@ -1,9 +1,183 @@
 "use client";
 
 import PageLayout from "@/components/PageLayout";
-import { Database, CheckCircle, BarChart3, Brain, TrendingUp, ArrowRight, Search, Palette, Wrench, Rocket, Target, Eye, Zap, Users, Shield, Monitor, LineChart, PieChart, Activity, Settings, Code2, Server, Cloud, Container, Link, Cpu } from "lucide-react";
+import { Database, CheckCircle, BarChart3, Brain, TrendingUp, ArrowRight, Search, Palette, Wrench, Target, Eye, Zap, Users, Shield, Monitor, LineChart, PieChart, Activity, Settings, Code2, Server, Cloud, Container, Link, Cpu } from "lucide-react";
+import { useState } from "react";
+import ServiceDetailModal from "@/components/ServiceDetailModal";
+import { getTechnologyUrl } from "@/lib/technology-utils";
 
 export default function AppliedDataAnalytics() {
+  const [selectedService, setSelectedService] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleLearnMore = (serviceKey) => {
+    setSelectedService(servicesData[serviceKey]);
+    setShowModal(true);
+  };
+
+  const servicesData = {
+    advancedAnalytics: {
+      title: "Advanced Analytics Solutions",
+      description: "Transform raw data into powerful business insights",
+      fullDescription: "Transform raw data into powerful business insights with comprehensive analytics platforms featuring real-time dashboards, predictive modeling, and custom reporting. Our advanced analytics solutions help you make data-driven decisions that accelerate growth and provide competitive advantage through intelligent data processing.",
+      features: [
+        {
+          title: "Real-time Dashboards",
+          description: "Interactive dashboards that provide live insights into your business metrics",
+          icon: "Monitor"
+        },
+        {
+          title: "Predictive Analytics",
+          description: "Machine learning models that forecast future trends and behaviors",
+          icon: "TrendingUp"
+        },
+        {
+          title: "Custom Reporting",
+          description: "Tailored reports that deliver insights specific to your business needs",
+          icon: "FileText"
+        }
+      ],
+      benefits: [
+        {
+          title: "Data-Driven Decisions",
+          description: "Make informed decisions based on comprehensive data analysis",
+          metric: "85% better decision accuracy"
+        },
+        {
+          title: "Operational Efficiency",
+          description: "Streamline operations through automated analytics and insights",
+          metric: "40% efficiency improvement"
+        }
+      ],
+      caseStudy: {
+        client: "Retail Analytics Corp",
+        challenge: "Disconnected data sources preventing comprehensive business insights",
+        solution: "Integrated analytics platform with real-time dashboards and predictive models",
+        result: "Increased sales by 25% and reduced inventory costs by 30% through data-driven insights"
+      },
+    },
+    machineLearning: {
+      title: "Machine Learning Implementation",
+      description: "End-to-end ML solutions to automate processes and enhance experiences",
+      fullDescription: "End-to-end machine learning solutions that automate complex processes and enhance customer experiences through intelligent algorithms. Our ML experts develop custom models that learn and adapt to your business needs, providing automated decision-making and intelligent process optimization.",
+      features: [
+        {
+          title: "Algorithm Development",
+          description: "Custom machine learning algorithms tailored to your specific use cases",
+          icon: "Brain"
+        },
+        {
+          title: "Model Training & Optimization",
+          description: "Continuous model training and performance optimization for maximum accuracy",
+          icon: "Settings"
+        },
+        {
+          title: "AI Integration",
+          description: "Seamless integration of AI capabilities into your existing systems",
+          icon: "Cpu"
+        }
+      ],
+      benefits: [
+        {
+          title: "Process Automation",
+          description: "Automate complex decision-making processes with intelligent algorithms",
+          metric: "60% process automation"
+        },
+        {
+          title: "Accuracy Improvement",
+          description: "Enhance accuracy of predictions and classifications",
+          metric: "95% prediction accuracy"
+        }
+      ],
+      caseStudy: {
+        client: "FinTech Solutions Ltd",
+        challenge: "Manual fraud detection causing delays and missed threats",
+        solution: "AI-powered fraud detection system with real-time threat analysis",
+        result: "Reduced false positives by 70% and detected 98% of fraudulent transactions"
+      },
+    },
+    businessIntelligence: {
+      title: "Business Intelligence Systems",
+      description: "Comprehensive BI systems with consolidated dashboards and KPI monitoring",
+      fullDescription: "Comprehensive business intelligence systems with consolidated dashboards, KPI monitoring, and executive reporting that provide 360-degree visibility into your business performance. Our BI solutions integrate data from multiple sources to deliver unified insights for strategic decision-making.",
+      features: [
+        {
+          title: "Data Integration",
+          description: "Consolidate data from multiple sources into unified BI platform",
+          icon: "Database"
+        },
+        {
+          title: "Interactive Dashboards",
+          description: "Dynamic dashboards that allow drill-down analysis and exploration",
+          icon: "BarChart3"
+        },
+        {
+          title: "Executive Reporting",
+          description: "High-level reports designed for executive decision-making",
+          icon: "FileText"
+        }
+      ],
+      benefits: [
+        {
+          title: "360-Degree Visibility",
+          description: "Complete view of business performance across all departments",
+          metric: "100% data visibility"
+        },
+        {
+          title: "Strategic Insights",
+          description: "Executive-level insights that drive strategic planning",
+          metric: "50% faster strategic decisions"
+        }
+      ],
+      caseStudy: {
+        client: "Manufacturing Excellence Inc",
+        challenge: "Siloed data preventing comprehensive performance analysis",
+        solution: "Enterprise BI platform with integrated dashboards and automated reporting",
+        result: "Improved operational visibility by 80% and reduced reporting time by 90%"
+      },
+    },
+    dataEngineering: {
+      title: "Data Engineering & ETL Solutions",
+      description: "Robust data pipeline solutions for efficient data processing",
+      fullDescription: "Robust data engineering solutions that design efficient pipelines, extract data from multiple sources, transform it according to business rules, and load it into unified systems. Our ETL solutions ensure data quality, consistency, and availability for advanced analytics and business intelligence.",
+      features: [
+        {
+          title: "Data Pipeline Design",
+          description: "Scalable and efficient data pipelines for automated data processing",
+          icon: "Server"
+        },
+        {
+          title: "ETL Processes",
+          description: "Extract, transform, and load processes optimized for performance",
+          icon: "Settings"
+        },
+        {
+          title: "Data Warehousing",
+          description: "Modern data warehouse solutions for centralized data storage",
+          icon: "Database"
+        }
+      ],
+      benefits: [
+        {
+          title: "Data Quality",
+          description: "Ensure high-quality, consistent data across all systems",
+          metric: "99.9% data accuracy"
+        },
+        {
+          title: "Processing Speed",
+          description: "Fast data processing for real-time analytics and reporting",
+          metric: "10x faster processing"
+        }
+      ],
+      caseStudy: {
+        client: "E-commerce Platform Pro",
+        challenge: "Slow data processing affecting real-time customer insights",
+        solution: "Modern ETL pipeline with real-time data streaming and automated quality checks",
+        result: "Reduced data processing time by 95% and enabled real-time customer personalization"
+      },
+    }
+  };
+
   const services = [
     {
       icon: BarChart3,
@@ -152,13 +326,13 @@ export default function AppliedDataAnalytics() {
               </p>
               
               <div className="pt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300">
+                <a href="/contact" className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300">
                   Get Data Consultation
                   <ArrowRight className="ml-2 w-5 h-5" />
-                </button>
-                <button className="inline-flex items-center px-8 py-4 border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold rounded-full transition-all duration-300">
+                </a>
+                <a href="/work" className="inline-flex items-center px-8 py-4 border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold rounded-full transition-all duration-300">
                   View Analytics Portfolio
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -170,7 +344,7 @@ export default function AppliedDataAnalytics() {
             
             {/* Header Section */}
             <div className="text-center mb-20">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-blue-900 mb-6">
                 Transform Your Business With Our <span className="text-[#f97316]">Advanced Data Analytics Services</span>
               </h2>
               <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
@@ -188,18 +362,25 @@ export default function AppliedDataAnalytics() {
                     <div className="w-14 h-14 mr-4 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
                       <BarChart3 className="w-7 h-7 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900">
+                    <h3 className="text-2xl font-bold text-blue-900">
                       <span className="text-[#f97316]">Advanced Analytics</span> Solutions
                     </h3>
                   </div>
                   <p className="text-gray-600 text-lg leading-relaxed mb-6">
                     Transform raw data into powerful business insights with real-time dashboards, predictive modeling, and custom reporting. Our advanced analytics solutions help you make data-driven decisions that accelerate growth.
                   </p>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-3 mb-6">
                     <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">Real-time Dashboards</span>
                     <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">Predictive Analytics</span>
                     <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">Custom Reporting</span>
                   </div>
+                  <button 
+                    onClick={() => handleLearnMore('advancedAnalytics')}
+                    className="text-[#f97316] font-semibold flex items-center group/btn"
+                  >
+                    Learn More
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
                 </div>
                 <div className="order-1 lg:order-2">
                   <div className="relative h-72 rounded-2xl overflow-hidden shadow-lg">
@@ -228,18 +409,25 @@ export default function AppliedDataAnalytics() {
                     <div className="w-14 h-14 mr-4 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
                       <Brain className="w-7 h-7 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900">
+                    <h3 className="text-2xl font-bold text-blue-900">
                       <span className="text-[#f97316]">Machine Learning</span> Implementation
                     </h3>
                   </div>
                   <p className="text-gray-600 text-lg leading-relaxed mb-6">
                     End-to-end machine learning solutions that automate complex processes and enhance customer experiences through intelligent algorithms. Our ML experts develop custom models that learn and adapt to your business needs.
                   </p>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-3 mb-6">
                     <span className="px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">Algorithm Development</span>
                     <span className="px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">Model Training</span>
                     <span className="px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">AI Integration</span>
                   </div>
+                  <button 
+                    onClick={() => handleLearnMore('machineLearning')}
+                    className="text-[#f97316] font-semibold flex items-center group/btn"
+                  >
+                    Learn More
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
                 </div>
               </div>
 
@@ -250,18 +438,25 @@ export default function AppliedDataAnalytics() {
                     <div className="w-14 h-14 mr-4 rounded-full bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
                       <TrendingUp className="w-7 h-7 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900">
+                    <h3 className="text-2xl font-bold text-blue-900">
                       <span className="text-[#f97316]">Business Intelligence</span> Systems
                     </h3>
                   </div>
                   <p className="text-gray-600 text-lg leading-relaxed mb-6">
                     Comprehensive business intelligence systems with consolidated dashboards, KPI monitoring, and executive reporting that provide 360-degree visibility into your business performance.
                   </p>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-3 mb-6">
                     <span className="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">Data Integration</span>
                     <span className="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">KPI Monitoring</span>
                     <span className="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">Executive Reporting</span>
                   </div>
+                  <button 
+                    onClick={() => handleLearnMore('businessIntelligence')}
+                    className="text-[#f97316] font-semibold flex items-center group/btn"
+                  >
+                    Learn More
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
                 </div>
                 <div className="order-1 lg:order-2">
                   <div className="relative h-72 rounded-2xl overflow-hidden shadow-lg">
@@ -290,18 +485,25 @@ export default function AppliedDataAnalytics() {
                     <div className="w-14 h-14 mr-4 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
                       <Database className="w-7 h-7 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-900">
+                    <h3 className="text-2xl font-bold text-blue-900">
                       <span className="text-[#f97316]">Data Engineering</span> & ETL Solutions
                     </h3>
                   </div>
                   <p className="text-gray-600 text-lg leading-relaxed mb-6">
                     Robust data engineering solutions that design efficient pipelines, extract data from multiple sources, transform it according to business rules, and load it into unified systems.
                   </p>
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-3 mb-6">
                     <span className="px-4 py-2 bg-cyan-100 text-cyan-800 rounded-full text-sm font-medium">Data Pipelines</span>
                     <span className="px-4 py-2 bg-cyan-100 text-cyan-800 rounded-full text-sm font-medium">ETL Processes</span>
                     <span className="px-4 py-2 bg-cyan-100 text-cyan-800 rounded-full text-sm font-medium">Data Warehousing</span>
                   </div>
+                  <button 
+                    onClick={() => handleLearnMore('dataEngineering')}
+                    className="text-[#f97316] font-semibold flex items-center group/btn"
+                  >
+                    Learn More
+                    <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
                 </div>
               </div>
               
@@ -316,7 +518,7 @@ export default function AppliedDataAnalytics() {
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             <div className="text-center space-y-8 mb-16">
               <h2 className="text-4xl md:text-5xl font-bold">
-                <span className="text-gray-900">Advanced Analytics </span>
+                <span className="text-blue-900">Advanced Analytics </span>
                 <span className="text-[#f97316]">Technologies</span>
               </h2>
               
@@ -347,7 +549,7 @@ export default function AppliedDataAnalytics() {
                     </span>
                     
                     {/* Title */}
-                    <h4 className="font-bold text-lg text-gray-900 mb-2 group-hover:text-[#f97316] transition-colors">
+                    <h4 className="font-bold text-lg text-blue-900 mb-2 group-hover:text-[#f97316] transition-colors">
                       {tech.name}
                     </h4>
                     
@@ -356,11 +558,11 @@ export default function AppliedDataAnalytics() {
                       {tech.description}
                     </p>
                     
-                    {/* Hover Arrow */}
-                    <div className="mt-4 flex items-center text-[#f97316] opacity-0 group-hover:opacity-100 transition-opacity">
-                      <span className="text-sm font-medium">Learn more</span>
+                    {/* Explore Technology Link */}
+                    <a href={getTechnologyUrl(tech.name)} className="mt-4 flex items-center text-[#f97316] opacity-0 group-hover:opacity-100 transition-opacity hover:text-[#ea580c]">
+                      <span className="text-sm font-medium">Explore Technology</span>
                       <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                    </div>
+                    </a>
                   </div>
                   
                   {/* Bottom Border Accent */}
@@ -386,7 +588,7 @@ export default function AppliedDataAnalytics() {
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             <div className="text-center space-y-8 mb-16">
               <h2 className="text-4xl md:text-5xl font-bold">
-                <span className="text-gray-900">Our Analytics </span>
+                <span className="text-blue-900">Our Analytics </span>
                 <span className="text-[#f97316]">Process</span>
               </h2>
               
@@ -416,7 +618,7 @@ export default function AppliedDataAnalytics() {
                             <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${step.color} flex items-center justify-center mr-4`}>
                               <step.icon className="w-6 h-6 text-white" />
                             </div>
-                            <h3 className="text-2xl font-bold text-gray-900">
+                            <h3 className="text-2xl font-bold text-blue-900">
                               {step.title}
                             </h3>
                           </div>
@@ -466,14 +668,26 @@ export default function AppliedDataAnalytics() {
                   Partner with our data analytics experts to unlock the full potential of your data. From predictive modeling to real-time insights, we help you make data-driven decisions that accelerate growth and competitive advantage.
                 </p>
                 <div className="flex justify-center">
-                  <button className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
+                  <a href="/contact" className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
                     Start Your Analytics Journey
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </section>
+
+        {/* Service Detail Modal */}
+        {selectedService && (
+          <ServiceDetailModal
+            isOpen={showModal}
+            onClose={() => {
+              setShowModal(false);
+              setSelectedService(null);
+            }}
+            service={selectedService}
+          />
+        )}
 
       </div>
     </PageLayout>

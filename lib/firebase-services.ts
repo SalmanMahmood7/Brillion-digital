@@ -86,6 +86,27 @@ export interface PageStats {
   change: string;
 }
 
+// Webinar interface
+export interface Webinar {
+  id?: string;
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  duration: string;
+  speaker: string;
+  speakerRole: string;
+  speakerImage?: string;
+  thumbnail: string;
+  registrationLink: string;
+  tags: string[];
+  status: 'upcoming' | 'live' | 'completed';
+  maxAttendees?: number;
+  registeredCount?: number;
+  createdAt?: Timestamp;
+  updatedAt?: Timestamp;
+}
+
 // Services CRUD operations
 export const servicesService = {
   // Get all services
@@ -153,6 +174,118 @@ export const servicesService = {
       await deleteDoc(doc(db, 'services', id));
     } catch (error) {
       console.error('Error deleting service:', error);
+      throw error;
+    }
+  }
+};
+
+// Webinars CRUD operations
+export const webinarsService = {
+  // Get all webinars
+  async getAll(): Promise<Webinar[]> {
+    try {
+      const webinarsCol = collection(db, 'webinars');
+      const q = query(webinarsCol, orderBy('date', 'desc'));
+      const snapshot = await getDocs(q);
+      return snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      } as Webinar));
+    } catch (error) {
+      console.error('Error fetching webinars:', error);
+      return [];
+    }
+  },
+
+  // Get single webinar
+  async getById(id: string): Promise<Webinar | null> {
+    try {
+      const webinarDoc = await getDoc(doc(db, 'webinars', id));
+      if (webinarDoc.exists()) {
+        return { id: webinarDoc.id, ...webinarDoc.data() } as Webinar;
+      }
+      return null;
+    } catch (error) {
+      console.error('Error fetching webinar:', error);
+      return null;
+    }
+  },
+
+  // Create new webinar
+  async create(webinar: Omit<Webinar, 'id'>): Promise<string> {
+    try {
+      const docRef = await addDoc(collection(db, 'webinars'), {
+        ...webinar,
+        registeredCount: 0,
+        createdAt: Timestamp.now(),
+        updatedAt: Timestamp.now()
+      });
+      return docRef.id;
+    } catch (error) {
+      console.error('Error creating webinar:', error);
+      throw error;
+    }
+  },
+
+  // Update webinar
+  async update(id: string, webinar: Partial<Webinar>): Promise<void> {
+    try {
+      const webinarRef = doc(db, 'webinars', id);
+      await updateDoc(webinarRef, {
+        ...webinar,
+        updatedAt: Timestamp.now()
+      });
+    } catch (error) {
+      console.error('Error updating webinar:', error);
+      throw error;
+    }
+  },
+
+  // Delete webinar
+  async delete(id: string): Promise<void> {
+    try {
+      await deleteDoc(doc(db, 'webinars', id));
+    } catch (error) {
+      console.error('Error deleting webinar:', error);
+      throw error;
+    }
+  },
+
+  // Get upcoming webinars
+  async getUpcoming(): Promise<Webinar[]> {
+    try {
+      const webinarsCol = collection(db, 'webinars');
+      const q = query(
+        webinarsCol, 
+        where('status', '==', 'upcoming'),
+        orderBy('date', 'asc')
+      );
+      const snapshot = await getDocs(q);
+      return snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      } as Webinar));
+    } catch (error) {
+      console.error('Error fetching upcoming webinars:', error);
+      return [];
+    }
+  },
+
+  // Update registration count
+  async incrementRegistration(id: string): Promise<void> {
+    try {
+      const webinarRef = doc(db, 'webinars', id);
+      const webinarDoc = await getDoc(webinarRef);
+      
+      if (webinarDoc.exists()) {
+        const currentCount = webinarDoc.data().registeredCount || 0;
+        await updateDoc(webinarRef, {
+          registeredCount: currentCount + 1,
+          updatedAt: Timestamp.now()
+        });
+      }
+    } catch (error) {
+      console.error('Error updating registration count:', error);
       throw error;
     }
   }
@@ -580,6 +713,20 @@ export async function initializeServices() {
       icon: "Settings",
       href: "/services/managed-it-services",
       order: 7
+    },
+    {
+      title: "Dynamics 365 and Microsoft Solutions",
+      description: "Leverage Microsoft's ecosystem to streamline operations and boost productivity.",
+      icon: "Globe",
+      href: "/services/dynamics-365-microsoft",
+      order: 8
+    },
+    {
+      title: "Artificial Intelligence and Smart Solutions",
+      description: "Harness AI to automate processes and unlock intelligent insights.",
+      icon: "Brain",
+      href: "/services/ai-smart-solutions",
+      order: 9
     }
   ];
 

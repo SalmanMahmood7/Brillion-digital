@@ -2,8 +2,9 @@
 
 import PageLayout from "@/components/PageLayout";
 import { Button } from "@/components/ui/button";
+import AuthButton from "@/components/auth/AuthButton";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, ArrowRight, Award, Target, Sparkles, CheckCircle, TrendingUp, Rocket, BarChart3, Laptop, Cloud, Shield, Lightbulb, Users, Globe, Server, Database, Code, Lock, Brain, ChevronRight, ExternalLink, Calendar, Building2, Zap } from "lucide-react";
+import { Briefcase, ArrowRight, Award, Target, Sparkles, CheckCircle, TrendingUp, BarChart3, Laptop, Cloud, Shield, Lightbulb, Users, Globe, Server, Database, Code, Lock, Brain, ChevronRight, ExternalLink, Calendar, Building2, Zap } from "lucide-react";
 import { useState } from "react";
 import Image from "next/image";
 
@@ -305,19 +306,20 @@ export default function Work() {
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
 
         {/* Hero Section */}
-        <section className="relative bg-slate-900 h-[70vh] flex items-center">
+        <section className="relative bg-slate-900 py-24">
           {/* Background Image */}
           <div className="absolute inset-0">
             <img 
-              src="/images/work-hero.jpg" 
+              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
               alt="Work Portfolio Background"
               className="w-full h-full object-cover opacity-20"
             />
-            <div className="absolute inset-0 bg-black/50"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 to-slate-900/90"></div>
           </div>
 
-          <div className="relative z-10 container mx-auto px-6 md:px-8 lg:px-12 max-w-6xl">
-            <div className="text-center space-y-8 pt-20">
+          <div className="relative z-10 container mx-auto px-6 lg:px-12 max-w-6xl">
+            <div className="text-center space-y-6">
+              <div className="h-20 mb-6"></div>
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8">
                 Transforming <span className="text-[#f97316]">Ideas</span> Into Reality
               </h1>
@@ -330,24 +332,17 @@ export default function Work() {
               <div className="flex flex-wrap justify-center gap-12 pt-8">
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
-                    <Users className="w-8 h-8 text-orange-500" />
+                    <Users className="w-8 h-8 text-[#f97316]" />
                   </div>
                   <p className="text-4xl font-bold text-white">100+</p>
                   <p className="text-gray-400 mt-1">Happy Clients</p>
                 </div>
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
-                    <Briefcase className="w-8 h-8 text-orange-500" />
+                    <Briefcase className="w-8 h-8 text-[#f97316]" />
                   </div>
                   <p className="text-4xl font-bold text-white">250+</p>
                   <p className="text-gray-400 mt-1">Projects Delivered</p>
-                </div>
-                <div className="text-center">
-                  <div className="flex items-center justify-center mb-2">
-                    <Award className="w-8 h-8 text-orange-500" />
-                  </div>
-                  <p className="text-4xl font-bold text-white">15+</p>
-                  <p className="text-gray-400 mt-1">Industry Awards</p>
                 </div>
               </div>
             </div>
@@ -368,7 +363,7 @@ export default function Work() {
                         <category.icon className="w-8 h-8 text-white" />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-bold text-gray-900">{category.category}</h3>
+                        <h3 className="text-2xl font-bold text-blue-900">{category.category}</h3>
                         <p className="text-gray-600">{category.description}</p>
                       </div>
                     </div>
@@ -416,7 +411,7 @@ export default function Work() {
                             {Object.entries(project.metrics).slice(0, 3).map(([key, value]) => (
                               <div key={key} className="flex items-center space-x-1">
                                 <CheckCircle className="w-4 h-4 text-green-500" />
-                                <span className="text-sm font-medium text-gray-700">{value}</span>
+                                <span className="text-sm font-medium text-gray-700">{String(value)}</span>
                               </div>
                             ))}
                           </div>
@@ -444,7 +439,7 @@ export default function Work() {
                               <Calendar className="w-4 h-4 text-gray-400" />
                               <span className="text-sm text-gray-500">{project.duration}</span>
                             </div>
-                            <button className="group/btn flex items-center text-blue-600 font-semibold text-sm hover:text-blue-700">
+                            <button className="group/btn flex items-center text-blue-600 font-semibold text-sm hover:text-blue-700 transition-colors">
                               Case Study
                               <ExternalLink className="ml-1 w-4 h-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                             </button>
@@ -470,7 +465,7 @@ export default function Work() {
         <section className="py-20 bg-gray-50">
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">What Our Clients Say</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">What Our Clients Say</h2>
               <p className="text-lg text-gray-600">Real feedback from real partners</p>
             </div>
 
@@ -478,21 +473,21 @@ export default function Work() {
               {[
                 {
                   quote: "Brillion transformed our entire infrastructure. The efficiency gains have been remarkable.",
-                  author: "Sarah Chen",
+                  author: "Hamza Khan",
                   role: "CTO, MaRS Discovery District",
-                  image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&q=80"
+                  image: "/hamza-khan.jpg"
                 },
                 {
                   quote: "Their data analytics solution gave us insights we never knew existed. Game-changing work.",
-                  author: "Michael Rodriguez",
+                  author: "Shahzaib Kamal",
                   role: "VP Operations, Superior Propane",
-                  image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&q=80"
+                  image: "/shahzaib-kamal.png"
                 },
                 {
                   quote: "The security implementation was flawless. We sleep better knowing our data is protected.",
-                  author: "Emily Thompson",
+                  author: "Salman Mahmood",
                   role: "CISO, Ontario Health",
-                  image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&q=80"
+                  image: "/salman-mahmood.jpg"
                 }
               ].map((testimonial, index) => (
                 <div key={index} className="bg-white rounded-2xl p-8 shadow-lg">
@@ -509,7 +504,7 @@ export default function Work() {
                       className="w-12 h-12 rounded-full object-cover"
                     />
                     <div>
-                      <p className="font-semibold text-gray-900">{testimonial.author}</p>
+                      <p className="font-semibold text-blue-900">{testimonial.author}</p>
                       <p className="text-sm text-gray-600">{testimonial.role}</p>
                     </div>
                   </div>
@@ -542,14 +537,21 @@ export default function Work() {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-                  <button className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg flex items-center justify-center">
-                    <Rocket className="mr-2 w-5 h-5" />
+                  <AuthButton 
+                    href="/contact"
+                    requireAuth={true}
+                    className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg flex items-center justify-center"
+                  >
                     Start Your Project
-                  </button>
-                  <button className="bg-[#f97316] border-2 border-[#f97316] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#ea580c] hover:border-[#ea580c] transition-all duration-300 text-lg flex items-center justify-center">
+                  </AuthButton>
+                  <AuthButton 
+                    href="/contact"
+                    requireAuth={true}
+                    className="bg-[#f97316] border-2 border-[#f97316] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#ea580c] hover:border-[#ea580c] transition-all duration-300 text-lg flex items-center justify-center"
+                  >
                     <Calendar className="mr-2 w-5 h-5" />
                     Schedule Consultation
-                  </button>
+                  </AuthButton>
                 </div>
 
                 <div className="grid grid-cols-3 gap-8 max-w-2xl mx-auto">

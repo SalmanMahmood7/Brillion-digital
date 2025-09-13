@@ -1,14 +1,21 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
-import { Menu, X, ChevronDown, Code2, Globe2, Brain, BarChart3, Shield, Cloud, Zap, Target, Layers, Database, Lock, Server } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Menu, X, ChevronDown, Code2, Globe2, Brain, BarChart3, Shield, Cloud, Zap, Target, Layers, Database, Lock, Server, LogIn, LogOut, User } from "lucide-react";
 import Link from "next/link";
+import { useAuth } from "@/contexts/AuthContext";
+import LoginModal from "@/components/auth/LoginModal";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const { user, logout } = useAuth();
+  const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const isMouseOverDropdown = useRef(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,14 +27,55 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Handle clicks outside of dropdown
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (isServicesOpen && !target.closest('[data-dropdown="services"]')) {
+        // Only close if mouse is not over dropdown
+        if (!isMouseOverDropdown.current) {
+          setIsServicesOpen(false);
+        }
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isServicesOpen]);
+
+  // Cleanup timeout on component unmount
+  useEffect(() => {
+    return () => {
+      if (dropdownTimeoutRef.current) {
+        clearTimeout(dropdownTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const navItems = [
     { name: "Insights", href: "/insights" },
     { name: "Work", href: "/work" },
+    { name: "Webinars", href: "/webinars" },
+    { name: "Careers", href: "/careers" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
 
   const serviceItems = [
+    { 
+      name: "Dynamics 365 & Microsoft", 
+      href: "/services/dynamics-365-microsoft",
+      description: "Microsoft ecosystem solutions",
+      icon: Globe2,
+      color: "from-orange-500 to-amber-600"
+    },
+    { 
+      name: "AI & Smart Solutions", 
+      href: "/services/ai-smart-solutions",
+      description: "Intelligent automation and AI",
+      icon: Brain,
+      color: "from-pink-500 to-rose-600"
+    },
     { 
       name: "Digital Advisory", 
       href: "/services/digital-advisory",
@@ -77,8 +125,8 @@ const Navigation = () => {
       {/* Background layer */}
       <div className={`absolute inset-0 transition-all duration-700 ${
         isScrolled 
-          ? 'bg-slate-800/95 backdrop-blur-2xl' 
-          : 'bg-gradient-to-b from-black/30 via-black/15 to-black/5'
+          ? 'bg-white/95 backdrop-blur-2xl shadow-sm' 
+          : 'bg-white/90 backdrop-blur-xl'
       }`}></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 1.25xl:px-12">
@@ -87,7 +135,7 @@ const Navigation = () => {
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center group">
               <img 
-                src="/brillion-logo-high-quality.png" 
+                src="/brillion-digital-logo.png" 
                 alt="BRILLION Digital" 
                 className="h-12 sm:h-14 w-auto transition-all duration-300 group-hover:scale-105"
               />
@@ -99,35 +147,95 @@ const Navigation = () => {
             <div className="ml-10 flex items-center space-x-1">
               {/* Services Dropdown */}
               <div 
+                ref={dropdownRef}
                 className="relative"
-                onMouseEnter={() => setIsServicesOpen(true)}
-                onMouseLeave={() => setIsServicesOpen(false)}
+                data-dropdown="services"
+                onMouseEnter={() => {
+                  isMouseOverDropdown.current = true;
+                  // Clear any existing timeout
+                  if (dropdownTimeoutRef.current) {
+                    clearTimeout(dropdownTimeoutRef.current);
+                    dropdownTimeoutRef.current = null;
+                  }
+                  setIsServicesOpen(true);
+                }}
+                onMouseLeave={() => {
+                  isMouseOverDropdown.current = false;
+                  // Add a longer delay before closing
+                  dropdownTimeoutRef.current = setTimeout(() => {
+                    // Double check mouse is not over dropdown
+                    if (!isMouseOverDropdown.current) {
+                      setIsServicesOpen(false);
+                    }
+                  }, 800); // Increased to 800ms delay
+                }}
               >
                 <button
-                  className={`${isScrolled ? 'text-gray-200 hover:text-white' : 'text-white hover:text-orange-200'} transition-all duration-300 px-4 py-2 text-sm font-medium flex items-center rounded-full ${isScrolled ? 'hover:bg-white/10' : 'hover:bg-white/10'} relative group`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    // Clear any existing timeout
+                    if (dropdownTimeoutRef.current) {
+                      clearTimeout(dropdownTimeoutRef.current);
+                      dropdownTimeoutRef.current = null;
+                    }
+                    // Toggle on click for better UX
+                    setIsServicesOpen(!isServicesOpen);
+                  }}
+                  className={`${isScrolled ? 'text-blue-900 hover:text-blue-800' : 'text-blue-900 hover:text-orange-600'} transition-all duration-300 px-4 py-2 text-sm font-semibold flex items-center rounded-full ${isScrolled ? 'hover:bg-blue-50' : 'hover:bg-blue-50'} relative group`}
                 >
                   Services
                   <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} />
                 </button>
                 
                 {/* Modern Glassmorphism Dropdown */}
-                <div className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 pt-2 transition-all duration-500 ${
-                  isServicesOpen ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
-                }`}>
+                <div 
+                  className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 transition-all duration-300 ${
+                    isServicesOpen ? 'opacity-100 translate-y-0 pointer-events-auto visible' : 'opacity-0 -translate-y-2 pointer-events-none invisible'
+                  }`}
+                  onMouseEnter={() => {
+                    isMouseOverDropdown.current = true;
+                    // Clear timeout when entering dropdown
+                    if (dropdownTimeoutRef.current) {
+                      clearTimeout(dropdownTimeoutRef.current);
+                      dropdownTimeoutRef.current = null;
+                    }
+                    setIsServicesOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    isMouseOverDropdown.current = false;
+                    // Add longer delay when leaving dropdown
+                    dropdownTimeoutRef.current = setTimeout(() => {
+                      // Double check mouse is not over dropdown
+                      if (!isMouseOverDropdown.current) {
+                        setIsServicesOpen(false);
+                      }
+                    }, 800); // Increased to 800ms delay
+                  }}
+                >
                   <div 
-                    className="relative w-[420px] bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-2xl overflow-hidden"
+                    className="relative w-[480px] bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-2xl overflow-hidden"
                   >
                     {/* Gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-slate-800/95 to-slate-900/90"></div>
                     
                     {/* Content */}
                     <div className="relative z-10 p-2">
-                      {/* Grid Layout */}
+                      {/* Grid Layout - 2 columns for 8 items */}
                       <div className="grid grid-cols-2 gap-1">
                         {serviceItems.map((service, index) => (
                           <Link
                             key={service.name}
                             href={service.href}
+                            onClick={() => {
+                              // Close dropdown on link click
+                              setIsServicesOpen(false);
+                              // Clear any pending timeouts
+                              if (dropdownTimeoutRef.current) {
+                                clearTimeout(dropdownTimeoutRef.current);
+                                dropdownTimeoutRef.current = null;
+                              }
+                            }}
                             className="group relative flex items-start space-x-3 p-4 rounded-xl hover:bg-white/10 transition-all duration-300 overflow-hidden"
                             style={{
                               animationDelay: `${index * 50}ms`
@@ -162,7 +270,16 @@ const Navigation = () => {
                       <div className="mt-2 p-1 bg-gradient-to-r from-orange-500/30 via-orange-600/30 to-orange-500/30 rounded-xl">
                         <Link
                           href="/services"
-                          className="block text-center text-sm font-semibold bg-slate-900/70 text-orange-300 hover:text-white py-3 rounded-lg hover:bg-orange-600/20 transition-all duration-300 group"
+                          onClick={() => {
+                            // Close dropdown on link click
+                            setIsServicesOpen(false);
+                            // Clear any pending timeouts
+                            if (dropdownTimeoutRef.current) {
+                              clearTimeout(dropdownTimeoutRef.current);
+                              dropdownTimeoutRef.current = null;
+                            }
+                          }}
+                          className="block text-center text-sm font-semibold bg-slate-900/70 text-white hover:text-white py-3 rounded-lg hover:bg-orange-600/20 transition-all duration-300 group"
                         >
                           <span className="relative">
                             Explore All Services
@@ -184,12 +301,39 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`${isScrolled ? 'text-gray-200 hover:text-white' : 'text-white hover:text-orange-200'} transition-all duration-300 px-4 py-2 text-sm font-medium rounded-full ${isScrolled ? 'hover:bg-white/10' : 'hover:bg-white/10'} relative group`}
+                  className={`${isScrolled ? 'text-blue-900 hover:text-blue-800' : 'text-blue-900 hover:text-orange-600'} transition-all duration-300 px-4 py-2 text-sm font-semibold rounded-full ${isScrolled ? 'hover:bg-blue-50' : 'hover:bg-blue-50'} relative group`}
                 >
                   {item.name}
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 group-hover:w-full transition-all duration-300"></div>
                 </Link>
               ))}
+              
+              {/* Auth Button */}
+              {user ? (
+                <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 px-3 py-1 bg-blue-50 rounded-full">
+                    <User className="w-4 h-4 text-blue-600" />
+                    <span className="text-sm font-medium text-blue-900">
+                      {user.displayName || user.email?.split('@')[0]}
+                    </span>
+                  </div>
+                  <Button
+                    onClick={() => logout()}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-900 hover:text-orange-600 hover:bg-blue-50"
+                  >
+                    <LogOut className="w-4 h-4" />
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  onClick={() => setShowLoginModal(true)}
+                  className="bg-gradient-to-r from-blue-600 to-orange-500 hover:from-blue-700 hover:to-orange-600 text-white font-semibold px-4 py-2 rounded-full transition-all duration-300"
+                >
+                  Sign In
+                </Button>
+              )}
             </div>
           </div>
 
@@ -199,7 +343,7 @@ const Navigation = () => {
               variant="ghost"
               size="sm"
               onClick={() => setIsOpen(!isOpen)}
-              className={`${isScrolled ? 'text-gray-200 hover:text-white hover:bg-white/10' : 'text-white hover:text-orange-200 hover:bg-white/10'} transition-colors duration-300`}
+              className={`${isScrolled ? 'text-blue-900 hover:text-blue-800 hover:bg-blue-50' : 'text-blue-900 hover:text-orange-600 hover:bg-blue-50'} transition-colors duration-300 font-semibold`}
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </Button>
@@ -211,15 +355,15 @@ const Navigation = () => {
       {isOpen && (
         <div className={`md:hidden transition-colors duration-300 ${
           isScrolled 
-            ? 'bg-slate-800/95 backdrop-blur-xl border-t border-slate-700' 
-            : 'bg-white/95 backdrop-blur-xl border-t border-gray-100'
+            ? 'bg-white/95 backdrop-blur-xl border-t border-gray-200' 
+            : 'bg-white/95 backdrop-blur-xl border-t border-gray-200'
         }`}>
           <div className="px-4 pt-4 pb-4 space-y-2">
             {/* Services Section */}
             <div className="space-y-1">
               <Link
                 href="/services"
-                className={`${isScrolled ? 'text-gray-200 hover:text-white hover:bg-white/10' : 'text-white hover:text-orange-200 hover:bg-white/10'} block px-4 py-3 text-base font-semibold transition-all duration-300 rounded-xl`}
+                className={`${isScrolled ? 'text-blue-900 hover:text-blue-800 hover:bg-blue-50' : 'text-blue-900 hover:text-orange-600 hover:bg-blue-50'} block px-4 py-3 text-base font-semibold transition-all duration-300 rounded-xl`}
                 onClick={() => setIsOpen(false)}
               >
                 Services
@@ -229,7 +373,7 @@ const Navigation = () => {
                   <Link
                     key={service.name}
                     href={service.href}
-                    className={`flex items-center ${isScrolled ? 'text-gray-300 hover:text-white hover:bg-white/10' : 'text-white/90 hover:text-orange-200 hover:bg-white/10'} px-4 py-2 text-sm font-medium transition-all duration-300 rounded-xl`}
+                    className={`flex items-center ${isScrolled ? 'text-blue-700 hover:text-blue-800 hover:bg-blue-50' : 'text-blue-700 hover:text-orange-600 hover:bg-blue-50'} px-4 py-2 text-sm font-semibold transition-all duration-300 rounded-xl`}
                     onClick={() => setIsOpen(false)}
                   >
                     {service.name}
@@ -243,7 +387,7 @@ const Navigation = () => {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`${isScrolled ? 'text-gray-200 hover:text-white hover:bg-white/10' : 'text-white hover:text-orange-200 hover:bg-white/10'} block px-4 py-3 text-base font-semibold transition-all duration-300 rounded-xl`}
+                className={`${isScrolled ? 'text-blue-900 hover:text-blue-800 hover:bg-blue-50' : 'text-blue-900 hover:text-orange-600 hover:bg-blue-50'} block px-4 py-3 text-base font-semibold transition-all duration-300 rounded-xl`}
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
@@ -252,6 +396,13 @@ const Navigation = () => {
           </div>
         </div>
       )}
+      
+      {/* Login Modal */}
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onSuccess={() => setShowLoginModal(false)}
+      />
     </nav>
   );
 };

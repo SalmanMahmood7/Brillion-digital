@@ -340,9 +340,9 @@ async function initializeDatabase() {
     
     console.log("\n🔗 Firebase Console: https://console.firebase.google.com/project/brilliongroup-ca/firestore");
     console.log("🌐 Admin Panels:");
-    console.log("   • Posts: http://localhost:3000/admin/add-post");
-    console.log("   • Services: http://localhost:3000/admin/services");
-    console.log("   • Test Firebase: http://localhost:3000/test-firebase");
+    console.log("   • Posts: http://localhost:3001/admin/add-post");
+    console.log("   • Services: http://localhost:3001/admin/services");
+    console.log("   • Test Firebase: http://localhost:3001/test-firebase");
     
   } catch (error) {
     console.error("❌ Error initializing database:", error);

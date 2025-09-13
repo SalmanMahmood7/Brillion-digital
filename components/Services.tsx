@@ -5,13 +5,11 @@ import {
   Lightbulb, 
   BarChart3, 
   Zap, 
-  Rocket, 
   Shield, 
   Cloud,
   Settings,
   ArrowRight,
   Sparkles,
-  Star,
   Award,
   TrendingUp
 } from "lucide-react";
@@ -71,13 +69,11 @@ const Services = () => {
         {/* Professional Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-6 py-3 bg-blue-50 rounded-full border border-blue-200 mb-8">
-            <Rocket className="w-5 h-5 text-blue-600 mr-2" />
             <span className="text-blue-800 text-sm font-semibold tracking-wide">DIGITAL SOLUTIONS</span>
-            <Star className="w-5 h-5 text-blue-600 ml-2" />
           </div>
           
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 md:mb-8">
-            <span className="text-gray-900">What We</span>{" "}
+            <span className="text-blue-900">What We</span>{" "}
             <span className="text-blue-600">Do</span>
           </h2>
           

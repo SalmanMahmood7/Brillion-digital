@@ -13,7 +13,7 @@ function killAllProcesses() {
     
     if (isWindows) {
       exec('taskkill /F /IM node.exe', () => {
-        exec('netstat -ano | findstr :3000', (err, stdout) => {
+        exec('netstat -ano | findstr :3001', (err, stdout) => {
           if (!err && stdout) {
             const lines = stdout.split('\n');
             lines.forEach(line => {
@@ -29,7 +29,7 @@ function killAllProcesses() {
       });
     } else {
       exec('pkill -f next', () => {
-        exec('lsof -ti:3000 | xargs kill -9', () => {
+        exec('lsof -ti:3001 | xargs kill -9', () => {
           setTimeout(resolve, 2000);
         });
       });
@@ -59,7 +59,7 @@ function startServer() {
     console.log('🚀 Starting Next.js development server...');
     
     const cmd = isWindows ? 'npx.cmd' : 'npx';
-    const server = spawn(cmd, ['next', 'dev', '-H', '0.0.0.0'], {
+    const server = spawn(cmd, ['next', 'dev', '-p', '3001', '-H', '0.0.0.0'], {
       stdio: 'pipe',
       cwd: process.cwd(),
       shell: isWindows
@@ -75,8 +75,8 @@ function startServer() {
         started = true;
         setTimeout(() => {
           console.log('\n✅ Server is ready!');
-          console.log('🔗 Local:   http://localhost:3000');
-          console.log('🌐 Network: http://172.23.216.2:3000\n');
+          console.log('🔗 Local:   http://localhost:3001');
+          console.log('🌐 Network: http://172.23.216.2:3001\n');
           resolve(server);
         }, 1000);
       }

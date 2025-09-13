@@ -29,8 +29,8 @@ function killProcesses() {
         });
       }
       
-      // Also try to kill any process on port 3000
-      exec('netstat -ano | findstr :3000', (err, stdout) => {
+      // Also try to kill any process on port 3001
+      exec('netstat -ano | findstr :3001', (err, stdout) => {
         if (!err && stdout) {
           const lines = stdout.split('\n');
           lines.forEach(line => {
@@ -39,7 +39,7 @@ function killProcesses() {
             if (pid && pid !== '0') {
               exec(`taskkill /F /PID ${pid}`, (killErr) => {
                 if (!killErr) {
-                  console.log(`✓ Killed process on port 3000 (PID: ${pid})`);
+                  console.log(`✓ Killed process on port 3001 (PID: ${pid})`);
                 }
               });
             }
@@ -55,10 +55,10 @@ function killProcesses() {
       }
     });
     
-    // Also kill anything on port 3000
-    exec('lsof -ti:3000 | xargs kill -9', (error) => {
+    // Also kill anything on port 3001
+    exec('lsof -ti:3001 | xargs kill -9', (error) => {
       if (!error) {
-        console.log('✓ Killed process on port 3000');
+        console.log('✓ Killed process on port 3001');
       }
     });
   }

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ArrowRight, Brain, BarChart3, Code, Globe, Shield, Cloud, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Brain, BarChart3, Code, Globe, Shield, Cloud, ChevronLeft, ChevronRight, Settings } from "lucide-react";
 import Image from "next/image";
 
 const WhatWeDoSection = () => {
@@ -53,7 +53,7 @@ const WhatWeDoSection = () => {
       features: ['Advanced Analytics Solutions', 'Machine Learning Implementation', 'Data Science Consulting', 'Business Intelligence Systems'],
       benefits: ['Data-Driven Decisions', '40% Better Insights', 'Predictive Capabilities', 'Automated Reporting'],
       icon: BarChart3,
-      image: '/images/insights-hero.jpg',
+      image: '/images/digital-platforms-hero.jpg',
       href: '/services/applied-data-analytics'
     },
     {
@@ -99,6 +99,39 @@ const WhatWeDoSection = () => {
       icon: Cloud,
       image: '/images/cloud-services-hero.jpg',
       href: '/services/cloud-services'
+    },
+    {
+      id: 'dynamics-365-microsoft',
+      title: 'Dynamics 365 & Microsoft',
+      description: 'Leverage Microsoft\'s ecosystem to streamline operations and boost productivity.',
+      fullDescription: 'Transform your business with Microsoft\'s comprehensive ecosystem including Dynamics 365, Power Platform, and Office 365.',
+      features: ['Dynamics 365 CRM/ERP', 'Power Platform Solutions', 'Microsoft 365 Integration', 'Azure Cloud Services'],
+      benefits: ['Unified Data Management', '35% Productivity Gain', 'Seamless Integration', 'Enterprise Security'],
+      icon: Globe,
+      image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+      href: '/services/dynamics-365-microsoft'
+    },
+    {
+      id: 'ai-smart-solutions',
+      title: 'AI & Smart Solutions',
+      description: 'Harness AI to automate processes and unlock intelligent insights.',
+      fullDescription: 'Leverage artificial intelligence and machine learning to automate processes and create competitive advantages.',
+      features: ['Machine Learning Models', 'Intelligent Automation', 'Predictive Analytics', 'Natural Language Processing'],
+      benefits: ['60% Process Automation', '85% Accuracy Improvement', '40% Cost Reduction', 'Real-time Insights'],
+      icon: Brain,
+      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+      href: '/services/ai-smart-solutions'
+    },
+    {
+      id: 'managed-it-services',
+      title: 'Managed IT Services',
+      description: 'Reliable IT infrastructure management to keep your business running smoothly.',
+      fullDescription: 'Complete IT infrastructure management and support services to ensure optimal performance and reliability.',
+      features: ['24/7 IT Monitoring', 'Help Desk Support', 'Infrastructure Management', 'Backup & Recovery'],
+      benefits: ['99.9% Uptime', '24/7 Support', '30% Cost Savings', 'Proactive Maintenance'],
+      icon: Settings,
+      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+      href: '/services/managed-it-services'
     }
   ];
 
@@ -350,10 +383,10 @@ const WhatWeDoSection = () => {
         
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            What we do
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <span className="text-blue-900">What we</span> <span className="text-[#f97316]">do</span>
           </h2>
-          <p className="text-lg text-gray-600 leading-relaxed max-w-3xl mx-auto">
+          <p className="text-lg text-blue-700 leading-relaxed max-w-3xl mx-auto">
             We combine inspiration and expertise to deliver purpose-driven strategies and solutions that transform your business.
           </p>
         </div>
@@ -468,7 +501,6 @@ const WhatWeDoSection = () => {
                               'bg-gradient-to-br from-green-600 to-green-800'
                             }`}>
                               <div className="mb-4">
-                                <IconComponent className="w-10 h-10 text-white mb-4" />
                                 <h4 className="text-xl font-bold mb-3">
                                   {service.title}
                                 </h4>
@@ -482,7 +514,7 @@ const WhatWeDoSection = () => {
                       </div>
 
                       {/* Title below card */}
-                      <h4 className="text-center mt-6 text-lg font-semibold text-gray-900">
+                      <h4 className="text-center mt-6 text-lg font-semibold text-blue-900">
                         {service.title}
                       </h4>
                     </a>
@@ -496,7 +528,7 @@ const WhatWeDoSection = () => {
           <div className="flex items-center justify-center mt-12 space-x-8">
             <button
               onClick={prevSlide}
-              className="p-4 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-4 rounded-full bg-blue-50 text-blue-700 hover:bg-orange-100 hover:text-orange-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={currentSlide === 0}
             >
               <ChevronLeft className="w-6 h-6" />
@@ -510,8 +542,8 @@ const WhatWeDoSection = () => {
                   onClick={() => goToSlide(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     Math.floor(currentSlide / getCardsPerSlide()) === index
-                      ? 'bg-blue-600' 
-                      : 'bg-gray-300 hover:bg-gray-400'
+                      ? 'bg-orange-600' 
+                      : 'bg-blue-300 hover:bg-blue-400'
                   }`}
                 />
               ))}
@@ -519,7 +551,7 @@ const WhatWeDoSection = () => {
             
             <button
               onClick={nextSlide}
-              className="p-4 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 hover:text-gray-900 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-4 rounded-full bg-blue-50 text-blue-700 hover:bg-orange-100 hover:text-orange-600 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={currentSlide >= services.length - getCardsPerSlide()}
             >
               <ChevronRight className="w-6 h-6" />

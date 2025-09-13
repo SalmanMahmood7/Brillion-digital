@@ -1,6 +1,7 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyDGuY1jWV470qgKYHFZ3yoGaF6tiY9BPPQ",
@@ -17,10 +18,12 @@ const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
 let db: ReturnType<typeof getFirestore>;
 let auth: ReturnType<typeof getAuth>;
+let storage: ReturnType<typeof getStorage>;
 
 try {
   db = getFirestore(app);
   auth = getAuth(app);
+  storage = getStorage(app);
   
   console.log('✅ Firebase initialized successfully');
 } catch (error) {
@@ -28,5 +31,5 @@ try {
   throw error;
 }
 
-export { db, auth };
+export { db, auth, storage };
 export default app;

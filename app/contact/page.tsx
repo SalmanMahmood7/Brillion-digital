@@ -1,12 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import PageLayout from "@/components/PageLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Mail, Phone, MapPin, Send, MessageCircle, Calendar, Sparkles, ArrowRight, Zap, Target, Rocket, Lightbulb, HandHeart, TrendingUp, Facebook, Linkedin, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageCircle, Calendar, Sparkles, ArrowRight, Zap, Target, Lightbulb, HandHeart, TrendingUp, Facebook, Linkedin, Twitter, Instagram } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import AuthButton from "@/components/auth/AuthButton";
 
 export default function Contact() {
   const contactInfo = [
@@ -30,9 +32,52 @@ export default function Contact() {
     }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const { user } = useAuth();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
+    
+    if (!user) {
+      return; // AuthButton will handle login requirement
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      // Here you would normally send the form data to your backend
+      console.log('Form submitted:', {
+        ...formData,
+        userEmail: user.email,
+        userId: user.uid
+      });
+      
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -123,7 +168,7 @@ export default function Contact() {
                     {/* Social Media Icons with Orange Background */}
                     <div className="flex space-x-3 mt-10">
                       <a 
-                        href="https://www.facebook.com/RisingmaxInc/" 
+                        href="https://www.facebook.com/brilliondigital/" 
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center hover:bg-orange-600 transition-all duration-200 group"
@@ -131,12 +176,24 @@ export default function Contact() {
                         <Facebook className="w-5 h-5 text-white" fill="currentColor" strokeWidth={0} />
                       </a>
                       <a 
-                        href="https://www.linkedin.com/company/rising-max-inc" 
+                        href="https://www.linkedin.com/company/brillion-digital/" 
                         target="_blank"
                         rel="noopener noreferrer"
                         className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center hover:bg-orange-600 transition-all duration-200 group"
                       >
                         <Linkedin className="w-5 h-5 text-white" fill="currentColor" strokeWidth={0} />
+                      </a>
+                      <a 
+                        href="https://www.instagram.com/digitalbrillion/?utm_source=qr&r=nametag" 
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-10 h-10 rounded-full bg-orange-500 flex items-center justify-center hover:bg-orange-600 transition-all duration-200 group"
+                      >
+                        <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                          <path d="m16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
                       </a>
                       <a 
                         href="https://twitter.com/RisingmaxInc" 
@@ -154,41 +211,74 @@ export default function Contact() {
 
                   {/* Right White Section for Form */}
                   <div className="bg-white p-8 lg:p-10">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4 font-['Poppins',sans-serif]">
+                    <h3 className="text-2xl font-bold text-blue-900 mb-4 font-['Poppins',sans-serif]">
                       Send us a message
                     </h3>
                     <p className="text-gray-600 mb-6 font-['Inter',sans-serif]">
                       We're here to help and answer any questions you might have.
                     </p>
                     
-                    <form className="space-y-5">
+                    {submitStatus === 'success' && (
+                      <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                        <p className="text-green-700 font-medium">Message sent successfully! We'll get back to you soon.</p>
+                      </div>
+                    )}
+                    
+                    {submitStatus === 'error' && (
+                      <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                        <p className="text-red-700 font-medium">Error sending message. Please try again.</p>
+                      </div>
+                    )}
+                    
+                    <form onSubmit={handleSubmit} className="space-y-5">
                       <div>
                         <input 
                           type="text" 
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
                           placeholder="Your Name"
                           className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 font-['Inter',sans-serif]"
+                          required
                         />
                       </div>
                       <div>
                         <input 
                           type="email" 
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
                           placeholder="Your Email"
                           className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 font-['Inter',sans-serif]"
+                          required
                         />
                       </div>
                       <div>
                         <textarea 
-                          rows="4" 
+                          rows={4} 
+                          name="message"
+                          value={formData.message}
+                          onChange={handleInputChange}
                           placeholder="Your Message"
                           className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent transition-all duration-200 resize-none font-['Inter',sans-serif]"
+                          required
                         ></textarea>
                       </div>
-                      <button 
+                      <AuthButton 
                         type="submit"
-                        className="w-full bg-[#f97316] text-white font-semibold py-3 px-6 rounded-lg hover:shadow-lg transition-all duration-200 font-['Poppins',sans-serif]"
+                        requireAuth={true}
+                        disabled={isSubmitting}
+                        className="w-full bg-[#f97316] text-white font-semibold py-3 px-6 rounded-lg hover:shadow-lg transition-all duration-200 font-['Poppins',sans-serif] disabled:opacity-50"
                       >
-                        Send Message
-                      </button>
+                        {isSubmitting ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                            Sending...
+                          </>
+                        ) : (
+                          'Send Message'
+                        )}
+                      </AuthButton>
                     </form>
                   </div>
                 </div>
@@ -198,14 +288,14 @@ export default function Contact() {
         </div>
 
         {/* Spacer to account for overlapping card */}
-        <div className="bg-gray-50 pb-20"></div>
+        <div className="bg-gray-50 pb-32"></div>
 
         {/* Map Section */}
-        <section className="relative py-20 bg-gray-50">
+        <section className="relative pt-16 pb-20 bg-gray-50">
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
-            <div className="text-center mb-12">
+            <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                <span className="text-gray-900">Find </span>
+                <span className="text-blue-900">Find </span>
                 <span className="text-orange-500">Us</span>
               </h2>
               <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -230,7 +320,7 @@ export default function Contact() {
 
                 {/* Overlay Card */}
                 <div className="absolute top-8 left-8 bg-white rounded-xl shadow-xl p-6 max-w-sm z-10">
-                  <h3 className="text-xl font-bold text-gray-900 mb-4">Brillion Digital HQ</h3>
+                  <h3 className="text-xl font-bold text-blue-900 mb-4">Brillion Digital HQ</h3>
                   
                   <div className="space-y-3">
                     <div className="flex items-start space-x-3">
@@ -258,7 +348,7 @@ export default function Contact() {
                   </div>
 
                   <div className="mt-6 pt-4 border-t border-gray-100">
-                    <h4 className="text-sm font-semibold text-gray-900 mb-2">Business Hours</h4>
+                    <h4 className="text-sm font-semibold text-blue-900 mb-2">Business Hours</h4>
                     <div className="text-xs text-gray-600 space-y-1">
                       <div className="flex justify-between">
                         <span>Monday - Friday:</span>
@@ -298,7 +388,7 @@ export default function Contact() {
                 <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
                   <MapPin className="w-6 h-6 text-orange-500" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Visit Our Office</h3>
+                <h3 className="text-lg font-bold text-blue-900 mb-2">Visit Our Office</h3>
                 <p className="text-sm text-gray-600">
                   Located in the business district of Wilmington, with easy access to major highways and public transportation.
                 </p>
@@ -308,7 +398,7 @@ export default function Contact() {
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
                   <Calendar className="w-6 h-6 text-blue-500" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">Schedule a Meeting</h3>
+                <h3 className="text-lg font-bold text-blue-900 mb-2">Schedule a Meeting</h3>
                 <p className="text-sm text-gray-600">
                   Book an appointment with our team for in-person consultations and project discussions.
                 </p>
@@ -318,7 +408,7 @@ export default function Contact() {
                 <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
                   <MessageCircle className="w-6 h-6 text-green-500" />
                 </div>
-                <h3 className="text-lg font-bold text-gray-900 mb-2">24/7 Support</h3>
+                <h3 className="text-lg font-bold text-blue-900 mb-2">24/7 Support</h3>
                 <p className="text-sm text-gray-600">
                   Our support team is available round the clock to assist you with any queries or urgent requirements.
                 </p>

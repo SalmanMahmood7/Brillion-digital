@@ -65,7 +65,7 @@ npm run clean:all
 1. Use: `npm run dev` (recommended)
 2. Or: `node scripts/dev-server.js` (for auto-restart)
 3. Wait for "✓ Ready" message (~10-15 seconds)
-4. Open: http://localhost:3000
+4. Open: http://localhost:3001
 
 ### **Making Changes**
 1. ✅ Save your files
@@ -108,8 +108,8 @@ npm run reset:full
 
 ## 📊 SERVER STATUS
 
-- **Local**: http://localhost:3000
-- **Network**: http://172.23.216.2:3000
+- **Local**: http://localhost:3001
+- **Network**: http://172.23.216.2:3001
 - **Health Check**: `npm run health:check`
 
 ## 🎯 PERFORMANCE OPTIMIZATIONS

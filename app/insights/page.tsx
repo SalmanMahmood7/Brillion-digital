@@ -5,9 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, User, ArrowRight, BookOpen, TrendingUp, Shield, Database, Cloud, Cpu, Server, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import AuthButton from "@/components/auth/AuthButton";
 
 export default function Insights() {
   const router = useRouter();
+  const [activeCategory, setActiveCategory] = useState("All");
   
   const articles = [
     {
@@ -94,6 +97,11 @@ export default function Insights() {
     "DevOps"
   ];
 
+  // Filter articles based on active category
+  const filteredArticles = activeCategory === "All" 
+    ? articles 
+    : articles.filter(article => article.category === activeCategory);
+
   return (
     <PageLayout>
       <div className="min-h-screen bg-white">
@@ -103,7 +111,7 @@ export default function Insights() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img 
-              src="/images/insights-hero.jpg" 
+              src="/images/digital-platforms-hero.jpg" 
               alt="Digital Insights Background"
               className="w-full h-full object-cover opacity-20"
             />
@@ -138,7 +146,15 @@ export default function Insights() {
                 {categories.map((category) => (
                   <button
                     key={category}
-                    className="px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 bg-white border border-gray-200 text-gray-700 hover:bg-white hover:text-orange-500 hover:border-orange-500 hover:shadow-lg hover:shadow-orange-200/50"
+                    onClick={() => setActiveCategory(category)}
+                    style={{ 
+                      backgroundColor: activeCategory === category ? '#f97316' : '#ffffff',
+                      borderColor: activeCategory === category ? '#f97316' : '#e5e7eb',
+                      color: activeCategory === category ? '#ffffff' : '#374151',
+                      boxShadow: activeCategory === category ? '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)' : 'none',
+                      opacity: 1
+                    }}
+                    className="px-5 py-2.5 rounded-full text-sm font-medium border transition-all duration-300"
                   >
                     {category}
                   </button>
@@ -152,11 +168,10 @@ export default function Insights() {
         <section className="relative z-10 pb-24 bg-gray-50">
           <div className="container mx-auto px-6 md:px-8 lg:px-12 1.25xl:px-16 max-w-7xl">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {articles.map((article, index) => (
+              {filteredArticles.map((article, index) => (
                 <div
                   key={index}
-                  onClick={() => router.push(`/insights/${article.slug}`)}
-                  className="group cursor-pointer"
+                  className="group"
                 >
                   {/* Article Card */}
                   <div className="bg-white rounded-lg border border-gray-100 overflow-hidden hover:shadow-lg transition-all duration-300 group-hover:border-gray-200">
@@ -170,7 +185,7 @@ export default function Insights() {
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors duration-300 leading-tight">
+                      <h3 className="text-xl font-bold text-blue-900 mb-3 group-hover:text-orange-600 transition-colors duration-300 leading-tight">
                         {article.title}
                       </h3>
                       
@@ -188,11 +203,17 @@ export default function Insights() {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                       
-                      {/* Read More Arrow */}
+                      {/* Read More Button */}
                       <div className="absolute bottom-4 right-4">
-                        <div className="w-9 h-9 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-md group-hover:bg-orange-600 group-hover:text-white transition-all duration-300">
-                          <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-300" />
-                        </div>
+                        <AuthButton
+                          href={`/insights/${article.slug}`}
+                          requireAuth={true}
+                          variant="ghost"
+                          size="icon"
+                          className="w-9 h-9 bg-white/95 backdrop-blur-sm rounded-full shadow-md hover:bg-orange-600 hover:text-white transition-all duration-300"
+                        >
+                          <ArrowRight className="w-4 h-4" />
+                        </AuthButton>
                       </div>
                     </div>
                   </div>
@@ -224,9 +245,13 @@ export default function Insights() {
                   We're always looking for new challenges and teammates.
                 </p>
                 <div className="flex justify-center">
-                  <button className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
+                  <AuthButton
+                    href="/contact"
+                    requireAuth={true}
+                    className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg"
+                  >
                     Connect with us
-                  </button>
+                  </AuthButton>
                 </div>
               </div>
             </div>

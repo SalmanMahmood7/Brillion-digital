@@ -526,7 +526,7 @@ export default function ArticlePage() {
       <PageLayout>
         <div className="min-h-screen bg-white flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Article Not Found</h1>
+            <h1 className="text-4xl font-bold text-blue-900 mb-4">Article Not Found</h1>
             <p className="text-gray-600 mb-8">The article you're looking for doesn't exist.</p>
             <Button onClick={() => router.push('/insights')}>
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -549,7 +549,7 @@ export default function ArticlePage() {
             variant="outline"
             size="sm"
             onClick={() => router.push('/insights')}
-            className="bg-white/90 backdrop-blur-sm border-gray-200 hover:bg-gray-50"
+            className="bg-white/90 backdrop-blur-sm border-gray-200 hover:bg-[#f97316] hover:text-white hover:border-[#f97316]"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Insights
@@ -567,7 +567,7 @@ export default function ArticlePage() {
             </div>
 
             {/* Title */}
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-6">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-black text-blue-900 mb-6">
               {article.title}
             </h1>
 
@@ -612,7 +612,7 @@ export default function ArticlePage() {
         <section className="pb-32">
           <div className="container mx-auto px-6 md:px-8 lg:px-12 1.25xl:px-16 max-w-4xl">
             <div 
-              className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-headings:font-bold prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-ul:text-gray-700 prose-ol:text-gray-700"
+              className="prose prose-lg max-w-none prose-headings:text-blue-900 prose-headings:font-bold prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-blue-900 prose-ul:text-gray-700 prose-ol:text-gray-700"
               dangerouslySetInnerHTML={{ __html: article.content }}
             />
 
@@ -640,7 +640,7 @@ export default function ArticlePage() {
 
             {/* Related Articles */}
             <div className="mt-16">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8">Related Articles</h3>
+              <h3 className="text-2xl font-bold text-blue-900 mb-8">Related Articles</h3>
               <div className="grid md:grid-cols-2 gap-6">
                 {articles
                   .filter(a => a.slug !== slug && a.category === article.category)
@@ -661,7 +661,7 @@ export default function ArticlePage() {
                             <Badge className="bg-gray-100 text-gray-600 text-xs mb-2">
                               {relatedArticle.category}
                             </Badge>
-                            <h4 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors mb-2">
+                            <h4 className="font-semibold text-blue-900 group-hover:text-blue-600 transition-colors mb-2">
                               {relatedArticle.title}
                             </h4>
                             <p className="text-sm text-gray-600 mb-3 line-clamp-2">

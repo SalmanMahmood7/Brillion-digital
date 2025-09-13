@@ -121,7 +121,7 @@ export default function FirebaseDebugPage() {
       const servicesSnapshot = await getDocs(collection(db, 'services'));
       addLog(`Services collection now has ${servicesSnapshot.size} documents`);
       
-      servicesSnapshot.forEach(doc => {
+      servicesSnapshot.docs.forEach(doc => {
         addLog(`- Service: ${doc.data().title} (ID: ${doc.id})`);
       });
       
@@ -145,7 +145,7 @@ export default function FirebaseDebugPage() {
       if (servicesSnapshot.empty) {
         addLog("❌ Services collection is empty!");
       } else {
-        servicesSnapshot.forEach((doc, index) => {
+        servicesSnapshot.docs.forEach((doc, index) => {
           const data = doc.data();
           addLog(`${index + 1}. ${data.title} - ${data.description.substring(0, 50)}...`);
         });
@@ -153,6 +153,109 @@ export default function FirebaseDebugPage() {
       
     } catch (error) {
       addLog(`❌ Error checking services: ${error}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const initializeAllServices = async () => {
+    setLoading(true);
+    setLogs([]);
+    
+    try {
+      addLog("🚀 Initializing all services with new ones...");
+      
+      const defaultServices = [
+        {
+          title: "Digital Advisory",
+          description: "Understand, anticipate, and accelerate with confidence.",
+          icon: "Lightbulb",
+          href: "/services/digital-advisory",
+          order: 1
+        },
+        {
+          title: "Data & Analytics", 
+          description: "Transform raw data into actionable insights that drive business growth.",
+          icon: "BarChart3",
+          href: "/services/applied-data-analytics",
+          order: 2
+        },
+        {
+          title: "App Development",
+          description: "Custom applications built with modern technologies to solve unique challenges.",
+          icon: "Zap",
+          href: "/services/application-development",
+          order: 3
+        },
+        {
+          title: "Digital Platforms",
+          description: "Boost growth and productivity using ERP, CRM, and CMS platforms.",
+          icon: "Rocket",
+          href: "/services/digital-platforms",
+          order: 4
+        },
+        {
+          title: "Cyber Security",
+          description: "Minimize threats and proactively protect your most valuable assets.",
+          icon: "Shield",
+          href: "/services/cyber-security",
+          order: 5
+        },
+        {
+          title: "Cloud Services",
+          description: "Cloud migration and optimization services to accelerate transformation.",
+          icon: "Cloud",
+          href: "/services/cloud-services",
+          order: 6
+        },
+        {
+          title: "Managed IT",
+          description: "Reliable IT infrastructure management to keep your business running smoothly.",
+          icon: "Settings",
+          href: "/services/managed-it-services",
+          order: 7
+        },
+        {
+          title: "Dynamics 365 and Microsoft Solutions",
+          description: "Leverage Microsoft's ecosystem to streamline operations and boost productivity.",
+          icon: "Globe",
+          href: "/services/dynamics-365-microsoft",
+          order: 8
+        },
+        {
+          title: "Artificial Intelligence and Smart Solutions",
+          description: "Harness AI to automate processes and unlock intelligent insights.",
+          icon: "Brain",
+          href: "/services/ai-smart-solutions",
+          order: 9
+        }
+      ];
+
+      addLog(`📝 Adding ${defaultServices.length} services to database...`);
+      
+      for (let i = 0; i < defaultServices.length; i++) {
+        const service = defaultServices[i];
+        const serviceData = {
+          ...service,
+          createdAt: Timestamp.now(),
+          updatedAt: Timestamp.now()
+        };
+        
+        try {
+          const docRef = await addDoc(collection(db, 'services'), serviceData);
+          addLog(`✅ Added "${service.title}" with ID: ${docRef.id}`);
+        } catch (error) {
+          addLog(`❌ Failed to add "${service.title}": ${error}`);
+        }
+      }
+      
+      // Verify final count
+      addLog("🔍 Verifying services were added...");
+      const verifySnapshot = await getDocs(collection(db, 'services'));
+      addLog(`📊 Services collection now has ${verifySnapshot.size} total documents`);
+      
+    } catch (error) {
+      addLog(`❌ Error initializing services: ${error}`);
     } finally {
       setLoading(false);
     }
@@ -166,7 +269,7 @@ export default function FirebaseDebugPage() {
           <p className="text-gray-600">Debug Firebase connectivity and database operations.</p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
           <Button 
             onClick={testBasicConnection}
             disabled={loading}
@@ -175,6 +278,17 @@ export default function FirebaseDebugPage() {
             🔍 Test Connection
           </Button>
 
+          <Button 
+            onClick={checkServicesCollection}
+            disabled={loading}
+            variant="outline"
+            className="h-16"
+          >
+            📋 Check Services
+          </Button>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
           <Button 
             onClick={addSingleService}
             disabled={loading}
@@ -185,12 +299,12 @@ export default function FirebaseDebugPage() {
           </Button>
 
           <Button 
-            onClick={checkServicesCollection}
+            onClick={initializeAllServices}
             disabled={loading}
-            variant="outline"
+            variant="destructive"
             className="h-16"
           >
-            📋 Check Services
+            🚀 Initialize All Services
           </Button>
         </div>
 

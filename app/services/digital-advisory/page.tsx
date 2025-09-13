@@ -1,9 +1,127 @@
 "use client";
 
 import PageLayout from "@/components/PageLayout";
-import { Target, CheckCircle, Users, TrendingUp, Zap, ArrowRight, Search, Palette, Wrench, Rocket, Brain, Settings, Monitor, Lightbulb, BarChart3, Shield, Globe, Database, Code2, Server, Cloud, Container, Link } from "lucide-react";
+import { Target, CheckCircle, Users, TrendingUp, Zap, ArrowRight, Search, Palette, Wrench, Brain, Settings, Monitor, Lightbulb, BarChart3, Shield, Globe, Database, Code2, Server, Cloud, Container, Link } from "lucide-react";
+import { getTechnologyUrl } from "@/lib/technology-utils";
+import { useState } from "react";
+import ServiceDetailModal from "@/components/ServiceDetailModal";
 
 export default function DigitalAdvisory() {
+  const [selectedService, setSelectedService] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleLearnMore = (serviceKey) => {
+    setSelectedService(servicesData[serviceKey]);
+    setShowModal(true);
+  };
+
+  const servicesData = {
+    digitalStrategy: {
+      title: "Digital Strategy Development",
+      description: "Comprehensive digital strategies aligned with business objectives",
+      fullDescription: "Develop comprehensive digital strategies that align technology investments with business objectives for maximum ROI. Our strategic approach ensures your digital transformation initiatives drive sustainable growth and competitive advantage in today's rapidly evolving marketplace.",
+      features: [
+        {
+          title: "Strategic Planning",
+          description: "Long-term digital roadmaps aligned with business goals",
+          icon: Target
+        },
+        {
+          title: "Market Analysis",
+          description: "Competitive landscape and market opportunity assessment",
+          icon: BarChart3
+        },
+        {
+          title: "ROI Optimization",
+          description: "Maximize return on digital technology investments",
+          icon: TrendingUp
+        },
+        {
+          title: "Digital Roadmapping",
+          description: "Phased implementation plans with clear milestones",
+          icon: Search
+        }
+      ],
+      benefits: [
+        {
+          title: "Strategic Clarity",
+          description: "Clear digital transformation roadmap",
+          metric: "100% alignment"
+        },
+        {
+          title: "ROI Improvement",
+          description: "Average improvement in technology ROI",
+          metric: "+250%"
+        },
+        {
+          title: "Market Advantage",
+          description: "Faster time to market for digital initiatives",
+          metric: "60% faster"
+        }
+      ],
+      process: [
+        {
+          step: 1,
+          title: "Business Assessment",
+          description: "Evaluate current digital maturity and business objectives",
+          duration: "1-2 weeks"
+        },
+        {
+          step: 2,
+          title: "Strategy Development",
+          description: "Create comprehensive digital transformation strategy",
+          duration: "2-3 weeks"
+        },
+        {
+          step: 3,
+          title: "Roadmap Creation",
+          description: "Develop detailed implementation roadmap with timelines",
+          duration: "1-2 weeks"
+        },
+        {
+          step: 4,
+          title: "Implementation Support",
+          description: "Ongoing strategic guidance during execution phase",
+          duration: "3-12 months"
+        }
+      ],
+      technologies: ["Microsoft Visio", "Tableau", "Power BI", "Miro", "Lucidchart", "SWOT Analysis Tools", "Digital Maturity Frameworks"],
+      caseStudy: {
+        client: "Manufacturing Company (2,000+ employees)",
+        challenge: "Outdated systems hindering growth and digital customer expectations",
+        solution: "Comprehensive digital strategy with cloud migration and automation roadmap",
+        results: [
+          "40% improvement in operational efficiency",
+          "25% increase in customer satisfaction",
+          "60% reduction in manual processes",
+          "$3.2M cost savings over 2 years"
+        ]
+      },
+      deliverables: [
+        "Digital maturity assessment report",
+        "Comprehensive digital strategy document",
+        "Implementation roadmap with timelines",
+        "ROI projections and business case",
+        "Risk assessment and mitigation plan",
+        "Ongoing strategic guidance"
+      ]
+    },
+    technologyAssessment: {
+      title: "Technology Assessment & Planning",
+      description: "In-depth evaluation of technology stack and digital capabilities",
+      fullDescription: "Conduct thorough evaluation of your current technology infrastructure, digital capabilities, and system architecture to identify optimization opportunities and create strategic technology plans.",
+    },
+    changeManagement: {
+      title: "Change Management Support",
+      description: "Expert guidance for organizational change during digital transformation",
+      fullDescription: "Navigate organizational change with expert change management support ensuring smooth adoption, user engagement, and maximum ROI from digital transformation initiatives.",
+    },
+    digitalInnovation: {
+      title: "Digital Innovation Consulting",
+      description: "Strategic consulting for innovative digital solutions",
+      fullDescription: "Identify and implement cutting-edge digital solutions that transform business operations, enhance customer experiences, and create competitive advantages in the digital marketplace.",
+    }
+  };
   const services = [
     {
       icon: TrendingUp,
@@ -152,25 +270,25 @@ export default function DigitalAdvisory() {
               </p>
               
               <div className="pt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300">
+                <a href="/contact" className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300">
                   Get Strategic Consultation
                   <ArrowRight className="ml-2 w-5 h-5" />
-                </button>
-                <button className="inline-flex items-center px-8 py-4 border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold rounded-full transition-all duration-300">
+                </a>
+                <a href="#approach" className="inline-flex items-center px-8 py-4 border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold rounded-full transition-all duration-300">
                   View Our Approach
-                </button>
+                </a>
               </div>
             </div>
           </div>
         </section>
 
         {/* Services Section */}
-        <section className="relative z-10 py-24 bg-white">
+        <section id="approach" className="relative z-10 py-24 bg-white">
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             
             {/* Header Section */}
             <div className="text-center mb-20">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-blue-900 mb-6">
                 Accelerate Your Digital Transformation With Our <span className="text-[#f97316]">Expert Digital Advisory Services</span>
               </h2>
               <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
@@ -190,32 +308,48 @@ export default function DigitalAdvisory() {
                 </div>
               </div>
               <div className="lg:order-1">
-                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                <h3 className="text-3xl md:text-4xl font-bold text-blue-900 mb-6">
                   <span className="text-[#f97316]">Digital Strategy</span> Development
                 </h3>
                 <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                   Comprehensive digital strategies that align with your business objectives and market dynamics. Our strategic planning approach ensures sustainable growth through data-driven insights, competitive analysis, and future-focused roadmapping that positions your organization for long-term digital success.
                 </p>
-                <button className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl">
-                  Explore Strategy Services
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </button>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button 
+                    onClick={() => handleLearnMore('digitalStrategy')}
+                    className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    Learn More
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </button>
+                  <a href="/contact" className="inline-flex items-center px-8 py-4 border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold rounded-full transition-all duration-300">
+                    Get Consultation
+                  </a>
+                </div>
               </div>
             </div>
 
             {/* Service 2 - Technology Assessment */}
             <div className="grid lg:grid-cols-2 gap-12 items-center mb-20 bg-gradient-to-br from-purple-50 via-white to-blue-50 rounded-3xl p-8 lg:p-12">
               <div>
-                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                <h3 className="text-3xl md:text-4xl font-bold text-blue-900 mb-6">
                   <span className="text-[#f97316]">Technology Assessment</span> & Planning
                 </h3>
                 <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                   In-depth evaluation of your technology stack, digital infrastructure, and organizational capabilities. Our comprehensive assessment identifies gaps, optimization opportunities, and strategic technology investments that will drive your digital transformation initiatives and maximize ROI.
                 </p>
-                <button className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl">
-                  Get Technology Assessment
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </button>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button 
+                    onClick={() => handleLearnMore('technologyAssessment')}
+                    className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    Learn More
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </button>
+                  <a href="/contact" className="inline-flex items-center px-8 py-4 border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold rounded-full transition-all duration-300">
+                    Get Assessment
+                  </a>
+                </div>
               </div>
               <div>
                 <div className="relative h-[400px] overflow-hidden rounded-2xl shadow-xl">
@@ -240,32 +374,48 @@ export default function DigitalAdvisory() {
                 </div>
               </div>
               <div className="lg:order-1">
-                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                <h3 className="text-3xl md:text-4xl font-bold text-blue-900 mb-6">
                   <span className="text-[#f97316]">Change Management</span> Support
                 </h3>
                 <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                   Expert guidance to navigate organizational change during digital transformation initiatives. Our change management approach ensures smooth adoption, minimizes resistance, and maximizes user engagement through strategic communication, training programs, and continuous support.
                 </p>
-                <button className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl">
-                  Learn About Change Management
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </button>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button 
+                    onClick={() => handleLearnMore('changeManagement')}
+                    className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    Learn More
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </button>
+                  <a href="/contact" className="inline-flex items-center px-8 py-4 border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold rounded-full transition-all duration-300">
+                    Get Support
+                  </a>
+                </div>
               </div>
             </div>
 
             {/* Service 4 - Digital Innovation */}
             <div className="grid lg:grid-cols-2 gap-12 items-center bg-gradient-to-br from-cyan-50 via-white to-blue-50 rounded-3xl p-8 lg:p-12">
               <div>
-                <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+                <h3 className="text-3xl md:text-4xl font-bold text-blue-900 mb-6">
                   <span className="text-[#f97316]">Digital Innovation</span> Consulting
                 </h3>
                 <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                   Strategic consulting to identify and implement innovative digital solutions that transform business operations and customer experiences. We help organizations stay ahead of digital trends, leverage emerging technologies, and create sustainable competitive advantages in rapidly evolving markets.
                 </p>
-                <button className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl">
-                  Explore Innovation Consulting
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </button>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button 
+                    onClick={() => handleLearnMore('digitalInnovation')}
+                    className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
+                  >
+                    Learn More
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </button>
+                  <a href="/contact" className="inline-flex items-center px-8 py-4 border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold rounded-full transition-all duration-300">
+                    Explore Innovation
+                  </a>
+                </div>
               </div>
               <div>
                 <div className="relative h-[400px] overflow-hidden rounded-2xl shadow-xl">
@@ -286,7 +436,7 @@ export default function DigitalAdvisory() {
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             <div className="text-center space-y-8 mb-16">
               <h2 className="text-4xl md:text-5xl font-bold">
-                <span className="text-gray-900">Digital Transformation </span>
+                <span className="text-blue-900">Digital Transformation </span>
                 <span className="text-[#f97316]">Technologies</span>
               </h2>
               
@@ -319,7 +469,7 @@ export default function DigitalAdvisory() {
                     </div>
                     
                     {/* Title */}
-                    <h4 className="font-bold text-2xl text-gray-900 mb-3 group-hover:text-[#f97316] transition-colors">
+                    <h4 className="font-bold text-2xl text-blue-900 mb-3 group-hover:text-[#f97316] transition-colors">
                       {tech.name}
                     </h4>
                     
@@ -329,10 +479,10 @@ export default function DigitalAdvisory() {
                     </p>
                     
                     {/* Learn More Link */}
-                    <div className="flex items-center text-[#f97316] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                    <a href={getTechnologyUrl(tech.name)} className="flex items-center text-[#f97316] opacity-0 group-hover:opacity-100 transition-all duration-300 hover:text-[#ea580c]">
                       <span className="text-sm font-medium">Explore Technology</span>
                       <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                    </div>
+                    </a>
                   </div>
                   
                 </div>
@@ -356,7 +506,7 @@ export default function DigitalAdvisory() {
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             <div className="text-center space-y-8 mb-20">
               <h2 className="text-4xl md:text-5xl font-bold">
-                <span className="text-gray-900">Our Advisory </span>
+                <span className="text-blue-900">Our Advisory </span>
                 <span className="text-[#f97316]">Process</span>
               </h2>
               
@@ -392,7 +542,7 @@ export default function DigitalAdvisory() {
                       </div>
                       
                       {/* Title */}
-                      <h3 className="text-xl font-bold text-gray-900 mb-4 text-center group-hover:text-[#f97316] transition-colors">
+                      <h3 className="text-xl font-bold text-blue-900 mb-4 text-center group-hover:text-[#f97316] transition-colors">
                         {step.title}
                       </h3>
                       
@@ -453,9 +603,9 @@ export default function DigitalAdvisory() {
                   Connect with our digital transformation specialists to accelerate your business growth. Get strategic guidance, technology insights, and implementation support from industry leaders in digital advisory.
                 </p>
                 <div className="flex justify-center">
-                  <button className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
+                  <a href="/contact" className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
                     Schedule Strategic Consultation
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -463,6 +613,18 @@ export default function DigitalAdvisory() {
         </section>
 
       </div>
+
+      {/* Service Detail Modal */}
+      {selectedService && (
+        <ServiceDetailModal
+          isOpen={showModal}
+          onClose={() => {
+            setShowModal(false);
+            setSelectedService(null);
+          }}
+          service={selectedService}
+        />
+      )}
     </PageLayout>
   );
 }

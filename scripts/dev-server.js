@@ -30,8 +30,8 @@ function killExistingProcesses() {
           });
         }
         
-        // Also check port 3000
-        exec('netstat -ano | findstr :3000', (err2, stdout) => {
+        // Also check port 3001
+        exec('netstat -ano | findstr :3001', (err2, stdout) => {
           if (!err2 && stdout) {
             const lines = stdout.split('\n');
             lines.forEach(line => {
@@ -48,7 +48,7 @@ function killExistingProcesses() {
     } else {
       // Unix/Linux/Mac
       exec("pkill -f 'next dev' || pkill -f 'node.*next' || true", () => {
-        exec('lsof -ti:3000 | xargs kill -9', () => {
+        exec('lsof -ti:3001 | xargs kill -9', () => {
           setTimeout(resolve, 1000);
         });
       });
@@ -81,7 +81,7 @@ function startServer() {
   
   const npxCmd = isWindows ? 'npx.cmd' : 'npx';
   
-  serverProcess = spawn(npxCmd, ['next', 'dev', '-H', '0.0.0.0'], {
+  serverProcess = spawn(npxCmd, ['next', 'dev', '-p', '3001', '-H', '0.0.0.0'], {
     stdio: 'inherit',
     cwd: process.cwd(),
     shell: isWindows
@@ -111,7 +111,7 @@ function checkServerHealth() {
   
   const options = {
     hostname: 'localhost',
-    port: 3000,
+    port: 3001,
     path: '/',
     method: 'GET',
     timeout: 5000

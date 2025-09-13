@@ -1,7 +1,8 @@
 "use client"
 
 import PageLayout from "@/components/PageLayout";
-import { Users, Heart, Award, Target, Sparkles, ArrowRight, CheckCircle, User, Code, Palette, Shield, Rocket, BarChart3, Layers, Settings, Monitor } from "lucide-react";
+import { Users, Heart, Award, Target, Sparkles, ArrowRight, CheckCircle, User, Code, Palette, Shield, BarChart3, Layers, Settings, Monitor } from "lucide-react";
+import AuthButton from "@/components/auth/AuthButton";
 
 export default function About() {
   const values = [
@@ -70,7 +71,7 @@ export default function About() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
               alt="About Us Background"
               className="w-full h-full object-cover opacity-20"
             />
@@ -97,7 +98,7 @@ export default function About() {
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-6xl">
             <div className="text-center space-y-8">
               <h2 className="text-4xl md:text-5xl font-bold">
-                <span className="text-gray-900">Our </span>
+                <span className="text-blue-900">Our </span>
                 <span className="text-orange-500">Mission</span>
               </h2>
               
@@ -110,7 +111,7 @@ export default function About() {
                   <div className="w-16 h-16 mx-auto bg-orange-100 rounded-xl flex items-center justify-center">
                     <Target className="w-8 h-8 text-orange-600" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">Innovation</h3>
+                  <h3 className="text-xl font-bold text-blue-900">Innovation</h3>
                   <p className="text-gray-600">Cutting-edge solutions for modern challenges</p>
                 </div>
                 
@@ -118,7 +119,7 @@ export default function About() {
                   <div className="w-16 h-16 mx-auto bg-orange-100 rounded-xl flex items-center justify-center">
                     <Users className="w-8 h-8 text-orange-600" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">Partnership</h3>
+                  <h3 className="text-xl font-bold text-blue-900">Partnership</h3>
                   <p className="text-gray-600">Building lasting relationships with our clients</p>
                 </div>
                 
@@ -126,7 +127,7 @@ export default function About() {
                   <div className="w-16 h-16 mx-auto bg-orange-100 rounded-xl flex items-center justify-center">
                     <Award className="w-8 h-8 text-orange-600" />
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900">Excellence</h3>
+                  <h3 className="text-xl font-bold text-blue-900">Excellence</h3>
                   <p className="text-gray-600">Delivering exceptional results every time</p>
                 </div>
               </div>
@@ -139,7 +140,7 @@ export default function About() {
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                <span className="text-gray-900">Our Information Technology (IT) Consultation </span>
+                <span className="text-blue-900">Our Information Technology (IT) Consultation </span>
                 <span className="text-orange-500">Process Workflow</span>
               </h2>
               
@@ -161,7 +162,7 @@ export default function About() {
                     {/* Left Content (Desktop) */}
                     <div className="md:w-1/2 md:pr-8 mb-8 md:mb-0 order-2 md:order-1">
                       <div className="bg-gradient-to-r from-orange-50 to-orange-100 p-6 rounded-xl shadow-sm border border-orange-200">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-3">Analyze</h3>
+                        <h3 className="text-2xl font-bold text-blue-900 mb-3">Analyze</h3>
                         <p className="text-gray-700">
                           We analyze business IT needs, key pain areas, digitalization goals, and objectives to understand your current technology landscape.
                         </p>
@@ -202,7 +203,7 @@ export default function About() {
                     {/* Right Content (Desktop) */}
                     <div className="md:w-1/2 md:pl-8 mb-8 md:mb-0 order-2 md:order-3">
                       <div className="bg-gradient-to-r from-blue-50 to-blue-100 p-6 rounded-xl shadow-sm border border-blue-200">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-3">Strategize</h3>
+                        <h3 className="text-2xl font-bold text-blue-900 mb-3">Strategize</h3>
                         <p className="text-gray-700">
                           We identify areas for improvement and strategize comprehensive solutions to achieve your desired digital transformation goals.
                         </p>
@@ -217,7 +218,7 @@ export default function About() {
                     {/* Left Content (Desktop) */}
                     <div className="md:w-1/2 md:pr-8 mb-8 md:mb-0 order-2 md:order-1">
                       <div className="bg-gradient-to-r from-green-50 to-green-100 p-6 rounded-xl shadow-sm border border-green-200">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-3">Implement</h3>
+                        <h3 className="text-2xl font-bold text-blue-900 mb-3">Implement</h3>
                         <p className="text-gray-700">
                           We implement the solutions with precision and ensure seamless integration with your existing IT infrastructure and workflows.
                         </p>
@@ -258,7 +259,7 @@ export default function About() {
                     {/* Right Content (Desktop) */}
                     <div className="md:w-1/2 md:pl-8 mb-8 md:mb-0 order-2 md:order-3">
                       <div className="bg-gradient-to-r from-purple-50 to-purple-100 p-6 rounded-xl shadow-sm border border-purple-200">
-                        <h3 className="text-2xl font-bold text-gray-900 mb-3">Monitor</h3>
+                        <h3 className="text-2xl font-bold text-blue-900 mb-3">Monitor</h3>
                         <p className="text-gray-700">
                           We continuously monitor the performance of IT solutions and make proactive adjustments to improve efficiency and ROI.
                         </p>
@@ -294,9 +295,13 @@ export default function About() {
                   Let our experienced IT consultation team guide you through your digital transformation journey.
                 </p>
                 <div className="flex justify-center">
-                  <button className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
+                  <AuthButton
+                    href="/contact"
+                    requireAuth={true}
+                    className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg"
+                  >
                     Start Your Consultation
-                  </button>
+                  </AuthButton>
                 </div>
               </div>
             </div>
@@ -308,7 +313,7 @@ export default function About() {
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-6xl">
             <div className="text-center space-y-8">
               <h2 className="text-4xl md:text-5xl font-bold">
-                <span className="text-gray-900">Our </span>
+                <span className="text-blue-900">Our </span>
                 <span className="text-orange-500">Partners</span>
               </h2>
               
@@ -317,14 +322,12 @@ export default function About() {
               </p>
               
               <div className="flex justify-center pt-12">
-                {/* Amazon Logo */}
-                <div className="flex items-center justify-center p-8 bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
-                  <img 
-                    src="/images/amazon-logo.png" 
-                    alt="Amazon Partner"
-                    className="h-16 object-contain filter grayscale hover:grayscale-0 transition-all duration-300"
-                  />
-                </div>
+                {/* Partner Logo */}
+                <img 
+                  src="/partner-logo-new.png" 
+                  alt="Partner"
+                  className="h-16 object-contain hover:scale-105 transition-all duration-300"
+                />
               </div>
             </div>
           </div>

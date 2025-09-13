@@ -2,8 +2,141 @@
 
 import PageLayout from "@/components/PageLayout";
 import { Layers, CheckCircle, Database, Users, Settings, ArrowRight } from "lucide-react";
+import { useState } from "react";
+import ServiceDetailModal from "@/components/ServiceDetailModal";
 
 export default function DigitalPlatforms() {
+  const [selectedService, setSelectedService] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleLearnMore = (serviceKey) => {
+    setSelectedService(servicesData[serviceKey]);
+    setShowModal(true);
+  };
+
+  const servicesData = {
+    erpImplementation: {
+      title: "ERP System Implementation",
+      description: "Streamline your entire business operations with integrated ERP solutions",
+      fullDescription: "Streamline your entire business operations with integrated ERP solutions that unify all processes into a single, powerful platform. Our ERP implementations transform how your organization operates by connecting departments, automating workflows, and providing real-time visibility across all business functions.",
+      features: [
+        {
+          title: "End-to-end Process Integration",
+          description: "Connect all business processes from finance to supply chain in one system",
+          icon: "Database"
+        },
+        {
+          title: "Custom Workflow Automation",
+          description: "Automate repetitive tasks and streamline approval processes",
+          icon: "Settings"
+        },
+        {
+          title: "Real-time Business Analytics",
+          description: "Access real-time dashboards and reports for data-driven decisions",
+          icon: "BarChart"
+        }
+      ],
+      benefits: [
+        {
+          title: "Operational Efficiency",
+          description: "Reduce manual work and streamline processes across departments",
+          metric: "40% efficiency improvement"
+        },
+        {
+          title: "Data Accuracy",
+          description: "Eliminate data silos and ensure single source of truth",
+          metric: "95% data accuracy"
+        }
+      ],
+      caseStudy: {
+        client: "Global Manufacturing Corp",
+        challenge: "Disconnected systems across multiple departments causing inefficiencies",
+        solution: "Implemented SAP ERP with custom modules for manufacturing and supply chain",
+        result: "Reduced operational costs by 30% and improved delivery times by 45%"
+      },
+    },
+    crmDevelopment: {
+      title: "CRM Platform Development",
+      description: "Build lasting customer relationships with intelligent CRM platforms",
+      fullDescription: "Build lasting customer relationships with intelligent CRM platforms that drive engagement, sales, and customer satisfaction. Our custom CRM solutions provide a 360-degree view of your customers while automating sales processes and personalizing customer interactions at scale.",
+      features: [
+        {
+          title: "360° Customer View",
+          description: "Complete customer history, interactions, and preferences in one place",
+          icon: "Users"
+        },
+        {
+          title: "Sales Pipeline Automation",
+          description: "Automate lead nurturing and sales process management",
+          icon: "TrendingUp"
+        },
+        {
+          title: "Advanced Lead Scoring",
+          description: "AI-powered lead scoring and customer segmentation",
+          icon: "Target"
+        }
+      ],
+      benefits: [
+        {
+          title: "Sales Growth",
+          description: "Increase sales conversion rates through better lead management",
+          metric: "35% sales increase"
+        },
+        {
+          title: "Customer Retention",
+          description: "Improve customer satisfaction and retention rates",
+          metric: "25% better retention"
+        }
+      ],
+      caseStudy: {
+        client: "Tech Solutions Inc",
+        challenge: "Poor lead management and customer data scattered across systems",
+        solution: "Built custom CRM with AI-powered lead scoring and automated workflows",
+        result: "Increased sales by 40% and improved customer satisfaction scores by 60%"
+      },
+    },
+    cmsSolutions: {
+      title: "Content Management Solutions",
+      description: "Empower your team with modern CMS platforms for seamless content management",
+      fullDescription: "Empower your team with modern CMS platforms for seamless content creation, management, and multi-channel delivery. Our CMS solutions feature headless architecture, AI-powered personalization, and omnichannel publishing capabilities to deliver consistent experiences across all touchpoints.",
+      features: [
+        {
+          title: "Headless CMS Architecture",
+          description: "Flexible API-first approach for multi-channel content delivery",
+          icon: "Layers"
+        },
+        {
+          title: "Omnichannel Publishing",
+          description: "Publish content across web, mobile, and social platforms simultaneously",
+          icon: "Globe"
+        },
+        {
+          title: "AI-Powered Personalization",
+          description: "Deliver personalized content based on user behavior and preferences",
+          icon: "Brain"
+        }
+      ],
+      benefits: [
+        {
+          title: "Content Velocity",
+          description: "Faster content creation and publishing workflows",
+          metric: "50% faster publishing"
+        },
+        {
+          title: "User Engagement",
+          description: "Higher engagement through personalized content experiences",
+          metric: "30% engagement boost"
+        }
+      ],
+      caseStudy: {
+        client: "Digital Media Group",
+        challenge: "Slow content publishing process and inconsistent brand experience",
+        solution: "Implemented headless CMS with AI personalization and automated workflows",
+        result: "Reduced content publishing time by 60% and increased user engagement by 45%"
+      },
+    }
+  };
+
   return (
     <PageLayout>
       <div className="min-h-screen bg-white">
@@ -31,9 +164,9 @@ export default function DigitalPlatforms() {
               </p>
               
               <div className="pt-8">
-                <button className="inline-flex items-center px-8 py-4 border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white font-semibold rounded-full transition-all duration-300 bg-transparent" style={{ borderColor: '#f97316', color: '#f97316' }}>
+                <a href="/services" className="inline-flex items-center px-8 py-4 border-2 border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white font-semibold rounded-full transition-all duration-300 bg-transparent" style={{ borderColor: '#f97316', color: '#f97316' }}>
                   Explore Platforms
-                </button>
+                </a>
               </div>
             </div>
           </div>
@@ -70,7 +203,7 @@ export default function DigitalPlatforms() {
                 </div>
                 
                 <div className="p-6 space-y-4">
-                  <h3 className="text-2xl font-bold text-gray-900">ERP System Implementation</h3>
+                  <h3 className="text-2xl font-bold text-blue-900">ERP System Implementation</h3>
                   <p className="text-gray-600 leading-relaxed">
                     Streamline your entire business operations with integrated ERP solutions that unify all processes into a single, powerful platform.
                   </p>
@@ -103,7 +236,10 @@ export default function DigitalPlatforms() {
                   </div>
                   
                   <div className="pt-4">
-                    <button className="text-blue-600 font-semibold flex items-center group/btn">
+                    <button 
+                      onClick={() => handleLearnMore('erpImplementation')}
+                      className="text-blue-600 font-semibold flex items-center group/btn"
+                    >
                       Learn More
                       <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                     </button>
@@ -128,7 +264,7 @@ export default function DigitalPlatforms() {
                 </div>
                 
                 <div className="p-6 space-y-4">
-                  <h3 className="text-2xl font-bold text-gray-900">CRM Platform Development</h3>
+                  <h3 className="text-2xl font-bold text-blue-900">CRM Platform Development</h3>
                   <p className="text-gray-600 leading-relaxed">
                     Build lasting customer relationships with intelligent CRM platforms that drive engagement, sales, and customer satisfaction.
                   </p>
@@ -161,7 +297,10 @@ export default function DigitalPlatforms() {
                   </div>
                   
                   <div className="pt-4">
-                    <button className="text-green-600 font-semibold flex items-center group/btn">
+                    <button 
+                      onClick={() => handleLearnMore('crmDevelopment')}
+                      className="text-green-600 font-semibold flex items-center group/btn"
+                    >
                       Learn More
                       <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                     </button>
@@ -186,7 +325,7 @@ export default function DigitalPlatforms() {
                 </div>
                 
                 <div className="p-6 space-y-4">
-                  <h3 className="text-2xl font-bold text-gray-900">Content Management Solutions</h3>
+                  <h3 className="text-2xl font-bold text-blue-900">Content Management Solutions</h3>
                   <p className="text-gray-600 leading-relaxed">
                     Empower your team with modern CMS platforms for seamless content creation, management, and multi-channel delivery.
                   </p>
@@ -219,7 +358,10 @@ export default function DigitalPlatforms() {
                   </div>
                   
                   <div className="pt-4">
-                    <button className="text-purple-600 font-semibold flex items-center group/btn">
+                    <button 
+                      onClick={() => handleLearnMore('cmsSolutions')}
+                      className="text-purple-600 font-semibold flex items-center group/btn"
+                    >
                       Learn More
                       <ArrowRight className="w-4 h-4 ml-2 group-hover/btn:translate-x-1 transition-transform" />
                     </button>
@@ -263,7 +405,7 @@ export default function DigitalPlatforms() {
               {/* Right Side - Content */}
               <div className="lg:col-span-3 space-y-8">
                 <div>
-                  <h2 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
+                  <h2 className="text-4xl md:text-5xl font-bold text-blue-900 leading-tight mb-6">
                     Navigate Your Growth with <span className="text-[#f97316]">Strategic Platform Solutions</span>
                   </h2>
                   
@@ -299,7 +441,7 @@ export default function DigitalPlatforms() {
                   <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-4">
                     <Users className="w-7 h-7 text-blue-600" />
                   </div>
-                  <h4 className="text-lg font-bold text-gray-900 mb-2">Expert Advisory</h4>
+                  <h4 className="text-lg font-bold text-blue-900 mb-2">Expert Advisory</h4>
                   <p className="text-gray-600 text-sm leading-relaxed">Certified specialists guide your digital transformation journey</p>
                 </div>
               </div>
@@ -309,7 +451,7 @@ export default function DigitalPlatforms() {
                   <div className="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-4">
                     <Settings className="w-7 h-7 text-green-600" />
                   </div>
-                  <h4 className="text-lg font-bold text-gray-900 mb-2">Optimized Solutions</h4>
+                  <h4 className="text-lg font-bold text-blue-900 mb-2">Optimized Solutions</h4>
                   <p className="text-gray-600 text-sm leading-relaxed">Elevate and optimize platforms for maximum productivity</p>
                 </div>
               </div>
@@ -319,7 +461,7 @@ export default function DigitalPlatforms() {
                   <div className="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-4">
                     <Layers className="w-7 h-7 text-purple-600" />
                   </div>
-                  <h4 className="text-lg font-bold text-gray-900 mb-2">Strategic Design</h4>
+                  <h4 className="text-lg font-bold text-blue-900 mb-2">Strategic Design</h4>
                   <p className="text-gray-600 text-sm leading-relaxed">Platform architecture aligned with your business goals</p>
                 </div>
               </div>
@@ -329,7 +471,7 @@ export default function DigitalPlatforms() {
                   <div className="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-4">
                     <CheckCircle className="w-7 h-7 text-orange-600" />
                   </div>
-                  <h4 className="text-lg font-bold text-gray-900 mb-2">Success-Focused</h4>
+                  <h4 className="text-lg font-bold text-blue-900 mb-2">Success-Focused</h4>
                   <p className="text-gray-600 text-sm leading-relaxed">Customer-centric approach for measurable results</p>
                 </div>
               </div>
@@ -360,14 +502,26 @@ export default function DigitalPlatforms() {
                   Partner with our platform experts to streamline operations, enhance customer experiences, and drive digital transformation across your organization.
                 </p>
                 <div className="flex justify-center">
-                  <button className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
+                  <a href="/contact" className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
                     Request A Platform Consultation
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
           </div>
         </section>
+
+        {/* Service Detail Modal */}
+        {selectedService && (
+          <ServiceDetailModal
+            isOpen={showModal}
+            onClose={() => {
+              setShowModal(false);
+              setSelectedService(null);
+            }}
+            service={selectedService}
+          />
+        )}
 
       </div>
     </PageLayout>
