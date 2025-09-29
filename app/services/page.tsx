@@ -16,8 +16,7 @@ import {
   ArrowRight,
   Lightbulb,
   Zap,
-  Lock,
-  Loader2
+  Lock
 } from "lucide-react";
 import { servicesService, type Service } from "@/lib/firebase-services";
 import servicesBg from "@/assets/services-bg.jpg";
@@ -49,13 +48,11 @@ export default function Services() {
     try {
       setLoading(true);
       setError(null);
-      // Temporarily force fallback to ensure new services show
-      throw new Error('Using fallback services');
       const servicesData = await servicesService.getAll();
       setServices(servicesData);
     } catch (error) {
       console.error('Error loading services:', error);
-      setError(null);
+      setError('Failed to load services from Firebase. Using fallback data.');
       
       // Fallback to default services if Firebase fails
       const fallbackServices: Service[] = [
@@ -77,7 +74,7 @@ export default function Services() {
           title: "App Development",
           description: "Custom applications built with modern technologies to solve unique challenges.",
           icon: "Zap",
-          href: "/services/application-development",
+          href: "/services/software-development",
           order: 3
         },
         {
@@ -134,8 +131,17 @@ export default function Services() {
       <PageLayout>
         <div className="min-h-screen flex items-center justify-center">
           <div className="text-center">
-            <Loader2 className="h-12 w-12 animate-spin text-blue-600 mx-auto mb-4" />
-            <p className="text-gray-600">Loading services...</p>
+            <div className="relative w-20 h-20 mx-auto mb-6">
+              {/* Outer rotating ring */}
+              <div className="absolute inset-0 rounded-full border-3 border-transparent border-t-orange-500 border-r-orange-500 animate-spin" style={{animationDuration: '1.5s'}}></div>
+              {/* Middle rotating ring (opposite direction) */}
+              <div className="absolute inset-2 rounded-full border-2 border-transparent border-b-blue-500 border-l-blue-500 animate-spin" style={{animationDuration: '1s', animationDirection: 'reverse'}}></div>
+              {/* Inner pulsing core */}
+              <div className="absolute inset-4 rounded-full bg-gradient-to-br from-orange-500 to-blue-500 animate-pulse opacity-80" style={{animationDuration: '2s'}}></div>
+              {/* Center dot */}
+              <div className="absolute top-1/2 left-1/2 w-2 h-2 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg"></div>
+            </div>
+            <p className="text-gray-600 animate-pulse font-medium text-lg">Loading services...</p>
           </div>
         </div>
       </PageLayout>
@@ -153,9 +159,9 @@ export default function Services() {
             <img 
               src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
               alt="Services Background"
-              className="w-full h-full object-cover opacity-20"
+              className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/50"></div>
+            <div className="absolute inset-0 bg-black/70"></div>
           </div>
 
           <div className="relative z-10 container mx-auto px-6 md:px-8 lg:px-12 max-w-6xl">
@@ -231,7 +237,7 @@ export default function Services() {
                 requireAuth={true}
                 className="bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 font-['Poppins',sans-serif]"
               >
-                Get Started
+                Download Our Guide
               </AuthButton>
               <Button 
                 asChild
@@ -239,10 +245,17 @@ export default function Services() {
                 className="bg-transparent border-white text-white hover:bg-white hover:text-blue-900 font-semibold py-3 px-8 rounded-lg transition-all duration-300 font-['Poppins',sans-serif]"
               >
                 <a href="/work">
-                  View Our Work
+                  See Case Studies
                   <ArrowRight className="ml-2 h-4 w-4 inline" />
                 </a>
               </Button>
+              <AuthButton 
+                href="/contact"
+                requireAuth={true}
+                className="bg-transparent border-white text-white hover:bg-white hover:text-blue-900 font-semibold py-3 px-8 rounded-lg transition-all duration-300 font-['Poppins',sans-serif]"
+              >
+                Get a Quote
+              </AuthButton>
             </div>
           </div>
         </section>

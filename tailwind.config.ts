@@ -84,7 +84,8 @@ export default {
 				'gray-900': '#111827',
 				'emerald-600': '#059669',
 				'purple-600': '#9333ea',
-				'orange-600': '#ea580c',
+				'orange-500': '#f97316',
+				'orange-600': '#f97316',
 				'red-600': '#dc2626',
 				'cyan-600': '#0891b2',
 				sidebar: {

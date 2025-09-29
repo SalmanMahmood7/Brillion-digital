@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,7 +10,7 @@
     --color-surface: 220 13% 97%; /* Very light gray surface */
     --color-section-alt: 220 26% 14%; /* Deep navy section */
     --color-text: 220 9% 46%; /* Professional gray text */
-    --color-text-primary: 220 26% 14%; /* Dark navy headings */
+    --color-text-primary: 213 94% 28%; /* Navy blue headings */
     --color-muted: 220 9% 46%; /* Medium gray */
     --color-accent: 217 91% 60%; /* Modern blue primary */
     --color-accent-secondary: 217 91% 60%; /* Blue secondary */
@@ -107,7 +105,7 @@
     letter-spacing: var(--tracking-normal);
     /* Force professional color scheme */
     background-color: #f9fafb !important;
-    color: #111827 !important;
+    color: #1e3a8a !important; /* Navy blue instead of black */
   }
 
   /* Typography Scale */
@@ -375,12 +373,17 @@
     background-color: #f9fafb !important;
   }
 
+  /* Change only black/dark gray text to navy blue */
   .text-gray-900 {
-    color: #111827 !important;
+    color: #1e3a8a !important; /* Navy blue instead of black */
+  }
+  
+  .text-black {
+    color: #1e3a8a !important; /* Navy blue instead of black */
   }
 
   .text-blue-600 {
-    color: #2563eb !important;
+    color: #2563eb !important; /* Keep original blue */
   }
 
   .bg-white {

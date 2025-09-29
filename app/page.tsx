@@ -1,11 +1,27 @@
 'use client';
 
 import Hero from "@/components/Hero";
-import WhatWeDoSection from "@/components/WhatWeDoSection";
-import InsightsSection from "@/components/InsightsSection";
 import PageLayout from "@/components/PageLayout";
 import { useEffect } from "react";
 import { useScrollReveal } from "@/lib/scroll-reveal";
+import dynamic from "next/dynamic";
+
+// Lazy load components below the fold
+const WorkHighlights = dynamic(() => import("@/components/WorkHighlights"), {
+  loading: () => <div className="h-96 animate-pulse bg-gray-100" />
+});
+const WhyChooseUs = dynamic(() => import("@/components/WhyChooseUs"), {
+  loading: () => <div className="h-96 animate-pulse bg-gray-100" />
+});
+const WhatWeDoSection = dynamic(() => import("@/components/WhatWeDoSection"), {
+  loading: () => <div className="h-96 animate-pulse bg-gray-100" />
+});
+const InsightsSection = dynamic(() => import("@/components/InsightsSection"), {
+  loading: () => <div className="h-96 animate-pulse bg-gray-100" />
+});
+const FinalCTA = dynamic(() => import("@/components/FinalCTA"), {
+  loading: () => <div className="h-64 animate-pulse bg-gray-100" />
+});
 
 export default function Home() {
   // Initialize scroll reveal animations
@@ -21,9 +37,11 @@ export default function Home() {
         {/* Page Content */}
         <div className="relative z-10">
           <Hero />
-          <InsightsSection />
+          <WorkHighlights />
+          <WhyChooseUs />
           <WhatWeDoSection />
-          
+          <InsightsSection />
+          <FinalCTA />
         </div>
 
         {/* CSS Animations */}

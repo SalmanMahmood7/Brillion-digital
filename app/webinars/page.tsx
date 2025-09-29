@@ -2,12 +2,15 @@
 
 import PageLayout from "@/components/PageLayout";
 import { Play, Calendar, Clock, Users, BookOpen, TrendingUp, Shield, Cloud, Brain, Database, ChevronRight, ExternalLink, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { webinarsService, Webinar } from "@/lib/firebase-services";
 import AuthButton from "@/components/auth/AuthButton";
 
 export default function Webinars() {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedWebinar, setSelectedWebinar] = useState(null);
+  const [webinars, setWebinars] = useState<Webinar[]>([]);
+  const [loading, setLoading] = useState(true);
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [debugLogs, setDebugLogs] = useState([]);
   const [showDebugConsole, setShowDebugConsole] = useState(false);
@@ -67,86 +70,23 @@ export default function Webinars() {
 
   const categories = ["All", "Digital Transformation", "Cloud Solutions", "AI & Machine Learning", "Cybersecurity", "Data Analytics"];
 
-  const webinars = [
-    {
-      id: "1",
-      title: "Digital Transformation in 2024: A Complete Guide",
-      description: "Learn the essential strategies for successful digital transformation, including cloud migration, process automation, and change management.",
-      category: "Digital Transformation",
-      duration: "45 min",
-      views: "2.3K",
-      date: "Dec 15, 2024",
-      youtubeId: "dQw4w9WgXcQ", // Replace with actual YouTube video IDs
-      speaker: "Sarah Chen, Digital Strategy Director",
-      topics: ["Cloud Migration", "Process Automation", "Change Management", "ROI Measurement"],
-      thumbnail: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80"
-    },
-    {
-      id: "2", 
-      title: "Cybersecurity Best Practices for Modern Businesses",
-      description: "Comprehensive guide to protecting your business from cyber threats with enterprise-grade security solutions and best practices.",
-      category: "Cybersecurity",
-      duration: "38 min",
-      views: "1.8K",
-      date: "Dec 10, 2024",
-      youtubeId: "dQw4w9WgXcQ", // Replace with actual YouTube video IDs
-      speaker: "Shahzaib Kamal, Security Expert",
-      topics: ["Zero Trust Security", "Threat Detection", "Compliance", "Risk Management"],
-      thumbnail: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80"
-    },
-    {
-      id: "3",
-      title: "AI-Powered Analytics: Transforming Business Intelligence",
-      description: "Discover how artificial intelligence is revolutionizing data analytics and providing unprecedented insights for business growth.",
-      category: "AI & Machine Learning",
-      duration: "52 min", 
-      views: "3.1K",
-      date: "Dec 5, 2024",
-      youtubeId: "dQw4w9WgXcQ", // Replace with actual YouTube video IDs
-      speaker: "Dr. Salman Mahmood, AI Research Lead",
-      topics: ["Machine Learning", "Predictive Analytics", "Business Intelligence", "Data Visualization"],
-      thumbnail: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80"
-    },
-    {
-      id: "4",
-      title: "Cloud Migration Strategies for Enterprise",
-      description: "A comprehensive guide to successfully migrating your enterprise applications to the cloud with minimal downtime and maximum efficiency.",
-      category: "Cloud Solutions",
-      duration: "41 min",
-      views: "2.7K", 
-      date: "Nov 28, 2024",
-      youtubeId: "dQw4w9WgXcQ", // Replace with actual YouTube video IDs
-      speaker: "David Kim, Cloud Architect",
-      topics: ["AWS Migration", "Azure Solutions", "Hybrid Cloud", "Cost Optimization"],
-      thumbnail: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80"
-    },
-    {
-      id: "5",
-      title: "Data Analytics for Business Growth",
-      description: "Learn how to leverage data analytics to drive business decisions, improve customer experience, and accelerate growth.",
-      category: "Data Analytics",
-      duration: "36 min",
-      views: "1.9K",
-      date: "Nov 20, 2024", 
-      youtubeId: "dQw4w9WgXcQ", // Replace with actual YouTube video IDs
-      speaker: "Jennifer Liu, Data Science Manager",
-      topics: ["Business Intelligence", "Customer Analytics", "Performance Metrics", "Data Visualization"],
-      thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80"
-    },
-    {
-      id: "6",
-      title: "Microsoft 365 Implementation Best Practices",
-      description: "Complete guide to implementing Microsoft 365 in your organization, including Teams, SharePoint, and security configurations.",
-      category: "Digital Transformation",
-      duration: "48 min",
-      views: "2.5K",
-      date: "Nov 15, 2024",
-      youtubeId: "dQw4w9WgXcQ", // Replace with actual YouTube video IDs  
-      speaker: "Robert Martinez, Microsoft Solutions Expert",
-      topics: ["Teams Implementation", "SharePoint", "Security", "User Adoption"],
-      thumbnail: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=800&q=80"
-    }
-  ];
+  // Fetch webinars from Firebase
+  useEffect(() => {
+    const fetchWebinars = async () => {
+      try {
+        setLoading(true);
+        const webinarsList = await webinarsService.getAll();
+        console.log('Public page - fetched webinars:', webinarsList.length);
+        setWebinars(webinarsList);
+      } catch (error) {
+        console.error('Error fetching webinars:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchWebinars();
+  }, []);
 
   const filteredWebinars = selectedCategory === "All" 
     ? webinars 
@@ -255,105 +195,133 @@ export default function Webinars() {
               
               {/* Main Content - Webinars */}
               <div className="lg:col-span-2">
-                <div className="grid md:grid-cols-2 gap-8">
-                  {filteredWebinars.map((webinar) => (
-                    <div
-                      key={webinar.id}
-                      className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
-                    >
-                      {/* Video Thumbnail */}
-                      <div className="relative h-48 overflow-hidden">
-                        <img 
-                          src={webinar.thumbnail} 
-                          alt={webinar.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                        
-                        {/* Play Button */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                          <div 
-                            onClick={() => {
-                              addDebugLog('▶️ PLAY_CLICK', `Play button clicked for "${webinar.title}"`, 'info');
-                              handleWatchWebinar(webinar);
-                            }}
-                            className="w-16 h-16 bg-[#f97316]/90 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer hover:bg-[#ea580c]/90"
-                          >
-                            <Play className="w-8 h-8 text-white ml-1" />
-                          </div>
-                        </div>
-                        
-                        {/* Duration Badge */}
-                        <div className="absolute top-4 right-4">
-                          <span className="px-3 py-1 bg-black/70 backdrop-blur text-white text-sm font-semibold rounded-full">
-                            {webinar.duration}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Content */}
-                      <div className="p-6 space-y-4">
-                        <div className="flex items-center justify-between text-sm text-gray-500">
-                          <span className="flex items-center space-x-1">
-                            <Calendar className="w-4 h-4" />
-                            <span>{webinar.date}</span>
-                          </span>
-                          <span className="flex items-center space-x-1">
-                            <Users className="w-4 h-4" />
-                            <span>{webinar.views} views</span>
-                          </span>
-                        </div>
-
-                        <h3 className="text-xl font-bold text-blue-900 group-hover:text-[#f97316] transition-colors duration-300 leading-tight">
-                          {webinar.title}
-                        </h3>
-                        
-                        <p className="text-gray-600 line-clamp-3 text-sm leading-relaxed">
-                          {webinar.description}
-                        </p>
-
-                        <div className="space-y-3">
-                          <p className="text-sm font-medium text-gray-800">{webinar.speaker}</p>
-                          
-                          {/* Topics */}
-                          <div className="flex flex-wrap gap-2">
-                            {webinar.topics.slice(0, 3).map((topic, index) => (
-                              <span 
-                                key={index}
-                                className="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full"
-                              >
-                                {topic}
-                              </span>
-                            ))}
-                            {webinar.topics.length > 3 && (
-                              <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
-                                +{webinar.topics.length - 3}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-
-                        {/* Watch Button */}
-                        <div className="pt-4 border-t border-gray-100">
-                          <AuthButton
-                            requireAuth={true}
-                            onAuthSuccess={() => {
-                              addDebugLog('🔐 AUTH_BUTTON', 'AuthButton authentication successful', 'success');
-                              handleWatchWebinar(webinar);
-                            }}
-                            onClick={() => {
-                              addDebugLog('👆 BUTTON_CLICK', `Watch Webinar button clicked for "${webinar.title}"`, 'info');
-                            }}
-                            className="w-full bg-[#f97316] text-white py-3 rounded-xl font-semibold hover:bg-[#ea580c] transition-all duration-300 flex items-center justify-center"
-                          >
-                            <Play className="w-4 h-4 mr-2" />
-                            Watch Webinar
-                          </AuthButton>
-                        </div>
-                      </div>
+                {loading ? (
+                  <div className="text-center py-20">
+                    <div className="max-w-md mx-auto">
+                      <div className="w-16 h-16 border-4 border-[#f97316] border-t-transparent rounded-full animate-spin mx-auto mb-8"></div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-4">Loading Webinars...</h3>
+                      <p className="text-gray-600">Please wait while we fetch the latest webinars.</p>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                ) : filteredWebinars.length > 0 ? (
+                  <div className="grid md:grid-cols-2 gap-8">
+                    {filteredWebinars.map((webinar) => (
+                      <div
+                        key={webinar.id}
+                        className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+                      >
+                        {/* Video Thumbnail */}
+                        <div className="relative h-48 overflow-hidden">
+                          <img 
+                            src={webinar.thumbnail} 
+                            alt={webinar.title}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
+                          
+                          {/* Play Button */}
+                          <div className="absolute inset-0 flex items-center justify-center">
+                            <div 
+                              onClick={() => {
+                                addDebugLog('▶️ PLAY_CLICK', `Play button clicked for "${webinar.title}"`, 'info');
+                                handleWatchWebinar(webinar);
+                              }}
+                              className="w-16 h-16 bg-[#f97316]/90 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer hover:bg-[#ea580c]/90"
+                            >
+                              <Play className="w-8 h-8 text-white ml-1" />
+                            </div>
+                          </div>
+                          
+                          {/* Duration Badge */}
+                          <div className="absolute top-4 right-4">
+                            <span className="px-3 py-1 bg-black/70 backdrop-blur text-white text-sm font-semibold rounded-full">
+                              {webinar.duration}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Content */}
+                        <div className="p-6 space-y-4">
+                          <div className="flex items-center justify-between text-sm text-gray-500">
+                            <span className="flex items-center space-x-1">
+                              <Calendar className="w-4 h-4" />
+                              <span>{webinar.date}</span>
+                            </span>
+                            <span className="flex items-center space-x-1">
+                              <Users className="w-4 h-4" />
+                              <span>{webinar.views} views</span>
+                            </span>
+                          </div>
+
+                          <h3 className="text-xl font-bold text-blue-900 group-hover:text-[#f97316] transition-colors duration-300 leading-tight">
+                            {webinar.title}
+                          </h3>
+                          
+                          <p className="text-gray-600 line-clamp-3 text-sm leading-relaxed">
+                            {webinar.description}
+                          </p>
+
+                          <div className="space-y-3">
+                            <p className="text-sm font-medium text-gray-800">{webinar.speaker}</p>
+                            
+                            {/* Topics */}
+                            <div className="flex flex-wrap gap-2">
+                              {webinar.topics.slice(0, 3).map((topic, index) => (
+                                <span 
+                                  key={index}
+                                  className="px-2 py-1 bg-blue-50 text-blue-700 text-xs font-medium rounded-full"
+                                >
+                                  {topic}
+                                </span>
+                              ))}
+                              {webinar.topics.length > 3 && (
+                                <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
+                                  +{webinar.topics.length - 3}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Watch Button */}
+                          <div className="pt-4 border-t border-gray-100">
+                            <button
+                              onClick={() => {
+                                addDebugLog('👆 BUTTON_CLICK', `Watch Webinar button clicked for "${webinar.title}"`, 'info');
+                                handleWatchWebinar(webinar);
+                              }}
+                              className="w-full bg-[#f97316] text-white py-3 rounded-xl font-semibold hover:bg-[#ea580c] transition-all duration-300 flex items-center justify-center"
+                            >
+                              <Play className="w-4 h-4 mr-2" />
+                              Watch Webinar
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  /* Coming Soon Message */
+                  <div className="text-center py-20">
+                    <div className="max-w-md mx-auto">
+                      <div className="w-24 h-24 bg-gradient-to-br from-[#f97316] to-[#ea580c] rounded-full flex items-center justify-center mx-auto mb-8">
+                        <Play className="w-12 h-12 text-white" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-4">Webinars Coming Soon</h3>
+                      <p className="text-gray-600 mb-8 leading-relaxed">
+                        We're preparing high-quality webinar content featuring industry experts and cutting-edge topics. 
+                        Stay tuned for updates!
+                      </p>
+                      <AuthButton
+                        requireAuth={false}
+                        href="/contact"
+                        className="bg-[#f97316] hover:bg-[#ea580c] text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 inline-flex items-center"
+                      >
+                        <Calendar className="w-4 h-4 mr-2" />
+                        Get Notified
+                      </AuthButton>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* Sidebar - Upcoming Webinars */}
@@ -427,7 +395,7 @@ export default function Webinars() {
           <div className="relative bg-slate-900">
             <div className="absolute inset-0">
               <img 
-                src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=2000&auto=format&fit=crop" 
+                src="/webinar-cta-bg.jpg" 
                 alt="Learning Background"
                 className="w-full h-full object-cover opacity-40"
               />
@@ -444,22 +412,15 @@ export default function Webinars() {
                 </p>
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <AuthButton 
-                    href="/contact"
-                    requireAuth={true}
-                    className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg flex items-center justify-center"
-                  >
-                    <Users className="mr-2 w-5 h-5" />
-                    Become a Speaker
-                  </AuthButton>
-                  <AuthButton 
-                    href="/newsletter"
-                    requireAuth={false}
-                    className="bg-[#f97316] border-2 border-[#f97316] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#ea580c] hover:border-[#ea580c] transition-all duration-300 text-lg flex items-center justify-center"
-                  >
-                    <Calendar className="mr-2 w-5 h-5" />
-                    Get Notified
-                  </AuthButton>
+                  <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 bg-[#f97316] hover:bg-orange-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 text-lg">
+                    Download Our Guide
+                  </button>
+                  <a className="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg" href="/work">
+                    See Case Studies
+                  </a>
+                  <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
+                    Get a Quote
+                  </button>
                 </div>
               </div>
             </div>

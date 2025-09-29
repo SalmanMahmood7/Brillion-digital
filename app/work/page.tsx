@@ -26,7 +26,7 @@ export default function Work() {
           metrics: { users: "1M+", transactions: "$50M+", uptime: "99.9%" },
           technologies: ["React", "Node.js", "AWS", "MongoDB"],
           year: "2024",
-          image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=800&q=80",
+          image: "/case-study-1.jpg",
           duration: "8 months"
         },
         {
@@ -37,7 +37,7 @@ export default function Work() {
           metrics: { patients: "500K", appointments: "2M+", satisfaction: "4.8/5" },
           technologies: ["Angular", "Python", "PostgreSQL", "Docker"],
           year: "2024",
-          image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80",
+          image: "/case-study-2.jpg",
           duration: "6 months"
         },
         {
@@ -48,7 +48,7 @@ export default function Work() {
           metrics: { downloads: "250K", dailyTransactions: "10K+", rating: "4.7★" },
           technologies: ["React Native", "Firebase", "Stripe API", "Node.js"],
           year: "2023",
-          image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80",
+          image: "/case-study-3.jpg",
           duration: "4 months"
         }
       ]
@@ -67,7 +67,7 @@ export default function Work() {
           metrics: { salesGrowth: "250%", dataProcessed: "10TB+", insights: "500+" },
           technologies: ["Tableau", "Python", "Snowflake", "Apache Spark"],
           year: "2024",
-          image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+          image: "/case-study-4.jpg",
           duration: "5 months"
         },
         {
@@ -78,7 +78,7 @@ export default function Work() {
           metrics: { efficiency: "45%", stores: "200+", accuracy: "98%" },
           technologies: ["Power BI", "Azure", "SQL Server", "Python"],
           year: "2023",
-          image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+          image: "/case-study-5.jpg",
           duration: "3 months"
         },
         {
@@ -89,7 +89,7 @@ export default function Work() {
           metrics: { downtimeReduction: "30%", costSavings: "$2M+", plants: "15" },
           technologies: ["Apache Kafka", "TensorFlow", "Grafana", "InfluxDB"],
           year: "2024",
-          image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80",
+          image: "/case-study-6.jpg",
           duration: "7 months"
         }
       ]
@@ -108,7 +108,7 @@ export default function Work() {
           metrics: { costReduction: "40%", performance: "+60%", availability: "99.99%" },
           technologies: ["AWS", "Kubernetes", "Terraform", "Jenkins"],
           year: "2024",
-          image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80",
+          image: "/case-study-7.jpg",
           duration: "10 months"
         },
         {
@@ -119,7 +119,7 @@ export default function Work() {
           metrics: { scalability: "10x", regions: "5", responseTime: "<100ms" },
           technologies: ["Google Cloud", "Docker", "Redis", "LoadBalancer"],
           year: "2023",
-          image: "https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&q=80",
+          image: "/case-study-8.jpg",
           duration: "4 months"
         },
         {
@@ -130,7 +130,7 @@ export default function Work() {
           metrics: { compliance: "100%", dataMigrated: "50TB", security: "SOC2" },
           technologies: ["Azure", "VMware", "Active Directory", "VPN"],
           year: "2024",
-          image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+          image: "/case-study-9.jpg",
           duration: "6 months"
         }
       ]
@@ -149,7 +149,7 @@ export default function Work() {
           metrics: { incidents: "0", compliance: "HIPAA", protection: "500K records" },
           technologies: ["CrowdStrike", "Palo Alto", "Splunk", "HashiCorp Vault"],
           year: "2024",
-          image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&q=80",
+          image: "/case-study-10.jpg",
           duration: "8 months"
         },
         {
@@ -160,7 +160,7 @@ export default function Work() {
           metrics: { vulnerabilities: "-95%", training: "1000+ staff", certifications: "PCI DSS" },
           technologies: ["Qualys", "Fortinet", "RSA", "IBM QRadar"],
           year: "2023",
-          image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80",
+          image: "/case-study-11.jpg",
           duration: "5 months"
         },
         {
@@ -171,7 +171,7 @@ export default function Work() {
           metrics: { threatsBlocked: "10K+", recoveryTime: "<1hr", dataProtected: "100TB" },
           technologies: ["SentinelOne", "Veeam", "Zscaler", "Darktrace"],
           year: "2024",
-          image: "https://images.unsplash.com/photo-1510511459019-5dda7724fd87?w=800&q=80",
+          image: "/case-study-12.jpg",
           duration: "3 months"
         }
       ]
@@ -190,7 +190,7 @@ export default function Work() {
           metrics: { roi: "180%", channels: "5", customerSatisfaction: "+40%" },
           technologies: ["Salesforce", "Adobe Commerce", "Analytics 360", "CDP"],
           year: "2024",
-          image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80",
+          image: "/case-study-13.jpg",
           duration: "12 months"
         },
         {
@@ -201,7 +201,7 @@ export default function Work() {
           metrics: { citizens: "2M", services: "50+", processingTime: "-60%" },
           technologies: ["ServiceNow", "Microsoft 365", "Power Platform", "Azure"],
           year: "2023",
-          image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80",
+          image: "/case-study-14.jpg",
           duration: "18 months"
         },
         {
@@ -212,7 +212,7 @@ export default function Work() {
           metrics: { costReduction: "35%", deliveryTime: "-25%", accuracy: "99.5%" },
           technologies: ["SAP S/4HANA", "Blue Yonder", "IoT", "Blockchain"],
           year: "2024",
-          image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80",
+          image: "/case-study-15.jpg",
           duration: "9 months"
         }
       ]
@@ -231,7 +231,7 @@ export default function Work() {
           metrics: { students: "100K", courses: "500+", completion: "85%" },
           technologies: ["Next.js", "GraphQL", "WebRTC", "TensorFlow.js"],
           year: "2024",
-          image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80",
+          image: "/case-study-16.jpg",
           duration: "10 months"
         },
         {
@@ -242,7 +242,7 @@ export default function Work() {
           metrics: { devices: "50K", dataPoints: "1B+/day", uptime: "99.95%" },
           technologies: ["MQTT", "TimescaleDB", "React", "Apache Flink"],
           year: "2023",
-          image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80",
+          image: "/case-study-17.jpg",
           duration: "7 months"
         },
         {
@@ -253,7 +253,7 @@ export default function Work() {
           metrics: { gmv: "$100M", suppliers: "500+", buyers: "5000+" },
           technologies: ["Magento", "Elasticsearch", "RabbitMQ", "Vue.js"],
           year: "2024",
-          image: "https://images.unsplash.com/photo-1556155092-8707de31f9c4?w=800&q=80",
+          image: "/case-study-18.jpg",
           duration: "8 months"
         }
       ]
@@ -272,7 +272,7 @@ export default function Work() {
           metrics: { efficiency: "300%", tickets: "-70%", satisfaction: "98%" },
           technologies: ["VMware", "Cisco", "Microsoft 365", "ServiceDesk"],
           year: "2024",
-          image: "https://images.unsplash.com/photo-1565688534245-05d6b5be184a?w=800&q=80",
+          image: "/case-study-19.jpg",
           duration: "Ongoing"
         },
         {
@@ -283,7 +283,7 @@ export default function Work() {
           metrics: { uptime: "99.9%", responseTime: "<15min", users: "500+" },
           technologies: ["Azure AD", "Citrix", "Veeam", "SolarWinds"],
           year: "2023",
-          image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+          image: "/case-study-20.jpg",
           duration: "Ongoing"
         },
         {
@@ -294,7 +294,7 @@ export default function Work() {
           metrics: { locations: "50", devices: "2000+", savings: "$500K/year" },
           technologies: ["SD-WAN", "Meraki", "Intune", "ConnectWise"],
           year: "2024",
-          image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80",
+          image: "/case-study-21.jpg",
           duration: "Ongoing"
         }
       ]
@@ -310,11 +310,11 @@ export default function Work() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+              src="/case-study-22.jpg" 
               alt="Work Portfolio Background"
-              className="w-full h-full object-cover opacity-20"
+              className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 to-slate-900/90"></div>
+            <div className="absolute inset-0 bg-black/70"></div>
           </div>
 
           <div className="relative z-10 container mx-auto px-6 lg:px-12 max-w-6xl">
@@ -331,16 +331,10 @@ export default function Work() {
               {/* Stats */}
               <div className="flex flex-wrap justify-center gap-12 pt-8">
                 <div className="text-center">
-                  <div className="flex items-center justify-center mb-2">
-                    <Users className="w-8 h-8 text-[#f97316]" />
-                  </div>
                   <p className="text-4xl font-bold text-white">100+</p>
                   <p className="text-gray-400 mt-1">Happy Clients</p>
                 </div>
                 <div className="text-center">
-                  <div className="flex items-center justify-center mb-2">
-                    <Briefcase className="w-8 h-8 text-[#f97316]" />
-                  </div>
                   <p className="text-4xl font-bold text-white">250+</p>
                   <p className="text-gray-400 mt-1">Projects Delivered</p>
                 </div>
@@ -520,11 +514,11 @@ export default function Work() {
             {/* Background Image */}
             <div className="absolute inset-0">
               <img 
-                src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=2000&auto=format&fit=crop" 
+                src="/case-study-23.jpg" 
                 alt="Business Transformation Background"
                 className="w-full h-full object-cover opacity-40"
               />
-              <div className="absolute inset-0 bg-black/50"></div>
+              <div className="absolute inset-0 bg-black/70"></div>
             </div>
             
             <div className="relative z-10 container mx-auto px-6 md:px-8 lg:px-12 1.25xl:px-16 max-w-7xl py-24">
@@ -540,17 +534,23 @@ export default function Work() {
                   <AuthButton 
                     href="/contact"
                     requireAuth={true}
+                    className="bg-[#f97316] hover:bg-orange-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 text-lg flex items-center justify-center"
+                  >
+                    Download Our Guide
+                  </AuthButton>
+                  <AuthButton 
+                    href="/work"
+                    requireAuth={false}
                     className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg flex items-center justify-center"
                   >
-                    Start Your Project
+                    See Case Studies
                   </AuthButton>
                   <AuthButton 
                     href="/contact"
                     requireAuth={true}
-                    className="bg-[#f97316] border-2 border-[#f97316] text-white px-8 py-4 rounded-full font-semibold hover:bg-[#ea580c] hover:border-[#ea580c] transition-all duration-300 text-lg flex items-center justify-center"
+                    className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg flex items-center justify-center"
                   >
-                    <Calendar className="mr-2 w-5 h-5" />
-                    Schedule Consultation
+                    Get a Quote
                   </AuthButton>
                 </div>
 

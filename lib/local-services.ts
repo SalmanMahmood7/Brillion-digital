@@ -110,7 +110,7 @@ export async function initializeLocalServices() {
       title: "Application Development",
       description: "Custom applications built with modern technologies to solve unique challenges.",
       icon: "Code",
-      href: "/services/application-development",
+      href: "/services/software-development",
       order: 3
     },
     {

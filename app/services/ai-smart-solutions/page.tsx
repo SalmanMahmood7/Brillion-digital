@@ -21,19 +21,22 @@ import {
   Globe,
   TrendingUp,
   Briefcase,
-  Cloud
+  Cloud,
+  Plus,
+  Minus,
+  Settings,
+  DollarSign,
+  Star,
+  BarChart3,
+  ShieldCheck
 } from "lucide-react";
 import { useState } from "react";
 import ServiceDetailModal from "@/components/ServiceDetailModal";
 
 export default function AISmartSolutions() {
-  const [selectedService, setSelectedService] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-
-  const handleLearnMore = (serviceKey) => {
-    setSelectedService(servicesData[serviceKey]);
-    setShowModal(true);
-  };
+  const [selectedService, setSelectedService] = useState<any>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
   const servicesData = {
     machineLearning: {
@@ -130,21 +133,361 @@ export default function AISmartSolutions() {
       title: "Intelligent Automation",
       description: "AI-powered automation solutions to streamline business processes",
       fullDescription: "Transform your business operations with intelligent automation that combines AI, machine learning, and process automation. Our solutions go beyond basic RPA to deliver cognitive automation that can handle complex, unstructured tasks.",
+      features: [
+        {
+          title: "Robotic Process Automation",
+          description: "Automate repetitive tasks and workflows",
+          icon: Bot
+        },
+        {
+          title: "Document Processing",
+          description: "Extract and process information from documents",
+          icon: MessageSquare
+        },
+        {
+          title: "Workflow Optimization",
+          description: "Streamline business processes with AI",
+          icon: Zap
+        },
+        {
+          title: "Decision Automation",
+          description: "Automated decision-making based on rules and ML",
+          icon: Brain
+        }
+      ],
+      benefits: [
+        {
+          title: "Efficiency Gain",
+          description: "Improvement in process efficiency",
+          metric: "+200%"
+        },
+        {
+          title: "Cost Reduction",
+          description: "Reduction in operational costs",
+          metric: "60%"
+        },
+        {
+          title: "Error Reduction",
+          description: "Decrease in manual errors",
+          metric: "95%"
+        }
+      ],
+      process: [
+        {
+          step: 1,
+          title: "Process Analysis",
+          description: "Identify automation opportunities in current workflows",
+          duration: "1-2 weeks"
+        },
+        {
+          step: 2,
+          title: "Solution Design",
+          description: "Design automation architecture and workflows",
+          duration: "2-3 weeks"
+        },
+        {
+          step: 3,
+          title: "Development & Testing",
+          description: "Build and test automation solutions",
+          duration: "4-6 weeks"
+        },
+        {
+          step: 4,
+          title: "Deployment & Training",
+          description: "Deploy solutions and train users",
+          duration: "1-2 weeks"
+        }
+      ],
+      technologies: ["UiPath", "Blue Prism", "Automation Anywhere", "Microsoft Power Automate", "Python", "OCR", "NLP", "ML"],
+      caseStudy: {
+        client: "Insurance Company",
+        challenge: "Manual claims processing taking 5-7 days with high error rates",
+        solution: "Implemented intelligent automation for claims processing with ML validation",
+        results: [
+          "80% reduction in processing time",
+          "95% reduction in errors",
+          "60% cost savings",
+          "Improved customer satisfaction"
+        ]
+      },
+      deliverables: [
+        "Automated workflow solutions",
+        "Process documentation",
+        "User training materials",
+        "Performance monitoring",
+        "Ongoing support",
+        "Optimization recommendations"
+      ]
     },
     conversationalAI: {
       title: "Conversational AI & Chatbots",
       description: "Advanced chatbots and virtual assistants powered by natural language processing",
       fullDescription: "Create sophisticated conversational AI solutions that understand context, maintain dialogue flow, and provide personalized responses. Our chatbots integrate seamlessly with your existing systems and continuously learn from interactions.",
+      features: [
+        {
+          title: "Natural Language Understanding",
+          description: "Advanced NLU for context-aware conversations",
+          icon: MessageSquare
+        },
+        {
+          title: "Multi-channel Support",
+          description: "Deploy across web, mobile, and messaging platforms",
+          icon: Globe
+        },
+        {
+          title: "Intent Recognition",
+          description: "Accurately identify user intentions and requests",
+          icon: Brain
+        },
+        {
+          title: "Learning & Adaptation",
+          description: "Continuous learning from user interactions",
+          icon: TrendingUp
+        }
+      ],
+      benefits: [
+        {
+          title: "Response Time",
+          description: "Instant responses to customer queries",
+          metric: "24/7"
+        },
+        {
+          title: "Cost Savings",
+          description: "Reduction in customer service costs",
+          metric: "70%"
+        },
+        {
+          title: "Satisfaction",
+          description: "Improvement in customer satisfaction",
+          metric: "+40%"
+        }
+      ],
+      process: [
+        {
+          step: 1,
+          title: "Use Case Definition",
+          description: "Define chatbot capabilities and user journeys",
+          duration: "1 week"
+        },
+        {
+          step: 2,
+          title: "Training Data Preparation",
+          description: "Collect and prepare training data for NLP models",
+          duration: "2-3 weeks"
+        },
+        {
+          step: 3,
+          title: "Development & Training",
+          description: "Build and train conversational AI models",
+          duration: "3-4 weeks"
+        },
+        {
+          step: 4,
+          title: "Integration & Testing",
+          description: "Integrate with systems and conduct user testing",
+          duration: "1-2 weeks"
+        }
+      ],
+      technologies: ["Dialogflow", "Microsoft Bot Framework", "Amazon Lex", "Rasa", "OpenAI GPT", "BERT", "spaCy", "Python"],
+      caseStudy: {
+        client: "E-commerce Platform",
+        challenge: "High volume of customer support queries overwhelming support team",
+        solution: "Deployed intelligent chatbot with product recommendations and order tracking",
+        results: [
+          "70% of queries handled automatically",
+          "50% reduction in support tickets",
+          "30% increase in sales through recommendations",
+          "24/7 customer support availability"
+        ]
+      },
+      deliverables: [
+        "Conversational AI chatbot",
+        "Multi-platform integration",
+        "Analytics dashboard",
+        "Training documentation",
+        "Performance monitoring",
+        "Continuous optimization"
+      ]
     },
     dataAnalytics: {
       title: "AI-Powered Data Analytics",
       description: "Transform raw data into actionable insights with artificial intelligence",
       fullDescription: "Leverage AI to unlock hidden patterns in your data and generate actionable business insights. Our analytics solutions provide real-time dashboards, predictive models, and automated reporting to drive data-driven decision making.",
+      features: [
+        {
+          title: "Predictive Analytics",
+          description: "Forecast trends and future outcomes",
+          icon: LineChart
+        },
+        {
+          title: "Real-time Dashboards",
+          description: "Live data visualization and monitoring",
+          icon: Eye
+        },
+        {
+          title: "Automated Reporting",
+          description: "AI-generated insights and reports",
+          icon: MessageSquare
+        },
+        {
+          title: "Pattern Recognition",
+          description: "Discover hidden patterns in complex data",
+          icon: Brain
+        }
+      ],
+      benefits: [
+        {
+          title: "Decision Speed",
+          description: "Faster data-driven decisions",
+          metric: "5x faster"
+        },
+        {
+          title: "Accuracy",
+          description: "Improvement in forecast accuracy",
+          metric: "+90%"
+        },
+        {
+          title: "Insights",
+          description: "More actionable insights generated",
+          metric: "300%"
+        }
+      ],
+      process: [
+        {
+          step: 1,
+          title: "Data Assessment",
+          description: "Evaluate data sources and quality",
+          duration: "1 week"
+        },
+        {
+          step: 2,
+          title: "Infrastructure Setup",
+          description: "Set up data pipelines and analytics infrastructure",
+          duration: "2-3 weeks"
+        },
+        {
+          step: 3,
+          title: "Model Development",
+          description: "Build predictive models and analytics solutions",
+          duration: "3-4 weeks"
+        },
+        {
+          step: 4,
+          title: "Visualization & Deployment",
+          description: "Create dashboards and deploy analytics platform",
+          duration: "1-2 weeks"
+        }
+      ],
+      technologies: ["Python", "R", "Tableau", "Power BI", "Apache Spark", "TensorFlow", "Pandas", "AWS Analytics"],
+      caseStudy: {
+        client: "Manufacturing Company",
+        challenge: "Unable to predict equipment failures leading to costly downtime",
+        solution: "Built predictive maintenance analytics platform with IoT integration",
+        results: [
+          "75% reduction in unplanned downtime",
+          "40% decrease in maintenance costs",
+          "Predictive accuracy of 95%",
+          "$3M annual savings"
+        ]
+      },
+      deliverables: [
+        "Analytics platform",
+        "Predictive models",
+        "Real-time dashboards",
+        "Automated reporting",
+        "Data integration",
+        "Training and support"
+      ]
     },
     computerVision: {
       title: "Computer Vision Solutions",
       description: "Advanced image and video analysis for automated visual intelligence",
       fullDescription: "Implement computer vision solutions that can analyze, interpret, and act on visual information. From quality control to security monitoring, our CV solutions provide automated visual intelligence for various industries.",
+      features: [
+        {
+          title: "Object Detection",
+          description: "Identify and locate objects in images and videos",
+          icon: Eye
+        },
+        {
+          title: "Image Classification",
+          description: "Categorize images based on content",
+          icon: Target
+        },
+        {
+          title: "Facial Recognition",
+          description: "Identify and verify individuals",
+          icon: Users
+        },
+        {
+          title: "Quality Inspection",
+          description: "Automated defect detection and quality control",
+          icon: CheckCircle
+        }
+      ],
+      benefits: [
+        {
+          title: "Processing Speed",
+          description: "Faster than human visual inspection",
+          metric: "100x faster"
+        },
+        {
+          title: "Accuracy",
+          description: "Visual recognition accuracy",
+          metric: "99.5%"
+        },
+        {
+          title: "Cost Savings",
+          description: "Reduction in manual inspection costs",
+          metric: "80%"
+        }
+      ],
+      process: [
+        {
+          step: 1,
+          title: "Use Case Analysis",
+          description: "Define visual recognition requirements",
+          duration: "1 week"
+        },
+        {
+          step: 2,
+          title: "Data Collection",
+          description: "Gather and annotate training images",
+          duration: "2-3 weeks"
+        },
+        {
+          step: 3,
+          title: "Model Training",
+          description: "Train computer vision models",
+          duration: "3-4 weeks"
+        },
+        {
+          step: 4,
+          title: "Integration & Testing",
+          description: "Deploy and test vision solutions",
+          duration: "1-2 weeks"
+        }
+      ],
+      technologies: ["OpenCV", "TensorFlow", "PyTorch", "YOLO", "AWS Rekognition", "Google Vision API", "Python", "CUDA"],
+      caseStudy: {
+        client: "Food Processing Plant",
+        challenge: "Manual quality inspection missing 15% of defective products",
+        solution: "Implemented computer vision system for automated quality control",
+        results: [
+          "99.8% defect detection accuracy",
+          "50% faster inspection process",
+          "90% reduction in customer complaints",
+          "ROI achieved in 8 months"
+        ]
+      },
+      deliverables: [
+        "Computer vision models",
+        "Real-time processing system",
+        "Integration with existing equipment",
+        "Performance monitoring",
+        "Training and documentation",
+        "Ongoing optimization"
+      ]
     },
     naturalLanguageProcessing: {
       title: "Natural Language Processing Solutions",
@@ -189,8 +532,60 @@ export default function AISmartSolutions() {
           metric: "60%"
         }
       ],
+      process: [
+        {
+          step: 1,
+          title: "Requirements Analysis",
+          description: "Define NLP requirements and use cases",
+          duration: "1 week"
+        },
+        {
+          step: 2,
+          title: "Data Preparation",
+          description: "Collect and preprocess text data",
+          duration: "2 weeks"
+        },
+        {
+          step: 3,
+          title: "Model Development",
+          description: "Train and optimize NLP models",
+          duration: "3-4 weeks"
+        },
+        {
+          step: 4,
+          title: "Integration & Testing",
+          description: "Deploy and test NLP solutions",
+          duration: "1-2 weeks"
+        }
+      ],
+      technologies: ["spaCy", "NLTK", "Transformers", "BERT", "GPT", "Amazon Comprehend", "Google NLP", "Python"],
+      caseStudy: {
+        client: "Customer Service Center",
+        challenge: "Manual analysis of 10,000+ customer feedback emails monthly",
+        solution: "Implemented NLP system for automated sentiment analysis and categorization",
+        results: [
+          "95% accuracy in sentiment classification",
+          "80% reduction in analysis time",
+          "Real-time customer insights",
+          "Improved response times by 60%"
+        ]
+      },
+      deliverables: [
+        "NLP models and algorithms",
+        "Text processing pipeline",
+        "Analytics dashboard",
+        "API integration",
+        "Documentation and training",
+        "Performance monitoring"
+      ]
     }
   };
+
+  const handleLearnMore = (serviceKey: string) => {
+    setSelectedService(servicesData[serviceKey]);
+    setShowModal(true);
+  };
+
   return (
     <PageLayout>
       <div className="min-h-screen bg-white">
@@ -199,11 +594,14 @@ export default function AISmartSolutions() {
         <section className="relative bg-slate-900 py-24">
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+              src="/ai-solutions-background.jpg" 
               alt="AI Solutions Background"
               className="w-full h-full object-cover opacity-20"
+              loading="eager"
+              onLoad={() => console.log('AI background image loaded successfully')}
+              onError={(e) => console.error('Failed to load AI background image:', e)}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 to-slate-900/90"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/50"></div>
           </div>
           
           <div className="relative z-10 container mx-auto px-6 lg:px-12 max-w-6xl">
@@ -243,8 +641,11 @@ export default function AISmartSolutions() {
           </div>
         </section>
 
+        {/* Unified Background Container for All Sections */}
+        <div className="bg-gradient-to-br from-blue-50 via-white to-orange-50 overflow-hidden">
+        
         {/* AI Solutions Grid */}
-        <section id="solutions" className="py-20 bg-white">
+        <section id="solutions" className="py-20">
           <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
             
             {/* Header */}
@@ -264,7 +665,7 @@ export default function AISmartSolutions() {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className="relative">
                   <img 
-                    src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+                    src="/ai-data-analysis.jpg"
                     alt="Machine Learning Analytics"
                     className="rounded-2xl shadow-xl"
                   />
@@ -349,7 +750,7 @@ export default function AISmartSolutions() {
                 
                 <div className="relative order-1 lg:order-2">
                   <img 
-                    src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+                    src="/ai-automation.jpg"
                     alt="Intelligent Automation"
                     className="rounded-2xl shadow-xl"
                   />
@@ -361,7 +762,7 @@ export default function AISmartSolutions() {
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 <div className="relative">
                   <img 
-                    src="https://images.unsplash.com/photo-1589254065878-42c9da997008?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+                    src="/ai-machine-learning.jpg"
                     alt="Natural Language Processing"
                     className="rounded-2xl shadow-xl"
                   />
@@ -446,7 +847,7 @@ export default function AISmartSolutions() {
                 
                 <div className="relative order-1 lg:order-2">
                   <img 
-                    src="https://images.unsplash.com/photo-1555255707-c07966088b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+                    src="/ai-consulting.jpg"
                     alt="Computer Vision"
                     className="rounded-2xl shadow-xl"
                   />
@@ -457,10 +858,9 @@ export default function AISmartSolutions() {
             
           </div>
         </section>
-
-
+        
         {/* Industry Applications */}
-        <section className="py-20 bg-white">
+        <section className="py-20">
           <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
             
             {/* Header */}
@@ -512,7 +912,7 @@ export default function AISmartSolutions() {
         </section>
 
         {/* AI Implementation Process */}
-        <section className="py-20 bg-white">
+        <section className="py-20">
           <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
             
             {/* Header */}
@@ -610,7 +1010,7 @@ export default function AISmartSolutions() {
         </section>
 
         {/* Technology Stack */}
-        <section className="py-20 bg-white">
+        <section className="py-20">
           <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
             
             {/* Header */}
@@ -715,12 +1115,302 @@ export default function AISmartSolutions() {
           </div>
         </section>
 
+        {/* Benefits Section */}
+        <section className="py-24 relative">
+          <div className="absolute inset-0">
+            <div className="absolute top-20 left-10 w-64 h-64 bg-blue-900/5 rounded-full blur-2xl"></div>
+            <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#f97316]/5 rounded-full blur-3xl"></div>
+          </div>
+          
+          <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl relative z-10">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <span className="text-blue-900">AI Solution</span>{" "}
+                <span className="text-[#f97316]">Benefits</span>
+              </h2>
+              <p className="text-xl text-blue-900 max-w-3xl mx-auto leading-relaxed">
+                Discover how our AI solutions can transform your business operations and deliver measurable results
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  title: "Automated Decision Making",
+                  description: "Reduce manual decision-making time by 85% with AI-powered automation that learns from patterns and makes intelligent choices in real-time.",
+                  IconComponent: Settings
+                },
+                {
+                  title: "Predictive Intelligence",
+                  description: "Forecast future trends with 95% accuracy using advanced machine learning models that analyze historical data and market patterns.",
+                  IconComponent: Sparkles
+                },
+                {
+                  title: "Cost Optimization",
+                  description: "Achieve 40-60% reduction in operational costs through intelligent process automation and resource optimization algorithms.",
+                  IconComponent: DollarSign
+                },
+                {
+                  title: "Enhanced Customer Experience",
+                  description: "Deliver personalized experiences with AI chatbots and recommendation engines that understand customer preferences and behavior.",
+                  IconComponent: Star
+                },
+                {
+                  title: "Scalable Processing",
+                  description: "Process unlimited data volumes with cloud-based AI infrastructure that scales automatically based on demand.",
+                  IconComponent: BarChart3
+                },
+                {
+                  title: "24/7 Intelligent Monitoring",
+                  description: "Continuous monitoring and instant anomaly detection with AI systems that never sleep and learn from every interaction.",
+                  IconComponent: ShieldCheck
+                }
+              ].map((benefit, index) => {
+                const IconComponent = benefit.IconComponent;
+                return (
+                  <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-100">
+                    <div className="w-16 h-16 bg-gradient-to-r from-[#f97316] to-orange-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                      <IconComponent className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-blue-900 mb-4 group-hover:text-[#f97316] transition-colors">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {benefit.description}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* Use Cases Section */}
+        <section className="py-24 relative">
+          <div className="absolute inset-0">
+            <div className="absolute top-20 right-10 w-64 h-64 bg-[#f97316]/5 rounded-full blur-2xl"></div>
+            <div className="absolute bottom-20 left-10 w-96 h-96 bg-blue-900/5 rounded-full blur-3xl"></div>
+          </div>
+          
+          <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl relative z-10">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <span className="text-blue-900">Real-World</span>{" "}
+                <span className="text-[#f97316]">Use Cases</span>
+              </h2>
+              <p className="text-xl text-blue-900 max-w-3xl mx-auto leading-relaxed">
+                See how leading companies have transformed their operations with our AI solutions
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-3 gap-8">
+              {[
+                {
+                  industry: "E-commerce",
+                  company: "Global Retail Chain",
+                  challenge: "Managing inventory across 2,000+ stores with frequent stockouts and overstock situations leading to $5M annual losses.",
+                  solution: "Implemented AI-powered demand forecasting system with real-time inventory optimization and automated reordering algorithms.",
+                  result: "Reduced inventory costs by 35%, improved stock availability by 28%, and increased customer satisfaction by 42%.",
+                  metrics: "35% Cost Reduction",
+                  bgColor: "from-blue-900 to-blue-700",
+                  accentColor: "text-blue-900"
+                },
+                {
+                  industry: "Manufacturing",
+                  company: "Automotive Parts Manufacturer",
+                  challenge: "Equipment failures causing 15% production downtime and $2M monthly losses due to unplanned maintenance.",
+                  solution: "Deployed predictive maintenance AI system with IoT sensors and machine learning models to predict equipment failures.",
+                  result: "Reduced unplanned downtime by 70%, increased equipment lifespan by 25%, and saved $18M annually.",
+                  metrics: "70% Downtime Reduction",
+                  bgColor: "from-[#f97316] to-orange-500",
+                  accentColor: "text-[#f97316]"
+                },
+                {
+                  industry: "Financial Services",
+                  company: "Digital Banking Platform",
+                  challenge: "Processing 50,000+ loan applications monthly with 3-week approval times and 12% fraud rate.",
+                  solution: "Implemented AI-powered credit scoring and fraud detection system with natural language processing for document analysis.",
+                  result: "Reduced approval time to 24 hours, decreased fraud by 85%, and increased loan approval accuracy by 40%.",
+                  metrics: "85% Fraud Reduction",
+                  bgColor: "from-blue-900 to-blue-700",
+                  accentColor: "text-blue-900"
+                }
+              ].map((useCase, index) => (
+                <div key={index} className="bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
+                  <div className={`bg-gradient-to-r ${useCase.bgColor} p-6 text-white relative overflow-hidden`}>
+                    <div className="absolute inset-0 opacity-20">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                      <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
+                    </div>
+                    
+                    <div className="relative z-10">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="text-sm font-semibold text-white/80">{useCase.industry}</div>
+                        <div className="text-right">
+                          <div className="text-2xl font-bold">{useCase.metrics}</div>
+                          <div className="text-sm text-white/80">Impact</div>
+                        </div>
+                      </div>
+                      
+                      <h3 className="text-xl font-bold text-white">
+                        {useCase.company}
+                      </h3>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <div className="space-y-4">
+                      <div>
+                        <h4 className="font-semibold text-blue-900 mb-2">Challenge:</h4>
+                        <p className="text-gray-600 text-sm leading-relaxed">{useCase.challenge}</p>
+                      </div>
+                      
+                      <div>
+                        <h4 className="font-semibold text-blue-900 mb-2">AI Solution:</h4>
+                        <p className="text-gray-600 text-sm leading-relaxed">{useCase.solution}</p>
+                      </div>
+                      
+                      <div>
+                        <h4 className="font-semibold text-blue-900 mb-2">Result:</h4>
+                        <p className={`${useCase.accentColor} font-semibold text-sm leading-relaxed`}>
+                          {useCase.result}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-16 sm:py-20 lg:py-24 relative">
+          {/* Background Elements */}
+          <div className="absolute inset-0">
+            <div className="absolute top-20 left-4 sm:left-10 w-48 sm:w-64 h-48 sm:h-64 bg-[#f97316]/5 rounded-full blur-2xl"></div>
+            <div className="absolute bottom-20 right-4 sm:right-10 w-64 sm:w-96 h-64 sm:h-96 bg-blue-900/5 rounded-full blur-3xl"></div>
+          </div>
+
+          <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 max-w-4xl relative z-10">
+            {/* Header */}
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
+                <span className="text-blue-900">Frequently Asked</span>{" "}
+                <span className="text-[#f97316]">Questions</span>
+              </h2>
+              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
+                Common questions about our AI solutions and how artificial intelligence can transform your business
+              </p>
+            </div>
+
+            {/* FAQ Accordion */}
+            <div className="space-y-3 sm:space-y-4">
+              {[
+                {
+                  question: "How long does it take to implement an AI solution?",
+                  answer: "Implementation timelines vary based on complexity, but typically range from 6-16 weeks. Simple automation projects can be deployed in 6-8 weeks, while complex machine learning solutions may take 12-16 weeks. We follow agile methodology with regular milestones, ensuring transparency and allowing for iterative feedback throughout the development process."
+                },
+                {
+                  question: "What data do you need to build effective AI models?",
+                  answer: "Data requirements depend on your specific use case. Generally, we need historical data relevant to the problem we're solving - transaction records, customer interactions, sensor data, or operational metrics. We work with both structured and unstructured data, and our team will assess your data quality and provide recommendations during the initial consultation."
+                },
+                {
+                  question: "How do you ensure AI models remain accurate over time?",
+                  answer: "We implement continuous monitoring and retraining protocols including performance tracking, drift detection, and automated alerts when accuracy degrades. Our models are designed to evolve with your business, with quarterly reviews and ongoing optimization to ensure peak performance and relevance to changing business conditions."
+                },
+                {
+                  question: "Can AI solutions integrate with our existing systems?",
+                  answer: "Absolutely. Our AI solutions are architected for seamless integration with existing infrastructure through APIs, databases, and established workflows. We support integration with popular platforms like Salesforce, Microsoft Dynamics, SAP, and custom-built systems, ensuring minimal disruption to your current operations."
+                },
+                {
+                  question: "What's the ROI timeline for AI implementations?",
+                  answer: "Most clients see initial ROI within 3-6 months of deployment. Process automation typically delivers immediate cost savings, while predictive analytics and optimization solutions may take 6-12 months to show full impact. We provide detailed ROI projections during planning and track key performance metrics throughout implementation."
+                },
+                {
+                  question: "Do you provide training and ongoing support?",
+                  answer: "Yes, comprehensive training is included in all AI implementations. We provide hands-on technical training, user training for end-users, and executive briefings for leadership. We also offer ongoing support, detailed documentation, performance monitoring, and optional managed services for continued optimization and maintenance."
+                }
+              ].map((faq, index) => (
+                <div 
+                  key={index} 
+                  className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                >
+                  <button
+                    onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
+                    className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 text-left focus:outline-none focus:ring-2 focus:ring-[#f97316]/20 focus:ring-offset-2 group"
+                  >
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-base sm:text-lg lg:text-xl font-bold text-blue-900 group-hover:text-[#f97316] transition-colors duration-300 pr-4 leading-tight">
+                        {faq.question}
+                      </h3>
+                      <div className="flex-shrink-0 ml-2">
+                        <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-[#f97316] to-orange-500 flex items-center justify-center transition-transform duration-300 ${
+                          openFAQ === index ? 'rotate-180' : 'rotate-0'
+                        }`}>
+                          {openFAQ === index ? (
+                            <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                          ) : (
+                            <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                  
+                  <div className={`transition-all duration-300 ease-in-out ${
+                    openFAQ === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  } overflow-hidden`}>
+                    <div className="px-4 sm:px-6 lg:px-8 pb-4 sm:pb-5 lg:pb-6">
+                      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-4"></div>
+                      <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="text-center mt-8 sm:mt-12 lg:mt-16">
+              <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 sm:p-8 border border-gray-200/50 shadow-lg">
+                <div className="max-w-2xl mx-auto">
+                  <h3 className="text-xl sm:text-2xl font-bold text-blue-900 mb-3 sm:mb-4">
+                    Ready to Implement AI in Your Business?
+                  </h3>
+                  <p className="text-gray-600 mb-6 sm:mb-8 text-sm sm:text-base">
+                    Let our AI experts help you harness the power of artificial intelligence to drive innovation and growth
+                  </p>
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+                    <a 
+                      href="/contact" 
+                      className="w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-[#f97316] to-orange-500 hover:from-orange-500 hover:to-[#f97316] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl text-sm sm:text-base"
+                    >
+                      <span>Start Your AI Journey</span>
+                      <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
+                    </a>
+                    <a 
+                      href="/contact" 
+                      className="w-full sm:w-auto inline-flex items-center justify-center bg-transparent border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold transition-all duration-300 text-sm sm:text-base"
+                    >
+                      Free AI Consultation
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        </div>
+        
         {/* CTA Section */}
         <section className="relative py-24 overflow-hidden">
           {/* Background Image */}
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=2426&q=80" 
+              src="/ai-smart-solutions-cta-bg.jpg" 
               alt="AI Technology Future"
               className="w-full h-full object-cover"
             />
@@ -730,31 +1420,22 @@ export default function AISmartSolutions() {
           {/* Content */}
           <div className="relative z-10 container mx-auto px-6 lg:px-12 max-w-6xl">
             <div className="text-center">
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                Ready to Transform with <span className="text-orange-400">AI?</span>
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6">
+                Partner With Leading <span className="text-[#f97316]">AI Smart Solutions Experts</span> For Your Transformation Journey
               </h2>
-              <p className="text-xl text-blue-100 mb-8 leading-relaxed max-w-3xl mx-auto">
-                Let's discuss how artificial intelligence can revolutionize your business operations and unlock new opportunities for growth.
+              <p className="text-white/90 mb-10 text-lg leading-relaxed max-w-3xl mx-auto">
+                Connect with our AI transformation specialists to accelerate your business growth. Get strategic guidance, technology insights, and implementation support from industry leaders in AI smart solutions.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <AuthButton 
-                  href="/contact"
-                  requireAuth={true}
-                  className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
-                >
-                  Start Your AI Journey
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </AuthButton>
-                <Button 
-                  asChild
-                  variant="outline"
-                  className="border-2 text-white hover:text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 hover:bg-[#f97316]"
-                  style={{borderColor: '#f97316', backgroundColor: 'transparent'}}
-                >
-                  <a href="/services">
-                    Explore All Services
-                  </a>
-                </Button>
+                <a href="/contact" className="bg-[#f97316] hover:bg-orange-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
+                  Download Our Guide
+                </a>
+                <a href="/work" className="bg-transparent border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300">
+                  See Case Studies
+                </a>
+                <a href="/contact" className="bg-transparent border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300">
+                  Get a Quote
+                </a>
               </div>
             </div>
           </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import PageLayout from "@/components/PageLayout";
-import { Cloud, CheckCircle, Server, Shield, Database, ArrowRight, Zap, Monitor, Settings, Users, Globe, Container, Layers, Lock, Cpu, Network, RefreshCw, Search, Palette, Wrench } from "lucide-react";
+import { Cloud, CheckCircle, Server, Shield, Database, ArrowRight, Zap, Monitor, Settings, Users, Globe, Container, Layers, Lock, Cpu, Network, RefreshCw, Search, Palette, Wrench, Rocket, DollarSign, TrendingUp, Bot, Plus, Minus } from "lucide-react";
 import { useState } from "react";
 import ServiceDetailModal from "@/components/ServiceDetailModal";
 import { getTechnologyUrl } from "@/lib/technology-utils";
@@ -9,6 +9,7 @@ import { getTechnologyUrl } from "@/lib/technology-utils";
 export default function CloudServices() {
   const [selectedService, setSelectedService] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
   const handleLearnMore = (serviceKey) => {
     setSelectedService(servicesData[serviceKey]);
@@ -274,7 +275,7 @@ export default function CloudServices() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+              src="/cloud-hero-bg.jpg" 
               alt="Cloud Services Infrastructure"
               className="w-full h-full object-cover opacity-20"
             />
@@ -292,21 +293,15 @@ export default function CloudServices() {
                 we deliver cloud infrastructure that drives innovation and growth across Canada.
               </p>
               
-              <div className="pt-8 flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="/contact" className="inline-flex items-center px-8 py-4 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-full transition-all duration-300">
-                  Start Cloud Journey
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </a>
-                <a href="/contact" className="inline-flex items-center px-8 py-4 border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold rounded-full transition-all duration-300">
-                  Cloud Assessment
-                </a>
-              </div>
             </div>
           </div>
         </section>
 
+        {/* Unified Background Container for All Sections */}
+        <div className="bg-gradient-to-br from-blue-50 via-white to-orange-50 overflow-hidden">
+        
         {/* Cloud Services Overview Section - New Design */}
-        <section className="relative z-10 py-24 bg-gradient-to-b from-gray-50 to-white">
+        <section className="relative z-10 py-24">
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             
             {/* Header Section */}
@@ -326,7 +321,7 @@ export default function CloudServices() {
               <div className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
                 <div className="relative h-64 overflow-hidden">
                   <img 
-                    src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80"
+                    src="/cloud-migration.jpg"
                     alt="Cloud Migration Services"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
@@ -373,7 +368,7 @@ export default function CloudServices() {
               <div className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
                 <div className="relative h-64 overflow-hidden">
                   <img 
-                    src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80"
+                    src="/cloud-security.jpg"
                     alt="Cloud Security Services"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
@@ -420,7 +415,7 @@ export default function CloudServices() {
               <div className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
                 <div className="relative h-64 overflow-hidden">
                   <img 
-                    src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+                    src="/cloud-analytics.jpg"
                     alt="Cloud Monitoring Services"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
@@ -467,7 +462,7 @@ export default function CloudServices() {
               <div className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500">
                 <div className="relative h-64 overflow-hidden">
                   <img 
-                    src="https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&q=80"
+                    src="/cloud-infrastructure.jpg"
                     alt="DevOps Services"
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
@@ -516,7 +511,7 @@ export default function CloudServices() {
         </section>
 
         {/* Cloud Platforms & Technologies Section */}
-        <section className="relative z-10 py-24 bg-white">
+        <section className="relative z-10 py-24">
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             <div className="text-center space-y-8 mb-16">
               <h2 className="text-4xl md:text-5xl font-bold">
@@ -573,26 +568,282 @@ export default function CloudServices() {
               ))}
             </div>
 
-            {/* Additional Tech Stack Info */}
-            <div className="mt-16 text-center">
-              <div className="inline-flex items-center px-6 py-3 bg-orange-50 border border-orange-200 rounded-full">
-                <Zap className="w-5 h-5 text-orange-500 mr-2" />
-                <span className="text-sm font-medium text-gray-700">
-                  Plus 30+ more cloud tools and services tailored to your project needs
-                </span>
-              </div>
-            </div>
           </div>
         </section>
 
 
+        {/* Benefits Section */}
+        <section className="py-24 relative">
+          <div className="absolute inset-0">
+            <div className="absolute top-20 left-10 w-64 h-64 bg-blue-900/5 rounded-full blur-2xl"></div>
+            <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#f97316]/5 rounded-full blur-3xl"></div>
+          </div>
+          
+          <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl relative z-10">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <span className="text-blue-900">Cloud Service</span>{" "}
+                <span className="text-[#f97316]">Benefits</span>
+              </h2>
+              <p className="text-xl text-blue-900 max-w-3xl mx-auto leading-relaxed">
+                Discover how our cloud solutions drive business growth, reduce costs, and increase operational efficiency
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  title: "60% Cost Reduction",
+                  description: "Reduce infrastructure costs by 40-60% through optimized cloud architecture, auto-scaling, and pay-as-you-use pricing models.",
+                  icon: DollarSign,
+                  color: "from-green-500 to-emerald-600"
+                },
+                {
+                  title: "99.9% Uptime Guarantee",
+                  description: "Enterprise-grade reliability with built-in redundancy, automatic failover, and global content delivery networks.",
+                  icon: Zap,
+                  color: "from-yellow-500 to-orange-500"
+                },
+                {
+                  title: "Infinite Scalability",
+                  description: "Scale resources up or down instantly based on demand without hardware limitations or long procurement cycles.",
+                  icon: TrendingUp,
+                  color: "from-blue-500 to-blue-600"
+                },
+                {
+                  title: "Enhanced Security",
+                  description: "Enterprise-grade security with encryption, compliance monitoring, and advanced threat protection across all cloud layers.",
+                  icon: Shield,
+                  color: "from-purple-500 to-purple-600"
+                },
+                {
+                  title: "Global Accessibility",
+                  description: "Access your applications and data from anywhere in the world with low-latency performance and 24/7 availability.",
+                  icon: Globe,
+                  color: "from-cyan-500 to-blue-500"
+                },
+                {
+                  title: "Automated Management",
+                  description: "Reduce operational overhead with automated backups, updates, monitoring, and maintenance managed by cloud experts.",
+                  icon: Bot,
+                  color: "from-indigo-500 to-purple-500"
+                }
+              ].map((benefit, index) => (
+                <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-100">
+                  <div className={`w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br ${benefit.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                    <benefit.icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-blue-900 mb-4 group-hover:text-[#f97316] transition-colors">
+                    {benefit.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    {benefit.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Use Cases Section */}
+        <section className="py-24 relative">
+          <div className="absolute inset-0">
+            <div className="absolute top-20 right-10 w-64 h-64 bg-[#f97316]/5 rounded-full blur-2xl"></div>
+            <div className="absolute bottom-20 left-10 w-96 h-96 bg-blue-900/5 rounded-full blur-3xl"></div>
+          </div>
+          
+          <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl relative z-10">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                <span className="text-blue-900">Cloud Transformation</span>{" "}
+                <span className="text-[#f97316]">Success Stories</span>
+              </h2>
+              <p className="text-xl text-blue-900 max-w-3xl mx-auto leading-relaxed">
+                Real examples of how businesses have transformed their operations with our cloud services
+              </p>
+            </div>
+
+            <div className="grid lg:grid-cols-3 gap-8">
+              {[
+                {
+                  industry: "E-commerce",
+                  company: "Online Retail Platform",
+                  challenge: "Handling 10x traffic spikes during sales events with outdated infrastructure causing frequent crashes and $100K+ losses per hour.",
+                  solution: "Migrated to AWS with auto-scaling, CDN implementation, and containerized microservices architecture for dynamic load handling.",
+                  result: "Handled 2000% traffic increase seamlessly, achieved 99.99% uptime during peak sales, and increased revenue by 180%.",
+                  metrics: "2000% Traffic Handling",
+                  bgColor: "from-blue-900 to-blue-700",
+                  accentColor: "text-blue-900"
+                },
+                {
+                  industry: "Healthcare",
+                  company: "Medical Practice Network",
+                  challenge: "Managing patient data across 50 locations with compliance requirements and need for real-time access from multiple devices.",
+                  solution: "Implemented HIPAA-compliant cloud infrastructure with encrypted data lakes, API gateways, and mobile-first applications.",
+                  result: "Reduced data access time by 90%, achieved 100% HIPAA compliance, and enabled remote consultations for 80% of appointments.",
+                  metrics: "90% Faster Access",
+                  bgColor: "from-[#f97316] to-orange-500",
+                  accentColor: "text-[#f97316]"
+                },
+                {
+                  industry: "Manufacturing",
+                  company: "Industrial Equipment Manufacturer",
+                  challenge: "Legacy ERP system limiting growth with manual processes and inability to integrate with modern IoT sensors and analytics.",
+                  solution: "Cloud-native ERP migration with IoT integration, real-time analytics, and AI-powered predictive maintenance capabilities.",
+                  result: "Increased production efficiency by 35%, reduced equipment downtime by 60%, and enabled predictive maintenance for 200+ machines.",
+                  metrics: "35% Efficiency Gain",
+                  bgColor: "from-blue-900 to-blue-700",
+                  accentColor: "text-blue-900"
+                }
+              ].map((useCase, index) => (
+                <div key={index} className="bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
+                  <div className={`bg-gradient-to-r ${useCase.bgColor} p-6 text-white relative overflow-hidden`}>
+                    <div className="absolute inset-0 opacity-20">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                      <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
+                    </div>
+                    
+                    <div className="relative z-10">
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="text-sm font-semibold text-white/80">{useCase.industry}</div>
+                        <div className="text-right">
+                          <div className="text-2xl font-bold">{useCase.metrics}</div>
+                          <div className="text-sm text-white/80">Achievement</div>
+                        </div>
+                      </div>
+                      
+                      <h3 className="text-xl font-bold text-white">
+                        {useCase.company}
+                      </h3>
+                    </div>
+                  </div>
+                  
+                  <div className="p-6">
+                    <div className="space-y-4">
+                      <div>
+                        <h4 className="font-semibold text-blue-900 mb-2">Challenge:</h4>
+                        <p className="text-gray-600 text-sm leading-relaxed">{useCase.challenge}</p>
+                      </div>
+                      
+                      <div>
+                        <h4 className="font-semibold text-blue-900 mb-2">Cloud Solution:</h4>
+                        <p className="text-gray-600 text-sm leading-relaxed">{useCase.solution}</p>
+                      </div>
+                      
+                      <div>
+                        <h4 className="font-semibold text-blue-900 mb-2">Result:</h4>
+                        <p className={`${useCase.accentColor} font-semibold text-sm leading-relaxed`}>
+                          {useCase.result}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-16 sm:py-20 lg:py-24 relative">
+          {/* Background Elements */}
+          <div className="absolute inset-0">
+            <div className="absolute top-20 left-4 sm:left-10 w-48 sm:w-64 h-48 sm:h-64 bg-[#f97316]/5 rounded-full blur-2xl"></div>
+            <div className="absolute bottom-20 right-4 sm:right-10 w-64 sm:w-96 h-64 sm:h-96 bg-blue-900/5 rounded-full blur-3xl"></div>
+          </div>
+
+          <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 max-w-4xl relative z-10">
+            {/* Header */}
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
+                <span className="text-blue-900">Frequently Asked</span>{" "}
+                <span className="text-[#f97316]">Questions</span>
+              </h2>
+              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
+                Common questions about cloud services, migration, and how we can help your business succeed
+              </p>
+            </div>
+
+            {/* FAQ Accordion */}
+            <div className="space-y-3 sm:space-y-4">
+              {[
+                {
+                  question: "How long does cloud migration typically take?",
+                  answer: "Migration timelines vary based on complexity and scope. Simple applications can be migrated in 2-4 weeks, while complex enterprise systems may take 8-16 weeks. We use a phased approach to minimize disruption, often enabling you to see benefits within the first few weeks. Our team provides detailed timelines during the assessment phase."
+                },
+                {
+                  question: "What are the cost savings with cloud migration?",
+                  answer: "Most businesses see 40-60% reduction in infrastructure costs after cloud migration. Savings come from eliminating hardware maintenance, reducing energy costs, optimizing resource usage, and moving from capital to operational expenses. We provide detailed cost analysis and ROI projections before migration begins."
+                },
+                {
+                  question: "How do you ensure security during and after migration?",
+                  answer: "Security is our top priority throughout the migration process. We implement encryption in transit and at rest, use secure VPN connections, conduct security assessments, and implement identity and access management. Post-migration, we provide continuous monitoring, compliance reporting, and regular security updates."
+                },
+                {
+                  question: "Can you migrate applications that weren't built for the cloud?",
+                  answer: "Yes, we specialize in migrating legacy applications to the cloud. Our approach includes application assessment, refactoring when needed, containerization, and modernization to take advantage of cloud-native features. We can also implement hybrid solutions if certain components need to remain on-premises."
+                },
+                {
+                  question: "What happens if something goes wrong during migration?",
+                  answer: "We implement comprehensive backup and rollback procedures before any migration begins. Our phased approach allows us to test each component thoroughly before proceeding. In the unlikely event of issues, we can quickly rollback to the previous state while we resolve problems. We also provide 24/7 support during critical migration phases."
+                },
+                {
+                  question: "Do you provide ongoing support after cloud migration?",
+                  answer: "Absolutely. We offer comprehensive managed cloud services including 24/7 monitoring, performance optimization, security management, backup and disaster recovery, and regular health checks. Our support plans are flexible and can be customized based on your specific needs and budget requirements."
+                }
+              ].map((faq, index) => (
+                <div 
+                  key={index} 
+                  className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                >
+                  <button
+                    onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
+                    className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 text-left focus:outline-none focus:ring-2 focus:ring-[#f97316]/20 focus:ring-offset-2 group"
+                  >
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-base sm:text-lg lg:text-xl font-bold text-blue-900 group-hover:text-[#f97316] transition-colors duration-300 pr-4 leading-tight">
+                        {faq.question}
+                      </h3>
+                      <div className="flex-shrink-0 ml-2">
+                        <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-[#f97316] to-orange-500 flex items-center justify-center transition-transform duration-300 ${
+                          openFAQ === index ? 'rotate-180' : 'rotate-0'
+                        }`}>
+                          {openFAQ === index ? (
+                            <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                          ) : (
+                            <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                  
+                  <div className={`transition-all duration-300 ease-in-out ${
+                    openFAQ === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  } overflow-hidden`}>
+                    <div className="px-4 sm:px-6 lg:px-8 pb-4 sm:pb-5 lg:pb-6">
+                      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-4"></div>
+                      <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+
+        </div>
+        
         {/* CTA Section */}
         <section className="relative z-10 mb-20">
           <div className="relative bg-slate-800 overflow-hidden">
             {/* Background Image */}
             <div className="absolute inset-0">
               <img 
-                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2000&auto=format&fit=crop" 
+                src="/cloud-cta-bg.jpg" 
                 alt="Cloud Infrastructure Background"
                 className="w-full h-full object-cover opacity-40"
               />
@@ -602,14 +853,20 @@ export default function CloudServices() {
             <div className="relative z-10 container mx-auto px-6 md:px-8 lg:px-12 1.25xl:px-16 max-w-7xl py-24">
               <div className="text-center max-w-4xl mx-auto">
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6">
-                  Partner With The Leading <span className="text-[#f97316]">Cloud Services Provider Canada</span> For Your Next Project
+                  Partner With Leading <span className="text-[#f97316]">Cloud Services Experts</span> For Your Transformation Journey
                 </h2>
                 <p className="text-white/90 mb-10 text-lg leading-relaxed max-w-3xl mx-auto">
-                  Connect with our Canada-based cloud experts to accelerate your digital transformation. Partner with industry leaders in cloud services to scale your business infrastructure and drive innovation.
+                  Connect with our cloud specialists to accelerate your business growth. Get strategic guidance, technology insights, and implementation support from industry leaders in cloud services.
                 </p>
-                <div className="flex justify-center">
-                  <a href="/contact" className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
-                    Schedule A Cloud Consultation
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a href="/contact" className="bg-[#f97316] hover:bg-orange-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
+                    Download Our Guide
+                  </a>
+                  <a href="/work" className="bg-transparent border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300">
+                    See Case Studies
+                  </a>
+                  <a href="/contact" className="bg-transparent border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300">
+                    Get a Quote
                   </a>
                 </div>
               </div>

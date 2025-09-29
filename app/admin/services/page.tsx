@@ -59,13 +59,59 @@ export default function AdminServices() {
   const [editingService, setEditingService] = useState<Service | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<'unknown' | 'connected' | 'error'>('unknown');
+  const [activeTab, setActiveTab] = useState<'basic' | 'content' | 'advanced'>('basic');
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     icon: "Brain",
     href: "",
-    order: 0
+    order: 0,
+    slug: "",
+    heroTitle: "",
+    heroDescription: "",
+    backgroundImage: "",
+    ctaTitle: "",
+    ctaDescription: "",
+    ctaBackgroundImage: "",
+    features: [] as string[],
+    benefits: [] as string[],
+    keyPoints: [] as string[],
+    approach: {
+      title: "",
+      points: [] as string[]
+    },
+    servicesData: [] as {
+      id: string;
+      title: string;
+      description: string;
+      image: string;
+      features: string[];
+    }[],
+    color: "",
+    category: ""
   });
+
+  // Helper functions for managing arrays
+  const addArrayItem = (arrayName: keyof typeof formData, item: any) => {
+    setFormData(prev => ({
+      ...prev,
+      [arrayName]: [...(prev[arrayName] as any[]), item]
+    }));
+  };
+
+  const removeArrayItem = (arrayName: keyof typeof formData, index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      [arrayName]: (prev[arrayName] as any[]).filter((_, i) => i !== index)
+    }));
+  };
+
+  const updateArrayItem = (arrayName: keyof typeof formData, index: number, value: any) => {
+    setFormData(prev => ({
+      ...prev,
+      [arrayName]: (prev[arrayName] as any[]).map((item, i) => i === index ? value : item)
+    }));
+  };
 
   useEffect(() => {
     loadServices();
@@ -185,7 +231,21 @@ export default function AdminServices() {
       description: service.description,
       icon: service.icon,
       href: service.href,
-      order: service.order || 0
+      order: service.order || 0,
+      slug: service.slug || "",
+      heroTitle: service.heroTitle || "",
+      heroDescription: service.heroDescription || "",
+      backgroundImage: service.backgroundImage || "",
+      ctaTitle: service.ctaTitle || "",
+      ctaDescription: service.ctaDescription || "",
+      ctaBackgroundImage: service.ctaBackgroundImage || "",
+      features: service.features || [],
+      benefits: service.benefits || [],
+      keyPoints: service.keyPoints || [],
+      approach: service.approach || { title: "", points: [] },
+      servicesData: service.servicesData || [],
+      color: service.color || "",
+      category: service.category || ""
     });
     setIsDialogOpen(true);
   };
@@ -197,7 +257,21 @@ export default function AdminServices() {
       description: "",
       icon: "Brain",
       href: "/services/",
-      order: services.length + 1
+      order: services.length + 1,
+      slug: "",
+      heroTitle: "",
+      heroDescription: "",
+      backgroundImage: "",
+      ctaTitle: "",
+      ctaDescription: "",
+      ctaBackgroundImage: "",
+      features: [],
+      benefits: [],
+      keyPoints: [],
+      approach: { title: "", points: [] },
+      servicesData: [],
+      color: "",
+      category: ""
     });
     setIsDialogOpen(true);
   };
@@ -330,8 +404,18 @@ export default function AdminServices() {
           </CardHeader>
           <CardContent>
             {loading ? (
-              <div className="flex justify-center py-8">
-                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+              <div className="flex flex-col items-center justify-center py-12">
+                <div className="relative w-12 h-12 mb-4">
+                  {/* Outer rotating ring */}
+                  <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-orange-500 border-r-orange-500 animate-spin" style={{animationDuration: '1.5s'}}></div>
+                  {/* Middle rotating ring (opposite direction) */}
+                  <div className="absolute inset-1 rounded-full border border-transparent border-b-blue-500 border-l-blue-500 animate-spin" style={{animationDuration: '1s', animationDirection: 'reverse'}}></div>
+                  {/* Inner pulsing core */}
+                  <div className="absolute inset-3 rounded-full bg-gradient-to-br from-orange-500 to-blue-500 animate-pulse opacity-80" style={{animationDuration: '2s'}}></div>
+                  {/* Center dot */}
+                  <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg"></div>
+                </div>
+                <p className="text-sm text-gray-600 animate-pulse">Loading services...</p>
               </div>
             ) : connectionStatus === 'error' ? (
               <div className="text-center py-8">
@@ -421,71 +505,354 @@ export default function AdminServices() {
           </CardContent>
         </Card>
 
-        {/* Edit/Add Dialog */}
+        {/* Enhanced Edit/Add Dialog */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent className="fixed top-[10%] left-[50%] translate-x-[-50%] translate-y-[0%] w-full max-w-sm mx-4 max-h-[80vh] overflow-hidden z-50 bg-background border rounded-lg shadow-lg">
-            <div className="flex flex-col max-h-[80vh]">
-              <DialogHeader className="flex-shrink-0 p-6 pb-2">
+          <DialogContent className="fixed top-[5%] left-[50%] translate-x-[-50%] translate-y-[0%] w-full max-w-4xl mx-4 max-h-[90vh] overflow-hidden z-50 bg-background border rounded-lg shadow-lg">
+            <div className="flex flex-col max-h-[90vh]">
+              <DialogHeader className="flex-shrink-0 p-6 pb-4">
                 <DialogTitle>{editingService ? 'Edit Service' : 'Add New Service'}</DialogTitle>
                 <DialogDescription className="text-sm text-muted-foreground mt-1">
                   {editingService ? 'Update the service details below' : 'Fill in the details for the new service'}
                 </DialogDescription>
+                
+                {/* Tab Navigation */}
+                <div className="flex space-x-1 mt-4 bg-muted p-1 rounded-lg">
+                  <button
+                    onClick={() => setActiveTab('basic')}
+                    className={`flex-1 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                      activeTab === 'basic' 
+                        ? 'bg-background text-foreground shadow-sm' 
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    Basic Info
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('content')}
+                    className={`flex-1 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                      activeTab === 'content' 
+                        ? 'bg-background text-foreground shadow-sm' 
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    Rich Content
+                  </button>
+                  <button
+                    onClick={() => setActiveTab('advanced')}
+                    className={`flex-1 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+                      activeTab === 'advanced' 
+                        ? 'bg-background text-foreground shadow-sm' 
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    Advanced
+                  </button>
+                </div>
               </DialogHeader>
               
-              <div className="flex-1 overflow-y-auto px-6 py-2 space-y-3 min-h-0">
-                <div className="space-y-1">
-                  <Label htmlFor="title" className="text-sm font-medium">Title</Label>
-                  <Input
-                    id="title"
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    placeholder="Service title"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <Label htmlFor="description" className="text-sm font-medium">Description</Label>
-                  <Textarea
-                    id="description"
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    placeholder="Service description"
-                    rows={3}
-                  />
-                </div>
-                <div className="space-y-1">
-                  <Label htmlFor="icon" className="text-sm font-medium">Icon</Label>
-                  <select
-                    id="icon"
-                    value={formData.icon}
-                    onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
-                    className="w-full p-2 border border-input rounded-md"
-                  >
-                    {iconOptions.map(option => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className="space-y-1">
-                  <Label htmlFor="href" className="text-sm font-medium">URL Path</Label>
-                  <Input
-                    id="href"
-                    value={formData.href}
-                    onChange={(e) => setFormData({ ...formData, href: e.target.value })}
-                    placeholder="/services/example"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <Label htmlFor="order" className="text-sm font-medium">Display Order</Label>
-                  <Input
-                    id="order"
-                    type="number"
-                    value={formData.order}
-                    onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
-                    placeholder="1"
-                  />
-                </div>
+              <div className="flex-1 overflow-y-auto px-6 py-2 space-y-4 min-h-0">
+                
+                {/* Basic Info Tab */}
+                {activeTab === 'basic' && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="title" className="text-sm font-medium">Title *</Label>
+                      <Input
+                        id="title"
+                        value={formData.title}
+                        onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                        placeholder="Service title"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="slug" className="text-sm font-medium">Slug</Label>
+                      <Input
+                        id="slug"
+                        value={formData.slug}
+                        onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                        placeholder="service-slug"
+                      />
+                    </div>
+                    <div className="space-y-2 md:col-span-2">
+                      <Label htmlFor="description" className="text-sm font-medium">Description *</Label>
+                      <Textarea
+                        id="description"
+                        value={formData.description}
+                        onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                        placeholder="Service description"
+                        rows={3}
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="icon" className="text-sm font-medium">Icon *</Label>
+                      <select
+                        id="icon"
+                        value={formData.icon}
+                        onChange={(e) => setFormData({ ...formData, icon: e.target.value })}
+                        className="w-full p-2 border border-input rounded-md"
+                      >
+                        {iconOptions.map(option => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="href" className="text-sm font-medium">URL Path *</Label>
+                      <Input
+                        id="href"
+                        value={formData.href}
+                        onChange={(e) => setFormData({ ...formData, href: e.target.value })}
+                        placeholder="/services/example"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="order" className="text-sm font-medium">Display Order</Label>
+                      <Input
+                        id="order"
+                        type="number"
+                        value={formData.order}
+                        onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
+                        placeholder="1"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="color" className="text-sm font-medium">Color Theme</Label>
+                      <Input
+                        id="color"
+                        value={formData.color}
+                        onChange={(e) => setFormData({ ...formData, color: e.target.value })}
+                        placeholder="blue, red, green, etc."
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="category" className="text-sm font-medium">Category</Label>
+                      <Input
+                        id="category"
+                        value={formData.category}
+                        onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                        placeholder="Technology, Consulting, etc."
+                      />
+                    </div>
+                  </div>
+                )}
+                
+                {/* Rich Content Tab */}
+                {activeTab === 'content' && (
+                  <div className="space-y-6">
+                    {/* Hero Section */}
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-medium">Hero Section</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="heroTitle" className="text-sm font-medium">Hero Title</Label>
+                          <Input
+                            id="heroTitle"
+                            value={formData.heroTitle}
+                            onChange={(e) => setFormData({ ...formData, heroTitle: e.target.value })}
+                            placeholder="Hero title for service page"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="backgroundImage" className="text-sm font-medium">Background Image</Label>
+                          <Input
+                            id="backgroundImage"
+                            value={formData.backgroundImage}
+                            onChange={(e) => setFormData({ ...formData, backgroundImage: e.target.value })}
+                            placeholder="/hero-bg.jpg"
+                          />
+                        </div>
+                        <div className="space-y-2 md:col-span-2">
+                          <Label htmlFor="heroDescription" className="text-sm font-medium">Hero Description</Label>
+                          <Textarea
+                            id="heroDescription"
+                            value={formData.heroDescription}
+                            onChange={(e) => setFormData({ ...formData, heroDescription: e.target.value })}
+                            placeholder="Detailed description for hero section"
+                            rows={2}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* CTA Section */}
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-medium">Call to Action</h3>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="ctaTitle" className="text-sm font-medium">CTA Title</Label>
+                          <Input
+                            id="ctaTitle"
+                            value={formData.ctaTitle}
+                            onChange={(e) => setFormData({ ...formData, ctaTitle: e.target.value })}
+                            placeholder="Ready to get started?"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="ctaBackgroundImage" className="text-sm font-medium">CTA Background</Label>
+                          <Input
+                            id="ctaBackgroundImage"
+                            value={formData.ctaBackgroundImage}
+                            onChange={(e) => setFormData({ ...formData, ctaBackgroundImage: e.target.value })}
+                            placeholder="/cta-bg.jpg"
+                          />
+                        </div>
+                        <div className="space-y-2 md:col-span-2">
+                          <Label htmlFor="ctaDescription" className="text-sm font-medium">CTA Description</Label>
+                          <Textarea
+                            id="ctaDescription"
+                            value={formData.ctaDescription}
+                            onChange={(e) => setFormData({ ...formData, ctaDescription: e.target.value })}
+                            placeholder="Description for call to action"
+                            rows={2}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Features Array */}
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <h3 className="text-lg font-medium">Features</h3>
+                        <Button 
+                          type="button" 
+                          size="sm" 
+                          onClick={() => addArrayItem('features', '')}
+                          className="h-8"
+                        >
+                          <Plus className="h-4 w-4 mr-1" />
+                          Add Feature
+                        </Button>
+                      </div>
+                      {formData.features.map((feature, index) => (
+                        <div key={index} className="flex gap-2">
+                          <Input
+                            value={feature}
+                            onChange={(e) => updateArrayItem('features', index, e.target.value)}
+                            placeholder="Feature description"
+                          />
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="outline"
+                            onClick={() => removeArrayItem('features', index)}
+                            className="h-10 px-3"
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                    
+                    {/* Benefits Array */}
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <h3 className="text-lg font-medium">Benefits</h3>
+                        <Button 
+                          type="button" 
+                          size="sm" 
+                          onClick={() => addArrayItem('benefits', '')}
+                          className="h-8"
+                        >
+                          <Plus className="h-4 w-4 mr-1" />
+                          Add Benefit
+                        </Button>
+                      </div>
+                      {formData.benefits.map((benefit, index) => (
+                        <div key={index} className="flex gap-2">
+                          <Input
+                            value={benefit}
+                            onChange={(e) => updateArrayItem('benefits', index, e.target.value)}
+                            placeholder="Benefit description"
+                          />
+                          <Button
+                            type="button"
+                            size="sm"
+                            variant="outline"
+                            onClick={() => removeArrayItem('benefits', index)}
+                            className="h-10 px-3"
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Advanced Tab */}
+                {activeTab === 'advanced' && (
+                  <div className="space-y-6">
+                    {/* Approach Section */}
+                    <div className="space-y-4">
+                      <h3 className="text-lg font-medium">Approach</h3>
+                      <div className="space-y-2">
+                        <Label htmlFor="approachTitle" className="text-sm font-medium">Approach Title</Label>
+                        <Input
+                          id="approachTitle"
+                          value={formData.approach.title}
+                          onChange={(e) => setFormData({ 
+                            ...formData, 
+                            approach: { ...formData.approach, title: e.target.value }
+                          })}
+                          placeholder="Our Approach"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <Label className="text-sm font-medium">Approach Points</Label>
+                          <Button 
+                            type="button" 
+                            size="sm" 
+                            onClick={() => setFormData({
+                              ...formData,
+                              approach: {
+                                ...formData.approach,
+                                points: [...formData.approach.points, '']
+                              }
+                            })}
+                            className="h-8"
+                          >
+                            <Plus className="h-4 w-4 mr-1" />
+                            Add Point
+                          </Button>
+                        </div>
+                        {formData.approach.points.map((point, index) => (
+                          <div key={index} className="flex gap-2">
+                            <Input
+                              value={point}
+                              onChange={(e) => {
+                                const newPoints = [...formData.approach.points];
+                                newPoints[index] = e.target.value;
+                                setFormData({ 
+                                  ...formData, 
+                                  approach: { ...formData.approach, points: newPoints }
+                                });
+                              }}
+                              placeholder="Approach point"
+                            />
+                            <Button
+                              type="button"
+                              size="sm"
+                              variant="outline"
+                              onClick={() => {
+                                const newPoints = formData.approach.points.filter((_, i) => i !== index);
+                                setFormData({ 
+                                  ...formData, 
+                                  approach: { ...formData.approach, points: newPoints }
+                                });
+                              }}
+                              className="h-10 px-3"
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
               
               <div className="flex-shrink-0 flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 p-6 pt-4 border-t bg-background">

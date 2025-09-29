@@ -9,6 +9,8 @@ import { Label } from "@/components/ui/label";
 import { Mail, Phone, MapPin, Send, MessageCircle, Calendar, Sparkles, ArrowRight, Zap, Target, Lightbulb, HandHeart, TrendingUp, Facebook, Linkedin, Twitter, Instagram } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import AuthButton from "@/components/auth/AuthButton";
+import { useFormTracking } from "@/hooks/useAnalytics";
+import BrillionLoader from "@/components/ui/BrillionLoader";
 
 export default function Contact() {
   const contactInfo = [
@@ -33,6 +35,7 @@ export default function Contact() {
   ];
 
   const { user } = useAuth();
+  const { trackFormSubmission, trackFormStart } = useFormTracking();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -40,6 +43,7 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [formStarted, setFormStarted] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -47,6 +51,12 @@ export default function Contact() {
       ...prev,
       [name]: value
     }));
+
+    // Track form start on first input
+    if (!formStarted && value.length > 0) {
+      setFormStarted(true);
+      trackFormStart('contact');
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -60,6 +70,14 @@ export default function Contact() {
     setSubmitStatus('idle');
 
     try {
+      // Track form submission attempt
+      trackFormSubmission('contact', {
+        userEmail: user.email,
+        messageLength: formData.message.length,
+        hasName: !!formData.name,
+        source: 'contact_page'
+      });
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 2000));
       
@@ -72,6 +90,7 @@ export default function Contact() {
       
       setSubmitStatus('success');
       setFormData({ name: '', email: '', message: '' });
+      setFormStarted(false);
     } catch (error) {
       console.error('Form submission error:', error);
       setSubmitStatus('error');
@@ -89,11 +108,11 @@ export default function Contact() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+              src="/contact-hero-bg.jpg" 
               alt="Contact Us Background"
-              className="w-full h-full object-cover opacity-20"
+              className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/50"></div>
+            <div className="absolute inset-0 bg-black/70"></div>
           </div>
 
           <div className="relative z-10 container mx-auto px-6 md:px-8 lg:px-12 max-w-6xl">
@@ -272,7 +291,7 @@ export default function Contact() {
                       >
                         {isSubmitting ? (
                           <>
-                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                            <BrillionLoader size="sm" theme="minimal" className="mr-2" />
                             Sending...
                           </>
                         ) : (

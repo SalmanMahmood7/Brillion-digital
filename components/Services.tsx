@@ -11,7 +11,8 @@ import {
   ArrowRight,
   Sparkles,
   Award,
-  TrendingUp
+  TrendingUp,
+  Rocket
 } from "lucide-react";
 import Link from "next/link";
 
@@ -35,7 +36,7 @@ const Services = () => {
       icon: Zap,
       title: "App Development",
       description: "Custom mobile and web applications built to scale",
-      href: "/services/application-development", 
+      href: "/services/software-development", 
       gradient: "from-blue-500 to-blue-600"
     },
     {
@@ -130,7 +131,7 @@ const Services = () => {
                     {service.description}
                   </p>
                   <div className="flex items-center text-white font-semibold text-sm hover:text-white/80 transition-colors">
-                    <span>Learn More</span>
+                    <span>Get Free Quote</span>
                     <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>
                 </div>

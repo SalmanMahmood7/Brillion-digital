@@ -1,70 +1,188 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { ArrowRight, ChevronLeft, ChevronRight, Zap, Shield, Globe, TrendingUp } from "lucide-react";
+import React, { useEffect, useState, useRef } from "react";
+import { ArrowRight, Play, CheckCircle, Users, TrendingUp } from "lucide-react";
 import AuthButton from "@/components/auth/AuthButton";
 
 const Hero = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [nextVideoIndex, setNextVideoIndex] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const [videosReady, setVideosReady] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const nextVideoRef = useRef<HTMLVideoElement>(null);
+  const heroRef = useRef<HTMLElement>(null);
+
+  // Defer video loading for performance
+  const videos = [
+    '/videos/1851190-uhd_3840_2160_25fps.mp4',
+    '/videos/3969423-uhd_3840_2160_25fps.mp4',
+    '/videos/5240956-uhd_3840_2160_30fps.mp4',
+    '/videos/8084622-uhd_3840_2160_25fps.mp4'
+  ];
+  
+  
 
   // Slideshow data
   const slides = [
     {
       id: 1,
-      title: "Digital Innovation Delivered",
-      subtitle: "Transform Your Business",
-      description: "Cutting-edge digital solutions that inspire, innovate, and drive unprecedented growth for your organization.",
-      image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2072&q=80",
-      cta: "Start Your Journey",
-      href: "/services"
+      title: "Empower Your Microsoft 365 Ecosystem",
+      subtitle: "Microsoft Solutions",
+      description: "Complete Microsoft ecosystem implementation and optimization for modern workplaces",
+      trustPoints: [
+        { icon: CheckCircle, text: "Microsoft Gold Partner" },
+        { icon: Users, text: "Expert Implementation" },
+        { icon: TrendingUp, text: "Seamless Integration" }
+      ]
     },
     {
       id: 2,
-      title: "Cloud Excellence Achieved",
-      subtitle: "Scalable Solutions",
-      description: "Harness the power of cloud computing with enterprise-grade security, reliability, and performance optimization.",
-      image: "https://images.unsplash.com/photo-1629904853893-c2c8981a1dc5?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      cta: "Explore Cloud Services",
-      href: "/services/cloud-services"
+      title: "Navigate Digital Transformation with Confidence",
+      subtitle: "Strategic Digital Guidance",
+      description: "Strategic guidance to transform your business digitally with expert consulting",
+      trustPoints: [
+        { icon: CheckCircle, text: "Strategic Planning" },
+        { icon: Users, text: "Expert Consultants" },
+        { icon: TrendingUp, text: "Digital Transformation" }
+      ]
     },
     {
       id: 3,
-      title: "AI-Powered Growth",
-      subtitle: "Intelligent Automation",
-      description: "Leverage artificial intelligence and machine learning to automate processes and unlock new business opportunities.",
-      image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      cta: "Discover AI Solutions",
-      href: "/services/ai-smart-solutions"
+      title: "Unlock the Power of Your Data",
+      subtitle: "Data-Driven Insights",
+      description: "Transform data into actionable business insights with advanced analytics",
+      trustPoints: [
+        { icon: CheckCircle, text: "Advanced Analytics" },
+        { icon: Users, text: "Data Scientists" },
+        { icon: TrendingUp, text: "Business Intelligence" }
+      ]
     },
     {
       id: 4,
-      title: "Cybersecurity Success",
-      subtitle: "Protected & Secure",
-      description: "Comprehensive security solutions that protect your digital assets with enterprise-grade encryption and monitoring.",
-      image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      cta: "Secure Your Business",
-      href: "/services/cyber-security"
+      title: "Build Software That Scales",
+      subtitle: "Custom Applications",
+      description: "Custom mobile and web applications built to scale with modern technology",
+      trustPoints: [
+        { icon: CheckCircle, text: "Custom Solutions" },
+        { icon: Users, text: "Expert Developers" },
+        { icon: TrendingUp, text: "Scalable Architecture" }
+      ]
     },
     {
       id: 5,
-      title: "Microsoft 365 Excellence",
-      subtitle: "Dynamics 365 & Microsoft Solutions",
-      description: "Transform your business with Microsoft's comprehensive ecosystem including Dynamics 365, Power Platform, and Office 365.",
-      image: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-      cta: "Explore Microsoft Solutions",
-      href: "/services/dynamics-365-microsoft"
+      title: "Modernize with Next-Gen Digital Platforms",
+      subtitle: "Modern Platform Solutions",
+      description: "Modern platforms that drive innovation and growth for your business",
+      trustPoints: [
+        { icon: CheckCircle, text: "Platform Development" },
+        { icon: Users, text: "Innovation Focus" },
+        { icon: TrendingUp, text: "Growth Enablement" }
+      ]
+    },
+    {
+      id: 6,
+      title: "Fortify Your Digital Fortress",
+      subtitle: "Protected & Secure",
+      description: "Comprehensive security solutions for enterprise protection and regulatory compliance",
+      trustPoints: [
+        { icon: CheckCircle, text: "Zero Security Breaches" },
+        { icon: Users, text: "SOC 2 Compliant" },
+        { icon: TrendingUp, text: "Advanced Threat Detection" }
+      ]
+    },
+    {
+      id: 7,
+      title: "Scale Limitlessly in the Cloud",
+      subtitle: "Scalable Cloud Infrastructure",
+      description: "Secure, reliable cloud infrastructure that scales with your business growth",
+      trustPoints: [
+        { icon: CheckCircle, text: "99.9% Uptime SLA" },
+        { icon: Users, text: "24/7 Expert Support" },
+        { icon: TrendingUp, text: "40% Cost Reduction" }
+      ]
+    },
+    {
+      id: 8,
+      title: "Revolutionize with Intelligent AI",
+      subtitle: "Intelligent Automation",
+      description: "Automate processes and unlock new opportunities with cutting-edge AI technology",
+      trustPoints: [
+        { icon: CheckCircle, text: "AI-Powered Analytics" },
+        { icon: Users, text: "Smart Process Automation" },
+        { icon: TrendingUp, text: "300% Efficiency Gains" }
+      ]
+    },
+    {
+      id: 9,
+      title: "Simplify IT, Amplify Results",
+      subtitle: "Complete IT Management",
+      description: "Comprehensive IT support and management services for seamless business operations",
+      trustPoints: [
+        { icon: CheckCircle, text: "24/7 Monitoring" },
+        { icon: Users, text: "Dedicated Support" },
+        { icon: TrendingUp, text: "Proactive Management" }
+      ]
+    },
+    {
+      id: 10,
+      title: "Accelerate Your Digital Success",
+      subtitle: "Award-Winning Digital Solutions",
+      description: "Accelerate growth with enterprise-grade solutions that deliver measurable results",
+      trustPoints: [
+        { icon: CheckCircle, text: "500+ Projects Delivered" },
+        { icon: Users, text: "50+ Enterprise Clients" },
+        { icon: TrendingUp, text: "99.9% Success Rate" }
+      ]
     }
   ];
 
-  // Auto-play functionality
+  // Intersection Observer for performance
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsInView(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (heroRef.current) {
+      observer.observe(heroRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  // Initialize videos immediately for better performance
+  useEffect(() => {
+    setVideosReady(true);
+  }, []);
+
+
+  // Auto-play functionality for slideshow
+  useEffect(() => {
+    if (!isInView) return;
+    
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000); // 5 seconds per slide
+    }, 8000); // 8 seconds per slide
 
     return () => clearInterval(interval);
-  }, [slides.length]);
+  }, [slides.length, isInView]);
+
+  // Simplified video rotation to prevent blinking
+  useEffect(() => {
+    if (!isInView || !videosReady) return;
+    
+    const interval = setInterval(() => {
+      setCurrentVideoIndex((prev) => (prev + 1) % videos.length);
+    }, 15000); // Simple rotation every 15 seconds
+
+    return () => clearInterval(interval);
+  }, [isInView, videosReady, videos.length]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -79,163 +197,167 @@ const Hero = () => {
   };
 
   return (
-    <section 
-      className="relative min-h-screen flex items-center overflow-hidden"
-    >
-      {/* Background Images Slideshow */}
-      <div className="absolute inset-0">
-        {slides.map((slide, index) => (
-          <div
-            key={slide.id}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              index === currentSlide ? 'opacity-100' : 'opacity-0'
-            }`}
+    <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Background Videos with Crossfade */}
+      <div className="absolute inset-0 bg-gray-900">
+        
+        {/* Current Video */}
+        {!videoError && videosReady && (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            key={`video-${currentVideoIndex}`}
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ objectFit: 'cover' }}
+            onError={() => {
+              setVideoError(true);
+            }}
+            onLoadedData={() => {
+              setVideoError(false);
+            }}
           >
-            <div
-              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-              style={{
-                backgroundImage: `url(${slide.image})`,
-              }}
-            />
-            {/* Dark overlay */}
-            <div className="absolute inset-0 bg-black/50"></div>
-          </div>
-        ))}
+            <source src={videos[currentVideoIndex]} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        )}
+        
+        {/* Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-blue-900/70 to-black/60"></div>
+        
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-20 left-20 w-64 h-64 bg-[#f97316]/10 rounded-full blur-3xl animate-float"></div>
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-float delay-1000"></div>
+        </div>
       </div>
 
-      {/* Content */}
+      {/* Main Content */}
       <div className="relative z-10 container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
-        <div className="text-center text-white space-y-8">
+        <div className="text-center text-white space-y-8 min-h-screen flex flex-col justify-center py-20">
           
-          {/* Slide Content */}
-          <div className="max-w-4xl mx-auto space-y-6">
-            <div className="space-y-4">
-              <h2 className="text-lg md:text-xl font-semibold text-[#f97316] tracking-wide uppercase">
-                {slides[currentSlide].subtitle}
-              </h2>
+          {/* Content */}
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="space-y-6">
               
-              <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black leading-tight whitespace-nowrap">
+              {/* Main Headline */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-light leading-tight text-white">
                 {slides[currentSlide].title}
               </h1>
               
-              <p className="text-lg md:text-xl text-gray-200 leading-relaxed max-w-3xl mx-auto">
+              {/* Subtitle */}
+              <p className="text-xl md:text-2xl text-blue-100 leading-relaxed max-w-3xl mx-auto">
                 {slides[currentSlide].description}
               </p>
             </div>
 
-            {/* Features Grid */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto py-8">
-              {[
-                { icon: Zap, text: "Lightning Fast" },
-                { icon: Shield, text: "Secure & Reliable" },
-                { icon: Globe, text: "Global Scale" },
-                { icon: TrendingUp, text: "Growth Focused" }
-              ].map((feature, i) => (
-                <div key={i} className="flex flex-col items-center space-y-2 text-white">
-                  <div className="p-3 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20">
-                    <feature.icon className="w-6 h-6" />
-                  </div>
-                  <span className="text-sm font-medium">{feature.text}</span>
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap justify-center gap-6 py-4">
+              {slides[currentSlide].trustPoints.map((point, index) => (
+                <div key={index} className="flex items-center text-white/90">
+                  <point.icon className="w-5 h-5 text-[#f97316] mr-2" />
+                  <span className="text-sm font-medium">{point.text}</span>
                 </div>
               ))}
             </div>
 
-            {/* CTA Button */}
-            <div className="flex justify-center">
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
               <AuthButton
-                href={slides[currentSlide].href}
-                requireAuth={slides[currentSlide].href.includes('ai-smart-solutions') || slides[currentSlide].href.includes('cyber-security')}
-                className="group relative overflow-hidden bg-transparent text-white hover:bg-white hover:text-blue-900 px-12 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/25 inline-flex items-center justify-center"
+                href="/contact"
+                requireAuth={true}
+                className="group bg-[#f97316] hover:bg-orange-500 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl inline-flex items-center justify-center"
               >
-                <span className="relative z-10 flex items-center justify-center">
-                  {slides[currentSlide].cta}
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </span>
+                <span>Book Free Consultation</span>
+                <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </AuthButton>
+              
+              <AuthButton
+                href="/work"
+                requireAuth={false}
+                className="group bg-white/10 backdrop-blur-sm border-2 border-white/30 hover:bg-white hover:text-blue-900 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105 inline-flex items-center justify-center"
+              >
+                <Play className="mr-3 w-5 h-5 group-hover:scale-110 transition-transform" />
+                <span>See Case Studies</span>
               </AuthButton>
             </div>
           </div>
+
+          {/* Slide Indicators */}
+          <div className="flex justify-center space-x-2 mt-12">
+            {slides.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToSlide(index)}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentSlide
+                    ? 'bg-[#f97316] scale-125'
+                    : 'bg-white/30 hover:bg-white/50'
+                }`}
+              />
+            ))}
+          </div>
         </div>
+
       </div>
 
-      {/* Navigation Controls */}
-      <div className="absolute left-6 top-1/2 transform -translate-y-1/2 z-20">
-        <button
-          onClick={prevSlide}
-          className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-300 hover:scale-110"
-        >
-          <ChevronLeft className="w-6 h-6" />
-        </button>
-      </div>
-      
-      <div className="absolute right-6 top-1/2 transform -translate-y-1/2 z-20">
-        <button
-          onClick={nextSlide}
-          className="p-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full text-white hover:bg-white/20 transition-all duration-300 hover:scale-110"
-        >
-          <ChevronRight className="w-6 h-6" />
-        </button>
-      </div>
-
-
-
-      {/* CSS Animations */}
+      {/* Enhanced Animations */}
       <style jsx>{`
-        @keyframes slideInUp {
-          0% { 
-            opacity: 0; 
-            transform: translateY(30px); 
-          }
-          100% { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-        }
-        
-        @keyframes fadeInScale {
-          0% { 
-            opacity: 0; 
-            transform: scale(0.95); 
-          }
-          100% { 
-            opacity: 1; 
-            transform: scale(1); 
-          }
-        }
-        
-        @keyframes pulse {
-          0%, 100% { opacity: 1; }
-          50% { opacity: 0.7; }
-        }
-        
         @keyframes float {
           0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-5px); }
+          50% { transform: translateY(-10px); }
         }
         
-        .animate-slide-in-up {
-          animation: slideInUp 0.8s ease-out forwards;
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
         
-        .animate-fade-in-scale {
-          animation: fadeInScale 0.6s ease-out forwards;
+        @keyframes spin-reverse {
+          from { transform: rotate(360deg); }
+          to { transform: rotate(0deg); }
         }
         
-        .animate-pulse {
-          animation: pulse 2s ease-in-out infinite;
+        @keyframes bounce-slow {
+          0%, 100% { 
+            transform: translateY(0px) rotate(45deg);
+            animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+          }
+          50% { 
+            transform: translateY(-10px) rotate(45deg);
+            animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+          }
         }
         
         .animate-float {
           animation: float 4s ease-in-out infinite;
         }
         
-        /* Smooth background transitions */
-        .bg-transition {
-          transition: all 1s ease-in-out;
+        .delay-300 {
+          animation-delay: 300ms;
         }
         
-        /* Hover effects */
-        .hover-lift:hover {
-          transform: translateY(-2px);
+        .delay-500 {
+          animation-delay: 500ms;
+        }
+        
+        .delay-1000 {
+          animation-delay: 1000ms;
+        }
+        
+        .animate-spin-slow {
+          animation: spin-slow 20s linear infinite;
+        }
+        
+        .animate-spin-reverse {
+          animation: spin-reverse 15s linear infinite;
+        }
+        
+        .animate-bounce-slow {
+          animation: bounce-slow 3s ease-in-out infinite;
         }
       `}</style>
     </section>

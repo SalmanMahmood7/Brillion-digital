@@ -16,7 +16,8 @@ import {
   Menu,
   X,
   Layers,
-  Video
+  Video,
+  Brain
 } from "lucide-react"
 
 const sidebarItems = [
@@ -44,6 +45,11 @@ const sidebarItems = [
     title: "Content",
     href: "/admin/content",
     icon: FileText,
+  },
+  {
+    title: "Chatbot Knowledge",
+    href: "/admin/chatbot-knowledge",
+    icon: Brain,
   },
   {
     title: "Settings",

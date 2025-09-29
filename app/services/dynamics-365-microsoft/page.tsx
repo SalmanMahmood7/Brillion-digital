@@ -24,7 +24,9 @@ import {
   GraduationCap,
   Utensils,
   Fuel,
-  FileText
+  FileText,
+  Plus,
+  Minus
 } from "lucide-react";
 import {
   Accordion,
@@ -37,6 +39,7 @@ export default function Dynamics365Microsoft() {
   const [expandedCard, setExpandedCard] = useState(null);
   const [selectedService, setSelectedService] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [openFAQ, setOpenFAQ] = useState(null);
 
   const toggleCard = (cardId) => {
     setExpandedCard(expandedCard === cardId ? null : cardId);
@@ -218,11 +221,11 @@ export default function Dynamics365Microsoft() {
         <section className="relative bg-slate-900 py-24">
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+              src="/dynamics-hero-bg.jpg" 
               alt="Microsoft Solutions Background"
               className="w-full h-full object-cover opacity-20"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 to-slate-900/90"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/50"></div>
           </div>
           
           <div className="relative z-10 container mx-auto px-6 lg:px-12 max-w-6xl">
@@ -238,31 +241,15 @@ export default function Dynamics365Microsoft() {
                 Transform your business with Microsoft's comprehensive ecosystem. From Dynamics 365 to Power Platform, 
                 we help you leverage cutting-edge tools to streamline operations, enhance productivity, and drive growth.
               </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-                <Button 
-                  asChild
-                  className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300"
-                >
-                  <a href="/contact">
-                    Get Started
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
-                <a 
-                  href="#solutions"
-                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 bg-orange-500 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300"
-                  style={{ backgroundColor: '#f97316' }}
-                >
-                  Explore Solutions
-                </a>
-              </div>
             </div>
           </div>
         </section>
 
+        {/* Unified Background Container for All Sections */}
+        <div className="bg-gradient-to-br from-blue-50 via-white to-orange-50 overflow-hidden">
+        
         {/* Digital Transformation Benefits */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16">
           <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
             <div className="grid lg:grid-cols-3 gap-8 items-start">
               
@@ -279,7 +266,7 @@ export default function Dynamics365Microsoft() {
               <div className="lg:col-span-2 grid md:grid-cols-2 gap-6">
                 
                 {/* Card 1 - Teal Border */}
-                <div className="border-l-4 border-teal-500 p-6">
+                <div className="bg-white/60 backdrop-blur-sm border-l-4 border-teal-500 p-6 rounded-lg shadow-lg border border-gray-100/50">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 mt-1">
                       {/* Dollar/Growth Icon */}
@@ -300,7 +287,7 @@ export default function Dynamics365Microsoft() {
                 </div>
 
                 {/* Card 2 - Teal Border */}
-                <div className="border-l-4 border-teal-500 p-6">
+                <div className="bg-white/60 backdrop-blur-sm border-l-4 border-teal-500 p-6 rounded-lg shadow-lg border border-gray-100/50">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 mt-1">
                       {/* People/Group Icon */}
@@ -326,7 +313,7 @@ export default function Dynamics365Microsoft() {
         </section>
 
         {/* Why Choose Brillion Section */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20">
           <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-6">
@@ -350,7 +337,7 @@ export default function Dynamics365Microsoft() {
         </section>
 
         {/* Benefits Section */}
-        <section className="py-20 bg-gray-50">
+        <section className="py-20">
           <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
             
             {/* Header */}
@@ -367,7 +354,7 @@ export default function Dynamics365Microsoft() {
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
               
               {/* Benefit 1 */}
-              <div className="text-center">
+              <div className="text-center bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100/50">
                 <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1e40af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>
@@ -380,7 +367,7 @@ export default function Dynamics365Microsoft() {
               </div>
 
               {/* Benefit 2 */}
-              <div className="text-center">
+              <div className="text-center bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100/50">
                 <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1e40af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
@@ -394,7 +381,7 @@ export default function Dynamics365Microsoft() {
               </div>
 
               {/* Benefit 3 */}
-              <div className="text-center">
+              <div className="text-center bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100/50">
                 <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1e40af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M3 3v16a2 2 0 0 0 2 2h16"/>
@@ -410,7 +397,7 @@ export default function Dynamics365Microsoft() {
               </div>
 
               {/* Benefit 4 */}
-              <div className="text-center">
+              <div className="text-center bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-100/50">
                 <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1e40af" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
@@ -440,7 +427,7 @@ export default function Dynamics365Microsoft() {
         </section>
 
         {/* Your Brillion Digital Journey Section */}
-        <section className="py-24 bg-gray-50">
+        <section className="py-24">
           <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
             
             {/* Header */}
@@ -457,7 +444,7 @@ export default function Dynamics365Microsoft() {
             <div className="grid grid-cols-1 gap-8 max-w-6xl mx-auto">
               
               {/* Microsoft Dynamics 365 */}
-              <div className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+              <div className="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100/50">
                 <div 
                   className="p-8 cursor-pointer flex items-center justify-between"
                   onClick={() => toggleCard('dynamics365')}
@@ -480,14 +467,14 @@ export default function Dynamics365Microsoft() {
                     <div className="grid grid-cols-2 gap-6 mb-6">
                       <div className="flex justify-center">
                         <img 
-                          src="https://cdn-klild.nitrocdn.com/RjShGdTszPAToOngbemdLfDKrPhoFcmk/assets/images/optimized/rev-c9bb27a/enovait.io/wp-content/uploads/2023/08/365.png"
+                          src="/365.png"
                           alt="Microsoft Dynamics 365" 
                           className="h-16 object-contain"
                         />
                       </div>
                       <div className="flex justify-center">
                         <img 
-                          src="https://cdn-klild.nitrocdn.com/RjShGdTszPAToOngbemdLfDKrPhoFcmk/assets/images/optimized/rev-c9bb27a/enovait.io/wp-content/uploads/2023/09/Copy-of-MS-gold-partner-logo.png"
+                          src="/ms-gold-partner-logo.png"
                           alt="Microsoft Gold Partner" 
                           className="h-14 object-contain"
                         />
@@ -498,7 +485,7 @@ export default function Dynamics365Microsoft() {
               </div>
 
               {/* Modern Workplace */}
-              <div className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+              <div className="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100/50">
                 <div 
                   className="p-8 cursor-pointer flex items-center justify-between"
                   onClick={() => toggleCard('workplace')}
@@ -537,7 +524,7 @@ export default function Dynamics365Microsoft() {
                     
                     <div className="mb-6">
                       <img 
-                        src="https://cdn-klild.nitrocdn.com/RjShGdTszPAToOngbemdLfDKrPhoFcmk/assets/images/optimized/rev-c9bb27a/enovait.io/wp-content/uploads/2023/09/workplace.jpg"
+                        src="/workplace.jpg"
                         alt="Modern Workplace" 
                         className="w-full h-80 object-contain rounded-lg"
                       />
@@ -547,7 +534,7 @@ export default function Dynamics365Microsoft() {
               </div>
 
               {/* Microsoft Dynamics 365 Business Applications */}
-              <div className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+              <div className="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100/50">
                 <div 
                   className="p-8 cursor-pointer flex items-center justify-between"
                   onClick={() => toggleCard('business')}
@@ -564,14 +551,14 @@ export default function Dynamics365Microsoft() {
                     <div className="grid grid-cols-2 gap-6 mb-6">
                       <div className="flex justify-center">
                         <img 
-                          src="https://cdn-klild.nitrocdn.com/RjShGdTszPAToOngbemdLfDKrPhoFcmk/assets/images/optimized/rev-c9bb27a/enovait.io/wp-content/uploads/2023/08/MD365_PracticeAreas.png"
+                          src="/MD365_PracticeAreas.png"
                           alt="Microsoft Dynamics 365 Practice Areas" 
                           className="w-full h-48 object-contain"
                         />
                       </div>
                       <div className="flex justify-center">
                         <img 
-                          src="https://cdn-klild.nitrocdn.com/RjShGdTszPAToOngbemdLfDKrPhoFcmk/assets/images/optimized/rev-c9bb27a/enovait.io/wp-content/uploads/2023/09/Power-Platform.jpg-1.webp"
+                          src="/Power-Platform.webp"
                           alt="Power Platform" 
                           className="w-full h-48 object-contain"
                         />
@@ -582,7 +569,7 @@ export default function Dynamics365Microsoft() {
               </div>
 
               {/* Migration to Azure Cloud */}
-              <div className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100">
+              <div className="group bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100/50">
                 <div 
                   className="p-8 cursor-pointer flex items-center justify-between"
                   onClick={() => toggleCard('azure')}
@@ -598,7 +585,7 @@ export default function Dynamics365Microsoft() {
                   <div className="px-8 pb-8 animate-in slide-in-from-top duration-300">
                     <div className="mb-6">
                       <img 
-                        src="https://cdn-klild.nitrocdn.com/RjShGdTszPAToOngbemdLfDKrPhoFcmk/assets/images/optimized/rev-c9bb27a/enovait.io/wp-content/uploads/2023/08/azure-migration.jpg"
+                        src="/azure-migration.jpg"
                         alt="Azure Migration" 
                         className="w-full h-56 object-contain rounded-lg"
                       />
@@ -613,7 +600,7 @@ export default function Dynamics365Microsoft() {
         </section>
 
         {/* Industry Solutions Section */}
-        <section id="solutions" className="py-20 bg-white">
+        <section id="solutions" className="py-20">
           <div className="container mx-auto px-6 lg:px-12 max-w-7xl">
             
             {/* Header */}
@@ -630,7 +617,7 @@ export default function Dynamics365Microsoft() {
             <div className="grid lg:grid-cols-2 gap-8 mb-24 max-w-6xl mx-auto">
               
               {/* Property Management */}
-              <div className="group relative bg-gradient-to-br from-blue-50 to-orange-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-blue-100 hover:border-orange-200">
+              <div className="group relative bg-white/60 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/50 hover:border-orange-200">
                 <a 
                   href="/property managment pdf.pdf"
                   target="_blank"
@@ -639,7 +626,7 @@ export default function Dynamics365Microsoft() {
                 >
                   <div className="flex items-center mb-6">
                     <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-orange-500 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
-                      <Building className="w-8 h-8 text-orange-500" />
+                      <Building className="w-8 h-8 text-white" />
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold text-blue-900 mb-2">Property Management</h3>
@@ -650,7 +637,7 @@ export default function Dynamics365Microsoft() {
               </div>
 
               {/* Food Service */}
-              <div className="group relative bg-gradient-to-br from-orange-50 to-blue-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-orange-100 hover:border-blue-200">
+              <div className="group relative bg-white/60 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/50 hover:border-orange-200">
                 <a 
                   href="/Restaurant PDF.pdf"
                   target="_blank"
@@ -659,7 +646,7 @@ export default function Dynamics365Microsoft() {
                 >
                   <div className="flex items-center mb-6">
                     <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-blue-500 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
-                      <Utensils className="w-8 h-8 text-orange-500" />
+                      <Utensils className="w-8 h-8 text-white" />
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold text-blue-900 mb-2">Food Service</h3>
@@ -670,7 +657,7 @@ export default function Dynamics365Microsoft() {
               </div>
 
               {/* Education */}
-              <div className="group relative bg-gradient-to-br from-blue-50 to-orange-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-blue-100 hover:border-orange-200">
+              <div className="group relative bg-white/60 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/50 hover:border-orange-200">
                 <a 
                   href="/Education pdf.pdf"
                   target="_blank"
@@ -679,7 +666,7 @@ export default function Dynamics365Microsoft() {
                 >
                   <div className="flex items-center mb-6">
                     <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-orange-500 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
-                      <GraduationCap className="w-8 h-8 text-orange-500" />
+                      <GraduationCap className="w-8 h-8 text-white" />
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold text-blue-900 mb-2">Education</h3>
@@ -690,7 +677,7 @@ export default function Dynamics365Microsoft() {
               </div>
 
               {/* Oil & Gas */}
-              <div className="group relative bg-gradient-to-br from-orange-50 to-blue-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-orange-100 hover:border-blue-200">
+              <div className="group relative bg-white/60 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/50 hover:border-orange-200">
                 <a 
                   href="/transportation pdf.pdf"
                   target="_blank"
@@ -699,7 +686,7 @@ export default function Dynamics365Microsoft() {
                 >
                   <div className="flex items-center mb-6">
                     <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-blue-500 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
-                      <Fuel className="w-8 h-8 text-orange-500" />
+                      <Fuel className="w-8 h-8 text-white" />
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold text-blue-900 mb-2">Oil & Gas</h3>
@@ -710,7 +697,7 @@ export default function Dynamics365Microsoft() {
               </div>
 
               {/* Finance */}
-              <div className="group relative bg-gradient-to-br from-blue-50 to-orange-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-blue-100 hover:border-orange-200">
+              <div className="group relative bg-white/60 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/50 hover:border-orange-200">
                 <a 
                   href="/assets managments companies pdf.pdf"
                   target="_blank"
@@ -719,7 +706,7 @@ export default function Dynamics365Microsoft() {
                 >
                   <div className="flex items-center mb-6">
                     <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-orange-500 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
-                      <DollarSign className="w-8 h-8 text-orange-500" />
+                      <DollarSign className="w-8 h-8 text-white" />
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold text-blue-900 mb-2">Finance</h3>
@@ -730,7 +717,7 @@ export default function Dynamics365Microsoft() {
               </div>
 
               {/* Insurance */}
-              <div className="group relative bg-gradient-to-br from-orange-50 to-blue-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-orange-100 hover:border-blue-200">
+              <div className="group relative bg-white/60 backdrop-blur-sm rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100/50 hover:border-orange-200">
                 <a 
                   href="/managments companies 2.pdf"
                   target="_blank"
@@ -739,7 +726,7 @@ export default function Dynamics365Microsoft() {
                 >
                   <div className="flex items-center mb-6">
                     <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-blue-500 rounded-2xl flex items-center justify-center mr-6 shadow-lg">
-                      <FileText className="w-8 h-8 text-orange-500" />
+                      <FileText className="w-8 h-8 text-white" />
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold text-blue-900 mb-2">Insurance</h3>
@@ -821,12 +808,105 @@ export default function Dynamics365Microsoft() {
           </div>
         </section>
 
+        {/* FAQ Section */}
+        <section className="py-16 sm:py-20 lg:py-24 relative">
+          {/* Background Elements */}
+          <div className="absolute inset-0">
+            <div className="absolute top-20 left-4 sm:left-10 w-48 sm:w-64 h-48 sm:h-64 bg-[#f97316]/5 rounded-full blur-2xl"></div>
+            <div className="absolute bottom-20 right-4 sm:right-10 w-64 sm:w-96 h-64 sm:h-96 bg-blue-900/5 rounded-full blur-3xl"></div>
+          </div>
+
+          <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 max-w-4xl relative z-10">
+            {/* Header */}
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
+                <span className="text-blue-900">Frequently Asked</span>{" "}
+                <span className="text-[#f97316]">Questions</span>
+              </h2>
+              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
+                Common questions about Microsoft Dynamics 365 implementation and services
+              </p>
+            </div>
+
+            {/* FAQ Accordion */}
+            <div className="space-y-3 sm:space-y-4">
+              {[
+                {
+                  question: "How long does a Dynamics 365 implementation typically take?",
+                  answer: "Implementation timelines vary based on complexity and scope. Simple deployments can be completed in 6-12 weeks, while complex enterprise implementations may take 16-24 weeks. We use a phased approach to ensure business continuity and provide detailed project timelines during the planning phase."
+                },
+                {
+                  question: "Can Dynamics 365 integrate with our existing systems?",
+                  answer: "Yes, Dynamics 365 offers extensive integration capabilities with Microsoft and third-party applications. We can connect it to your existing CRM, ERP, accounting systems, and custom applications through APIs, Power Platform, and Azure integration services to ensure seamless data flow."
+                },
+                {
+                  question: "What training and support do you provide after implementation?",
+                  answer: "We provide comprehensive training programs for administrators and end-users, including hands-on workshops, documentation, and video tutorials. Our ongoing support includes system maintenance, user support, performance optimization, and regular system updates to ensure maximum ROI."
+                },
+                {
+                  question: "How do you ensure data security and compliance?",
+                  answer: "Dynamics 365 includes enterprise-grade security features including data encryption, multi-factor authentication, role-based access controls, and compliance with standards like GDPR, HIPAA, and SOC 2. We implement additional security measures and regular audits to ensure your data remains protected."
+                },
+                {
+                  question: "What's the cost structure for Dynamics 365 licensing and implementation?",
+                  answer: "Dynamics 365 uses a per-user, per-month subscription model with different pricing tiers based on functionality needs. Implementation costs vary based on customization requirements, data migration complexity, and integration needs. We provide detailed cost analysis and ROI projections during the consultation phase."
+                },
+                {
+                  question: "Can we customize Dynamics 365 to fit our specific business processes?",
+                  answer: "Absolutely. Dynamics 365 is highly customizable through configuration, custom fields, workflows, business rules, and the Power Platform. We can also develop custom apps and integrations using Azure and .NET technologies to ensure the system perfectly matches your business requirements."
+                }
+              ].map((faq, index) => (
+                <div 
+                  key={index} 
+                  className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                >
+                  <button
+                    onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
+                    className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 text-left focus:outline-none focus:ring-2 focus:ring-[#f97316]/20 focus:ring-offset-2 group"
+                  >
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-base sm:text-lg lg:text-xl font-bold text-blue-900 group-hover:text-[#f97316] transition-colors duration-300 pr-4 leading-tight">
+                        {faq.question}
+                      </h3>
+                      <div className="flex-shrink-0 ml-2">
+                        <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-[#f97316] to-orange-500 flex items-center justify-center transition-transform duration-300 ${
+                          openFAQ === index ? 'rotate-180' : 'rotate-0'
+                        }`}>
+                          {openFAQ === index ? (
+                            <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                          ) : (
+                            <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                  
+                  <div className={`transition-all duration-300 ease-in-out ${
+                    openFAQ === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  } overflow-hidden`}>
+                    <div className="px-4 sm:px-6 lg:px-8 pb-4 sm:pb-5 lg:pb-6">
+                      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-4"></div>
+                      <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        
+        </div>
+        {/* End Unified Background Container */}
+
         {/* CTA Section */}
         <section className="relative py-24 overflow-hidden">
           {/* Background Image */}
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2426&q=80" 
+              src="/dynamics-cta-bg.jpg" 
               alt="Modern Business Technology"
               className="w-full h-full object-cover"
             />
@@ -839,28 +919,27 @@ export default function Dynamics365Microsoft() {
               
               {/* Left Side - Text Content */}
               <div className="text-left">
-                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                  Ready to Transform with <span className="text-orange-400">Microsoft?</span>
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6">
+                  Partner With Leading <span className="text-[#f97316]">Microsoft Dynamics 365 Experts</span> For Your Transformation Journey
                 </h2>
-                <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-                  Let's discuss how Dynamics 365 and Microsoft solutions can revolutionize your business operations and drive unprecedented growth.
+                <p className="text-white/90 mb-10 text-lg leading-relaxed max-w-3xl">
+                  Connect with our Microsoft transformation specialists to accelerate your business growth. Get strategic guidance, technology insights, and implementation support from industry leaders in Microsoft Dynamics 365.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button 
                     asChild
-                    className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                    className="bg-[#f97316] hover:bg-orange-500 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
                   >
                     <a href="/contact">
-                      Schedule Consultation
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      Download Our Guide
                     </a>
                   </Button>
                   <Button 
                     asChild
-                    className="bg-orange-600 hover:bg-orange-500 text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl"
+                    className="bg-transparent border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold py-4 px-8 rounded-xl transition-all duration-300"
                   >
-                    <a href="/services">
-                      View All Services
+                    <a href="/work">
+                      See Case Studies
                     </a>
                   </Button>
                 </div>

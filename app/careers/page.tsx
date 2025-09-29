@@ -119,11 +119,11 @@ export default function Careers() {
         <section className="relative bg-slate-900 py-24">
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
-              alt="Team Collaboration Background"
-              className="w-full h-full object-cover opacity-20"
+              src="/career-hero-bg.jpg" 
+              alt="Software Development Office"
+              className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-slate-900/80 to-slate-900/90"></div>
+            <div className="absolute inset-0 bg-black/70"></div>
           </div>
           
           <div className="relative z-10 container mx-auto px-6 lg:px-12 max-w-6xl">
@@ -156,7 +156,7 @@ export default function Careers() {
                   style={{borderColor: '#f97316', backgroundColor: '#f97316'}}
                 >
                   <a href="#culture">
-                    Learn About Our Culture
+                    Download Our Guide
                   </a>
                 </Button>
               </div>
@@ -188,7 +188,7 @@ export default function Careers() {
 
             {/* Featured Quote Section */}
             <div className="relative max-w-6xl mx-auto">
-              <div className="bg-gradient-to-br from-blue-900 via-blue-800 to-orange-600 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+              <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-orange-600 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
                 {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-10">
                   <div className="absolute top-0 left-0 w-32 h-32 bg-white rounded-full -translate-x-16 -translate-y-16"></div>
@@ -241,13 +241,13 @@ export default function Careers() {
               {/* Regular Job Cards */}
               {jobOpenings.map((job, index) => {
                 const jobImages = [
-                  "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80", // Digital Transformation
-                  "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80", // Cloud Solutions
-                  "https://images.unsplash.com/photo-1563206767-5b18f218e8de?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80", // Cybersecurity
-                  "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80", // Data Analytics
-                  "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80", // Application Development
-                  "https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80", // IT Infrastructure
-                  "https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80", // UX/UI Designer
+                  "/career-digital-transformation.jpg", // Digital Transformation
+                  "/career-cloud-solutions.jpg", // Cloud Solutions
+                  "/career-cybersecurity.jpg", // Cybersecurity
+                  "/career-data-analytics.jpg", // Data Analytics
+                  "/career-app-development.jpg", // Application Development
+                  "/career-it-infrastructure.jpg", // IT Infrastructure
+                  "/career-ux-ui-designer.jpg", // UX/UI Designer
                 ];
                 
                 return (
@@ -259,7 +259,7 @@ export default function Careers() {
                         alt={job.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/20 to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                       <div className="absolute top-4 left-4 flex gap-2">
                         <Badge className="bg-white/90 text-blue-800 hover:bg-white/90 backdrop-blur-sm">
                           {job.department}
@@ -313,11 +313,11 @@ export default function Careers() {
               <div className="group bg-white rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-orange-200">
                 <div className="relative h-48 overflow-hidden">
                   <img 
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" 
+                    src="/career-team.jpg" 
                     alt="Join Our Team"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/20 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
                   <div className="absolute top-4 left-4 flex gap-2">
                     <Badge className="bg-white/90 text-blue-800 hover:bg-white/90 backdrop-blur-sm">
                       Various Departments
@@ -378,11 +378,11 @@ export default function Careers() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=2426&q=80" 
+              src="/career-cta-bg.jpg" 
               alt="Team Success"
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-900/90 via-blue-800/85 to-orange-600/90"></div>
+            <div className="absolute inset-0 bg-black/70"></div>
           </div>
           
           {/* Content */}

@@ -12,28 +12,28 @@ const featuredArticles = [
     title: "How to get your whole team using Microsoft 365",
     excerpt: "Discover strategies to drive adoption and maximize the value of your Microsoft 365 investment across your entire organization.",
     category: "ARTICLES",
-    image: "https://images.unsplash.com/photo-1556745757-8d76bdb6984b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+    image: "/insight-1.jpg"
   },
   {
     slug: "cloud-security-2024", 
     title: "The Future of Cloud Security in 2024",
     excerpt: "Explore the latest trends and best practices in cloud security to protect your digital assets in an evolving threat landscape.",
     category: "ARTICLES",
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+    image: "/insight-2.jpg"
   },
   {
     slug: "ai-powered-analytics",
     title: "AI-Powered Analytics: Transforming Business Intelligence", 
     excerpt: "Learn how artificial intelligence is revolutionizing data analytics and providing unprecedented insights for business growth.",
     category: "ARTICLES",
-    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+    image: "/insight-3.jpg"
   },
   {
     slug: "cloud-migration-best-practices",
     title: "Cloud Migration Best Practices for Enterprise",
     excerpt: "A comprehensive guide to successfully migrating your enterprise applications to the cloud with minimal downtime.",
     category: "ARTICLES", 
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+    image: "/insight-4.jpg"
   }
 ];
 

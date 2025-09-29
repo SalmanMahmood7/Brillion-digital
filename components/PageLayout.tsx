@@ -2,6 +2,7 @@
 
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import Chatbot from "@/components/Chatbot";
 import { useEffect } from "react";
 import { useScrollReveal } from "@/lib/scroll-reveal";
 
@@ -23,6 +24,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
         {children}
       </main>
       <Footer />
+      <Chatbot />
     </div>
   );
 };

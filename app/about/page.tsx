@@ -71,11 +71,11 @@ export default function About() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+              src="/about-hero-bg.jpg" 
               alt="About Us Background"
-              className="w-full h-full object-cover opacity-20"
+              className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-black/50"></div>
+            <div className="absolute inset-0 bg-black/70"></div>
           </div>
 
           <div className="relative z-10 container mx-auto px-6 md:px-8 lg:px-12 max-w-6xl">
@@ -279,11 +279,11 @@ export default function About() {
             {/* Background Image */}
             <div className="absolute inset-0">
               <img 
-                src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?q=80&w=2000&auto=format&fit=crop" 
+                src="/about-cta-bg.jpg" 
                 alt="Business Transformation Background"
                 className="w-full h-full object-cover opacity-40"
               />
-              <div className="absolute inset-0 bg-black/50"></div>
+              <div className="absolute inset-0 bg-black/70"></div>
             </div>
             
             <div className="relative z-10 container mx-auto px-6 md:px-8 lg:px-12 1.25xl:px-16 max-w-7xl py-24">
@@ -294,13 +294,27 @@ export default function About() {
                 <p className="text-white/90 mb-10 text-lg leading-relaxed max-w-3xl mx-auto">
                   Let our experienced IT consultation team guide you through your digital transformation journey.
                 </p>
-                <div className="flex justify-center">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <AuthButton
+                    href="/contact"
+                    requireAuth={true}
+                    className="bg-[#f97316] hover:bg-orange-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 text-lg"
+                  >
+                    Download Our Guide
+                  </AuthButton>
+                  <AuthButton
+                    href="/work"
+                    requireAuth={false}
+                    className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg"
+                  >
+                    See Case Studies
+                  </AuthButton>
                   <AuthButton
                     href="/contact"
                     requireAuth={true}
                     className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg"
                   >
-                    Start Your Consultation
+                    Get a Quote
                   </AuthButton>
                 </div>
               </div>
@@ -308,28 +322,166 @@ export default function About() {
           </div>
         </section>
 
-        {/* Partners Section */}
-        <section className="relative z-10 py-20 bg-white">
-          <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-6xl">
-            <div className="text-center space-y-8">
-              <h2 className="text-4xl md:text-5xl font-bold">
-                <span className="text-blue-900">Our </span>
-                <span className="text-orange-500">Partners</span>
-              </h2>
-              
-              <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                We collaborate with industry leaders to deliver exceptional value to our clients.
-              </p>
-              
-              <div className="flex justify-center pt-12">
-                {/* Partner Logo */}
-                <img 
-                  src="/partner-logo-new.png" 
-                  alt="Partner"
-                  className="h-16 object-contain hover:scale-105 transition-all duration-300"
-                />
+        {/* Certifications & Partnerships Section */}
+        <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50/30">
+          <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+            
+            {/* Certifications */}
+            <div className="mb-20">
+              <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-orange-500 to-blue-600 bg-clip-text text-transparent mb-6">
+                  Certifications & Compliance
+                </h2>
+                <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                  Industry-leading security and quality standards ensuring your business stays protected
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="group">
+                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 text-center">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <Shield className="w-8 h-8 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-900 mb-3">ISO 27001</h4>
+                    <p className="text-gray-600 font-medium">Information Security</p>
+                  </div>
+                </div>
+                
+                <div className="group">
+                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 text-center">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <Award className="w-8 h-8 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-900 mb-3">Microsoft Gold</h4>
+                    <p className="text-gray-600 font-medium">Certified Partner</p>
+                  </div>
+                </div>
+                
+                <div className="group">
+                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 text-center">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-orange-500 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <CheckCircle className="w-8 h-8 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-900 mb-3">SOC 2 Type II</h4>
+                    <p className="text-gray-600 font-medium">Security Compliance</p>
+                  </div>
+                </div>
+                
+                <div className="group">
+                  <div className="bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 text-center">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-orange-500 to-blue-500 rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <Shield className="w-8 h-8 text-white" />
+                    </div>
+                    <h4 className="text-xl font-bold text-gray-900 mb-3">PIPEDA</h4>
+                    <p className="text-gray-600 font-medium">Privacy Compliant</p>
+                  </div>
+                </div>
               </div>
             </div>
+
+            {/* Technology Partners */}
+            <div className="mb-20">
+              <div className="text-center mb-16">
+                <h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-orange-500 bg-clip-text text-transparent mb-6">
+                  Technology Partners
+                </h3>
+                <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                  Partnered with industry-leading technology providers to deliver cutting-edge solutions
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="group text-center">
+                  <div className="w-32 h-20 mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                    <img src="/microsoft-logo.png" alt="Microsoft" className="w-full h-full object-contain" />
+                  </div>
+                  <div className="text-lg font-bold text-gray-900">Microsoft</div>
+                  <div className="text-sm text-gray-600 mt-2">Gold Partner - Dynamics 365, Azure, Microsoft 365</div>
+                </div>
+                
+                <div className="group text-center">
+                  <div className="w-32 h-20 mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                    <img src="/aws-logo.png" alt="Amazon AWS" className="w-full h-full object-contain" />
+                  </div>
+                  <div className="text-lg font-bold text-gray-900">Amazon AWS</div>
+                  <div className="text-sm text-gray-600 mt-2">Advanced Partner - Cloud Infrastructure, Migration</div>
+                </div>
+                
+                <div className="group text-center">
+                  <div className="w-32 h-20 mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                    <img src="/azure-logo.png" alt="Microsoft Azure" className="w-full h-full object-contain" />
+                  </div>
+                  <div className="text-lg font-bold text-gray-900">Microsoft Azure</div>
+                  <div className="text-sm text-gray-600 mt-2">Expert Partner - Cloud Platform, Security, DevOps</div>
+                </div>
+                
+                <div className="group text-center">
+                  <div className="w-32 h-20 mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                    <img src="/partner-logo-new.png" alt="Partner Logo" className="w-full h-full object-contain" />
+                  </div>
+                  <div className="text-lg font-bold text-gray-900">Maison</div>
+                  <div className="text-sm text-gray-600 mt-2">Technology Solutions & Innovation</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Microsoft Specialized Certifications */}
+            <div className="mb-20">
+              <div className="text-center mb-16">
+                <h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-orange-500 to-blue-600 bg-clip-text text-transparent mb-6">
+                  Microsoft Specialized Certifications
+                </h3>
+                <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                  Certified expertise across the Microsoft ecosystem
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+                  <div className="flex items-start space-x-4">
+                    <img src="/365.png" alt="Microsoft 365" className="w-12 h-12 object-contain" />
+                    <div>
+                      <h4 className="text-lg font-bold text-gray-900 mb-2">Microsoft 365</h4>
+                      <p className="text-gray-600 text-sm mb-3">Enterprise Mobility + Security, Teams, SharePoint</p>
+                      <div className="flex items-center text-green-600">
+                        <CheckCircle className="w-4 h-4 mr-2" />
+                        <span className="text-sm font-medium">Gold Certified</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+                  <div className="flex items-start space-x-4">
+                    <img src="/MD365_PracticeAreas.png" alt="Dynamics 365" className="w-12 h-12 object-contain" />
+                    <div>
+                      <h4 className="text-lg font-bold text-gray-900 mb-2">Dynamics 365</h4>
+                      <p className="text-gray-600 text-sm mb-3">Sales, Customer Service, Finance, Supply Chain</p>
+                      <div className="flex items-center text-green-600">
+                        <CheckCircle className="w-4 h-4 mr-2" />
+                        <span className="text-sm font-medium">Gold Certified</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300">
+                  <div className="flex items-start space-x-4">
+                    <img src="/Power-Platform.webp" alt="Power Platform" className="w-12 h-12 object-contain" />
+                    <div>
+                      <h4 className="text-lg font-bold text-gray-900 mb-2">Power Platform</h4>
+                      <p className="text-gray-600 text-sm mb-3">Power Apps, Power BI, Power Automate, Power Virtual Agents</p>
+                      <div className="flex items-center text-green-600">
+                        <CheckCircle className="w-4 h-4 mr-2" />
+                        <span className="text-sm font-medium">Certified</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </section>
 

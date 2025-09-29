@@ -218,7 +218,12 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onSuccess }) =
               >
                 {isLoading ? (
                   <div className="flex items-center justify-center">
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
+                    <div className="relative w-4 h-4 mr-2">
+                      {/* Compact spinning loader for button */}
+                      <div className="absolute inset-0 rounded-full border border-transparent border-t-white border-r-white animate-spin opacity-90" style={{animationDuration: '1s'}}></div>
+                      <div className="absolute inset-0.5 rounded-full border border-transparent border-b-white/70 border-l-white/70 animate-spin" style={{animationDuration: '0.7s', animationDirection: 'reverse'}}></div>
+                      <div className="absolute inset-1 rounded-full bg-white/20 animate-pulse" style={{animationDuration: '1.5s'}}></div>
+                    </div>
                     Loading...
                   </div>
                 ) : (

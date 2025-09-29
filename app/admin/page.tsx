@@ -202,8 +202,17 @@ export default function AdminDashboard() {
       {loading ? (
         <div className="flex items-center justify-center h-screen">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#f97316] mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading dashboard data...</p>
+            <div className="relative w-16 h-16 mx-auto mb-6">
+              {/* Outer rotating ring */}
+              <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-orange-500 border-r-orange-500 animate-spin" style={{animationDuration: '1.5s'}}></div>
+              {/* Middle rotating ring (opposite direction) */}
+              <div className="absolute inset-1 rounded-full border border-transparent border-b-blue-500 border-l-blue-500 animate-spin" style={{animationDuration: '1s', animationDirection: 'reverse'}}></div>
+              {/* Inner pulsing core */}
+              <div className="absolute inset-3 rounded-full bg-gradient-to-br from-orange-500 to-blue-500 animate-pulse opacity-80" style={{animationDuration: '2s'}}></div>
+              {/* Center dot */}
+              <div className="absolute top-1/2 left-1/2 w-1.5 h-1.5 bg-white rounded-full transform -translate-x-1/2 -translate-y-1/2 shadow-lg"></div>
+            </div>
+            <p className="text-gray-600 animate-pulse font-medium">Loading dashboard data...</p>
           </div>
         </div>
       ) : (

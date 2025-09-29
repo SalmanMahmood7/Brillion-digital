@@ -1,19 +1,15 @@
 "use client";
 
 import PageLayout from "@/components/PageLayout";
-import { Database, CheckCircle, BarChart3, Brain, TrendingUp, ArrowRight, Search, Palette, Wrench, Target, Eye, Zap, Users, Shield, Monitor, LineChart, PieChart, Activity, Settings, Code2, Server, Cloud, Container, Link, Cpu } from "lucide-react";
+import { Database, CheckCircle, BarChart3, Brain, TrendingUp, ArrowRight, Search, Palette, Wrench, Target, Eye, Zap, Users, Shield, Monitor, LineChart, PieChart, Activity, Settings, Code2, Server, Cloud, Box, Link, Cpu, Rocket, Plus, Minus } from "lucide-react";
 import { useState } from "react";
 import ServiceDetailModal from "@/components/ServiceDetailModal";
 import { getTechnologyUrl } from "@/lib/technology-utils";
 
 export default function AppliedDataAnalytics() {
-  const [selectedService, setSelectedService] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-
-  const handleLearnMore = (serviceKey) => {
-    setSelectedService(servicesData[serviceKey]);
-    setShowModal(true);
-  };
+  const [selectedService, setSelectedService] = useState<any>(null);
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const servicesData = {
     advancedAnalytics: {
@@ -24,17 +20,17 @@ export default function AppliedDataAnalytics() {
         {
           title: "Real-time Dashboards",
           description: "Interactive dashboards that provide live insights into your business metrics",
-          icon: "Monitor"
+          icon: Monitor
         },
         {
           title: "Predictive Analytics",
           description: "Machine learning models that forecast future trends and behaviors",
-          icon: "TrendingUp"
+          icon: TrendingUp
         },
         {
           title: "Custom Reporting",
           description: "Tailored reports that deliver insights specific to your business needs",
-          icon: "FileText"
+          icon: BarChart3
         }
       ],
       benefits: [
@@ -49,12 +45,52 @@ export default function AppliedDataAnalytics() {
           metric: "40% efficiency improvement"
         }
       ],
+      process: [
+        {
+          step: 1,
+          title: "Data Analysis",
+          description: "Analyze your data sources and identify analytics opportunities",
+          duration: "1-2 weeks"
+        },
+        {
+          step: 2,
+          title: "Dashboard Development",
+          description: "Create real-time dashboards and reporting systems",
+          duration: "2-3 weeks"
+        },
+        {
+          step: 3,
+          title: "Predictive Modeling",
+          description: "Develop and train predictive analytics models",
+          duration: "3-4 weeks"
+        },
+        {
+          step: 4,
+          title: "Deployment & Training",
+          description: "Deploy solutions and train your team",
+          duration: "1-2 weeks"
+        }
+      ],
+      technologies: ["Python", "R", "Tableau", "Power BI", "SQL", "Apache Spark", "TensorFlow", "Jupyter"],
       caseStudy: {
         client: "Retail Analytics Corp",
         challenge: "Disconnected data sources preventing comprehensive business insights",
         solution: "Integrated analytics platform with real-time dashboards and predictive models",
-        result: "Increased sales by 25% and reduced inventory costs by 30% through data-driven insights"
+        results: [
+          "25% increase in sales through data-driven insights",
+          "30% reduction in inventory costs",
+          "Real-time visibility into business performance",
+          "Predictive analytics for demand forecasting"
+        ]
       },
+      deliverables: [
+        "Real-time analytics dashboards",
+        "Predictive modeling solutions",
+        "Custom reporting systems",
+        "Data visualization tools",
+        "Analytics training program",
+        "Ongoing support and optimization"
+      ]
     },
     machineLearning: {
       title: "Machine Learning Implementation",
@@ -64,17 +100,17 @@ export default function AppliedDataAnalytics() {
         {
           title: "Algorithm Development",
           description: "Custom machine learning algorithms tailored to your specific use cases",
-          icon: "Brain"
+          icon: Brain
         },
         {
           title: "Model Training & Optimization",
           description: "Continuous model training and performance optimization for maximum accuracy",
-          icon: "Settings"
+          icon: Settings
         },
         {
           title: "AI Integration",
           description: "Seamless integration of AI capabilities into your existing systems",
-          icon: "Cpu"
+          icon: Cpu
         }
       ],
       benefits: [
@@ -89,12 +125,52 @@ export default function AppliedDataAnalytics() {
           metric: "95% prediction accuracy"
         }
       ],
+      process: [
+        {
+          step: 1,
+          title: "ML Strategy",
+          description: "Define machine learning objectives and use cases",
+          duration: "1-2 weeks"
+        },
+        {
+          step: 2,
+          title: "Data Preparation",
+          description: "Clean and prepare datasets for machine learning",
+          duration: "2-3 weeks"
+        },
+        {
+          step: 3,
+          title: "Model Development",
+          description: "Build and train custom ML algorithms",
+          duration: "4-6 weeks"
+        },
+        {
+          step: 4,
+          title: "Integration & Optimization",
+          description: "Integrate models and optimize performance",
+          duration: "2-3 weeks"
+        }
+      ],
+      technologies: ["TensorFlow", "PyTorch", "Scikit-learn", "AWS SageMaker", "Azure ML", "Python", "Docker", "Kubernetes"],
       caseStudy: {
         client: "FinTech Solutions Ltd",
         challenge: "Manual fraud detection causing delays and missed threats",
         solution: "AI-powered fraud detection system with real-time threat analysis",
-        result: "Reduced false positives by 70% and detected 98% of fraudulent transactions"
+        results: [
+          "70% reduction in false positives",
+          "98% fraud detection accuracy",
+          "Real-time threat analysis",
+          "Automated decision-making processes"
+        ]
       },
+      deliverables: [
+        "Custom ML algorithms",
+        "Trained and optimized models",
+        "AI integration systems",
+        "Performance monitoring tools",
+        "Model documentation",
+        "Ongoing model maintenance"
+      ]
     },
     businessIntelligence: {
       title: "Business Intelligence Systems",
@@ -104,17 +180,17 @@ export default function AppliedDataAnalytics() {
         {
           title: "Data Integration",
           description: "Consolidate data from multiple sources into unified BI platform",
-          icon: "Database"
+          icon: Database
         },
         {
           title: "Interactive Dashboards",
           description: "Dynamic dashboards that allow drill-down analysis and exploration",
-          icon: "BarChart3"
+          icon: BarChart3
         },
         {
           title: "Executive Reporting",
           description: "High-level reports designed for executive decision-making",
-          icon: "FileText"
+          icon: TrendingUp
         }
       ],
       benefits: [
@@ -129,12 +205,52 @@ export default function AppliedDataAnalytics() {
           metric: "50% faster strategic decisions"
         }
       ],
+      process: [
+        {
+          step: 1,
+          title: "BI Assessment",
+          description: "Evaluate current data sources and BI requirements",
+          duration: "1-2 weeks"
+        },
+        {
+          step: 2,
+          title: "Data Integration",
+          description: "Consolidate data from multiple sources",
+          duration: "2-4 weeks"
+        },
+        {
+          step: 3,
+          title: "Dashboard Creation",
+          description: "Build interactive dashboards and KPI monitoring",
+          duration: "3-4 weeks"
+        },
+        {
+          step: 4,
+          title: "Reporting Automation",
+          description: "Implement automated reporting and alerts",
+          duration: "2-3 weeks"
+        }
+      ],
+      technologies: ["Power BI", "Tableau", "QlikView", "SQL Server", "Oracle", "SAP", "Looker", "Snowflake"],
       caseStudy: {
         client: "Manufacturing Excellence Inc",
         challenge: "Siloed data preventing comprehensive performance analysis",
         solution: "Enterprise BI platform with integrated dashboards and automated reporting",
-        result: "Improved operational visibility by 80% and reduced reporting time by 90%"
+        results: [
+          "80% improvement in operational visibility",
+          "90% reduction in reporting time",
+          "360-degree business performance view",
+          "Executive-level strategic insights"
+        ]
       },
+      deliverables: [
+        "Integrated BI platform",
+        "Interactive dashboards",
+        "KPI monitoring systems",
+        "Automated reporting",
+        "Executive summaries",
+        "User training and support"
+      ]
     },
     dataEngineering: {
       title: "Data Engineering & ETL Solutions",
@@ -144,17 +260,17 @@ export default function AppliedDataAnalytics() {
         {
           title: "Data Pipeline Design",
           description: "Scalable and efficient data pipelines for automated data processing",
-          icon: "Server"
+          icon: Server
         },
         {
           title: "ETL Processes",
           description: "Extract, transform, and load processes optimized for performance",
-          icon: "Settings"
+          icon: Settings
         },
         {
           title: "Data Warehousing",
           description: "Modern data warehouse solutions for centralized data storage",
-          icon: "Database"
+          icon: Database
         }
       ],
       benefits: [
@@ -169,12 +285,52 @@ export default function AppliedDataAnalytics() {
           metric: "10x faster processing"
         }
       ],
+      process: [
+        {
+          step: 1,
+          title: "Data Architecture",
+          description: "Design scalable data pipeline architecture",
+          duration: "1-2 weeks"
+        },
+        {
+          step: 2,
+          title: "ETL Development",
+          description: "Build extract, transform, and load processes",
+          duration: "3-4 weeks"
+        },
+        {
+          step: 3,
+          title: "Data Warehousing",
+          description: "Implement modern data warehouse solutions",
+          duration: "2-3 weeks"
+        },
+        {
+          step: 4,
+          title: "Quality & Monitoring",
+          description: "Implement data quality and monitoring systems",
+          duration: "1-2 weeks"
+        }
+      ],
+      technologies: ["Apache Airflow", "Apache Spark", "Kafka", "Snowflake", "AWS Redshift", "Azure Synapse", "dbt", "Great Expectations"],
       caseStudy: {
         client: "E-commerce Platform Pro",
         challenge: "Slow data processing affecting real-time customer insights",
         solution: "Modern ETL pipeline with real-time data streaming and automated quality checks",
-        result: "Reduced data processing time by 95% and enabled real-time customer personalization"
+        results: [
+          "95% reduction in data processing time",
+          "Real-time customer personalization",
+          "Improved data quality and consistency",
+          "Scalable data infrastructure"
+        ]
       },
+      deliverables: [
+        "Scalable data pipelines",
+        "ETL automation systems",
+        "Modern data warehouse",
+        "Data quality monitoring",
+        "Real-time processing capabilities",
+        "Performance optimization"
+      ]
     }
   };
 
@@ -251,7 +407,7 @@ export default function AppliedDataAnalytics() {
     { 
       name: "Docker & Kubernetes", 
       category: "MLOps",
-      icon: Container,
+      icon: Box,
       color: "from-indigo-500 to-purple-500",
       description: "Containerized ML model deployment"
     },
@@ -299,6 +455,11 @@ export default function AppliedDataAnalytics() {
     }
   ];
 
+  const handleLearnMore = (serviceKey: string) => {
+    setSelectedService(servicesData[serviceKey]);
+    setShowModal(true);
+  };
+
   return (
     <PageLayout>
       <div className="min-h-screen bg-white">
@@ -308,7 +469,7 @@ export default function AppliedDataAnalytics() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+              src="/data-analytics-background.jpg" 
               alt="Data & Analytics Background"
               className="w-full h-full object-cover opacity-20"
             />
@@ -338,8 +499,11 @@ export default function AppliedDataAnalytics() {
           </div>
         </section>
 
+        {/* Unified Background Container for All Sections */}
+        <div className="bg-gradient-to-br from-blue-50 via-white to-orange-50 overflow-hidden">
+        
         {/* Services Section */}
-        <section className="relative z-10 py-24 bg-gray-50">
+        <section className="relative z-10 py-24">
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             
             {/* Header Section */}
@@ -385,7 +549,7 @@ export default function AppliedDataAnalytics() {
                 <div className="order-1 lg:order-2">
                   <div className="relative h-72 rounded-2xl overflow-hidden shadow-lg">
                     <img 
-                      src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&q=80"
+                      src="/data-analytics-hero-bg.jpg"
                       alt="Advanced Analytics Dashboard"
                       className="w-full h-full object-cover"
                     />
@@ -398,7 +562,7 @@ export default function AppliedDataAnalytics() {
                 <div>
                   <div className="relative h-72 rounded-2xl overflow-hidden shadow-lg">
                     <img 
-                      src="https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=600&q=80"
+                      src="/data-visualization.jpg"
                       alt="Machine Learning Models"
                       className="w-full h-full object-cover"
                     />
@@ -461,7 +625,7 @@ export default function AppliedDataAnalytics() {
                 <div className="order-1 lg:order-2">
                   <div className="relative h-72 rounded-2xl overflow-hidden shadow-lg">
                     <img 
-                      src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80"
+                      src="/data-monitoring.jpg"
                       alt="Business Intelligence Dashboard"
                       className="w-full h-full object-cover"
                     />
@@ -474,7 +638,7 @@ export default function AppliedDataAnalytics() {
                 <div>
                   <div className="relative h-72 rounded-2xl overflow-hidden shadow-lg">
                     <img 
-                      src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?w=600&q=80"
+                      src="/data-intelligence.jpg"
                       alt="Data Engineering Pipeline"
                       className="w-full h-full object-cover"
                     />
@@ -514,7 +678,7 @@ export default function AppliedDataAnalytics() {
 
 
         {/* Technologies Section */}
-        <section className="relative z-10 py-24 bg-gray-50">
+        <section className="relative z-10 py-24">
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             <div className="text-center space-y-8 mb-16">
               <h2 className="text-4xl md:text-5xl font-bold">
@@ -571,20 +735,11 @@ export default function AppliedDataAnalytics() {
               ))}
             </div>
 
-            {/* Additional Tech Stack Info */}
-            <div className="mt-16 text-center">
-              <div className="inline-flex items-center px-6 py-3 bg-orange-50 border border-orange-200 rounded-full">
-                <Zap className="w-5 h-5 text-orange-500 mr-2" />
-                <span className="text-sm font-medium text-gray-700">
-                  Plus 30+ specialized data science and analytics tools tailored to your project needs
-                </span>
-              </div>
-            </div>
           </div>
         </section>
 
         {/* Analytics Process */}
-        <section className="relative z-10 py-24 bg-gray-50">
+        <section className="relative z-10 py-24">
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             <div className="text-center space-y-8 mb-16">
               <h2 className="text-4xl md:text-5xl font-bold">
@@ -646,13 +801,106 @@ export default function AppliedDataAnalytics() {
           </div>
         </section>
 
+        {/* FAQ Section */}
+        <section className="py-16 sm:py-20 lg:py-24 relative">
+          {/* Background Elements */}
+          <div className="absolute inset-0">
+            <div className="absolute top-20 left-4 sm:left-10 w-48 sm:w-64 h-48 sm:h-64 bg-[#f97316]/5 rounded-full blur-2xl"></div>
+            <div className="absolute bottom-20 right-4 sm:right-10 w-64 sm:w-96 h-64 sm:h-96 bg-blue-900/5 rounded-full blur-3xl"></div>
+          </div>
+
+          <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 max-w-4xl relative z-10">
+            {/* Header */}
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
+                <span className="text-blue-900">Frequently Asked</span>{" "}
+                <span className="text-[#f97316]">Questions</span>
+              </h2>
+              <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
+                Common questions about data analytics services and how we can help extract insights from your data
+              </p>
+            </div>
+
+            {/* FAQ Accordion */}
+            <div className="space-y-3 sm:space-y-4">
+              {[
+                {
+                  question: "What types of data analytics services do you provide?",
+                  answer: "We offer comprehensive data analytics services including business intelligence, predictive analytics, data visualization, statistical analysis, machine learning models, data mining, performance dashboards, and custom analytics solutions. Our services cover the entire data journey from collection to actionable insights."
+                },
+                {
+                  question: "How long does it take to implement a data analytics solution?",
+                  answer: "Implementation timelines vary based on complexity and data sources. Simple dashboard projects can be completed in 4-6 weeks, while comprehensive analytics platforms may take 12-20 weeks. We often deliver initial insights within the first few weeks using agile methodology and iterative development."
+                },
+                {
+                  question: "Can you work with our existing data sources and systems?",
+                  answer: "Yes, we specialize in integrating with diverse data sources including databases, CRM systems, ERP platforms, spreadsheets, APIs, cloud storage, and real-time data streams. We ensure seamless data integration while maintaining data quality and security throughout the process."
+                },
+                {
+                  question: "What tools and technologies do you use for data analytics?",
+                  answer: "We use industry-leading tools including Python, R, SQL, Tableau, Power BI, Apache Spark, TensorFlow, AWS Analytics services, Google Cloud Analytics, and Azure Analytics. Our technology selection is based on your specific requirements, existing infrastructure, and long-term scalability needs."
+                },
+                {
+                  question: "How do you ensure data security and privacy?",
+                  answer: "Data security is our top priority. We implement encryption at rest and in transit, role-based access controls, data anonymization when needed, secure data pipelines, and compliance with regulations like GDPR, HIPAA, and SOX. We also conduct regular security audits and maintain strict data governance practices."
+                },
+                {
+                  question: "Do you provide training and ongoing support for analytics solutions?",
+                  answer: "Absolutely. We provide comprehensive training for your team including hands-on workshops, documentation, and best practices. Our ongoing support includes system maintenance, performance optimization, model updates, troubleshooting, and strategic guidance to maximize the value of your analytics investment."
+                }
+              ].map((faq, index) => (
+                <div 
+                  key={index} 
+                  className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                >
+                  <button
+                    onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
+                    className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 text-left focus:outline-none focus:ring-2 focus:ring-[#f97316]/20 focus:ring-offset-2 group"
+                  >
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-base sm:text-lg lg:text-xl font-bold text-blue-900 group-hover:text-[#f97316] transition-colors duration-300 pr-4 leading-tight">
+                        {faq.question}
+                      </h3>
+                      <div className="flex-shrink-0 ml-2">
+                        <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-[#f97316] to-orange-500 flex items-center justify-center transition-transform duration-300 ${
+                          openFAQ === index ? 'rotate-180' : 'rotate-0'
+                        }`}>
+                          {openFAQ === index ? (
+                            <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                          ) : (
+                            <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </button>
+                  
+                  <div className={`transition-all duration-300 ease-in-out ${
+                    openFAQ === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                  } overflow-hidden`}>
+                    <div className="px-4 sm:px-6 lg:px-8 pb-4 sm:pb-5 lg:pb-6">
+                      <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-4"></div>
+                      <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </section>
+
+        </div>
+        
         {/* CTA Section */}
         <section className="relative z-10 mb-20">
           <div className="relative bg-slate-800 overflow-hidden">
             {/* Background Image */}
             <div className="absolute inset-0">
               <img 
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2000&auto=format&fit=crop" 
+                src="/data-analytics-cta-bg.jpg" 
                 alt="Data Analytics Team"
                 className="w-full h-full object-cover opacity-40"
               />
@@ -662,14 +910,20 @@ export default function AppliedDataAnalytics() {
             <div className="relative z-10 container mx-auto px-6 md:px-8 lg:px-12 1.25xl:px-16 max-w-7xl py-24">
               <div className="text-center max-w-4xl mx-auto">
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6">
-                  Transform Your Business With <span className="text-[#f97316]">Advanced Data Analytics Solutions</span>
+                  Partner With Leading <span className="text-[#f97316]">Data Analytics Experts</span> For Your Transformation Journey
                 </h2>
                 <p className="text-white/90 mb-10 text-lg leading-relaxed max-w-3xl mx-auto">
-                  Partner with our data analytics experts to unlock the full potential of your data. From predictive modeling to real-time insights, we help you make data-driven decisions that accelerate growth and competitive advantage.
+                  Connect with our data analytics specialists to accelerate your business growth. Get strategic guidance, technology insights, and implementation support from industry leaders in data analytics.
                 </p>
-                <div className="flex justify-center">
-                  <a href="/contact" className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
-                    Start Your Analytics Journey
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a href="/contact" className="bg-[#f97316] hover:bg-orange-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
+                    Download Our Guide
+                  </a>
+                  <a href="/work" className="bg-transparent border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300">
+                    See Case Studies
+                  </a>
+                  <a href="/contact" className="bg-transparent border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300">
+                    Get a Quote
                   </a>
                 </div>
               </div>

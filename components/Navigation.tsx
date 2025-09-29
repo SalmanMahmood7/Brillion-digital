@@ -12,7 +12,12 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { user, logout } = useAuth();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const isMouseOverDropdown = useRef(false);
@@ -52,14 +57,17 @@ const Navigation = () => {
     };
   }, []);
 
+  // Updated navigation items
   const navItems = [
+    { name: "Case Studies", href: "/work" },
+    { name: "Industries", href: "/industries" },
     { name: "Insights", href: "/insights" },
-    { name: "Work", href: "/work" },
     { name: "Webinars", href: "/webinars" },
     { name: "Careers", href: "/careers" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
+
 
   const serviceItems = [
     { 
@@ -92,7 +100,7 @@ const Navigation = () => {
     },
     { 
       name: "Software Development", 
-      href: "/services/application-development",
+      href: "/services/software-development",
       description: "Custom software solutions for your business",
       icon: Zap,
       color: "from-yellow-500 to-orange-600"
@@ -117,6 +125,13 @@ const Navigation = () => {
       description: "Modern cloud infrastructure",
       icon: Server,
       color: "from-purple-500 to-violet-600"
+    },
+    { 
+      name: "Managed IT Services", 
+      href: "/services/managed-it-services",
+      description: "Comprehensive IT support and management",
+      icon: Shield,
+      color: "from-emerald-500 to-green-600"
     }
   ];
 
@@ -295,21 +310,28 @@ const Navigation = () => {
                   </div>
                 </div>
               </div>
+
               
               {/* Other Nav Items */}
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`${isScrolled ? 'text-blue-900 hover:text-blue-800' : 'text-blue-900 hover:text-orange-600'} transition-all duration-300 px-4 py-2 text-sm font-semibold rounded-full ${isScrolled ? 'hover:bg-blue-50' : 'hover:bg-blue-50'} relative group`}
+                  className={`${isScrolled ? 'text-blue-900 hover:text-blue-800' : 'text-blue-900 hover:text-orange-600'} transition-all duration-300 px-4 py-2 text-sm font-semibold rounded-full ${isScrolled ? 'hover:bg-blue-50' : 'hover:bg-blue-50'}`}
                 >
                   {item.name}
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-gradient-to-r from-orange-500 to-orange-600 group-hover:w-full transition-all duration-300"></div>
                 </Link>
               ))}
               
               {/* Auth Button */}
-              {user ? (
+              {!mounted ? (
+                <Button
+                  disabled
+                  className="bg-gradient-to-r from-blue-600 to-orange-500 text-white font-semibold px-4 py-2 rounded-full transition-all duration-300"
+                >
+                  Sign In
+                </Button>
+              ) : user ? (
                 <div className="flex items-center space-x-2">
                   <div className="flex items-center space-x-2 px-3 py-1 bg-blue-50 rounded-full">
                     <User className="w-4 h-4 text-blue-600" />
@@ -381,6 +403,7 @@ const Navigation = () => {
                 ))}
               </div>
             </div>
+
             
             {/* Other Nav Items */}
             {navItems.map((item) => (

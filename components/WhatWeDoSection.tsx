@@ -65,7 +65,7 @@ const WhatWeDoSection = () => {
       benefits: ['Enhanced User Experience', '60% Faster Performance', 'Seamless Integration', 'Future-Ready Solutions'],
       icon: Code,
       image: '/images/work-hero.jpg',
-      href: '/services/application-development'
+      href: '/services/software-development'
     },
     {
       id: 'digital-platforms',
@@ -108,7 +108,7 @@ const WhatWeDoSection = () => {
       features: ['Dynamics 365 CRM/ERP', 'Power Platform Solutions', 'Microsoft 365 Integration', 'Azure Cloud Services'],
       benefits: ['Unified Data Management', '35% Productivity Gain', 'Seamless Integration', 'Enterprise Security'],
       icon: Globe,
-      image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+      image: '/service-1.jpg',
       href: '/services/dynamics-365-microsoft'
     },
     {
@@ -119,7 +119,7 @@ const WhatWeDoSection = () => {
       features: ['Machine Learning Models', 'Intelligent Automation', 'Predictive Analytics', 'Natural Language Processing'],
       benefits: ['60% Process Automation', '85% Accuracy Improvement', '40% Cost Reduction', 'Real-time Insights'],
       icon: Brain,
-      image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+      image: '/insight-3.jpg',
       href: '/services/ai-smart-solutions'
     },
     {
@@ -130,7 +130,7 @@ const WhatWeDoSection = () => {
       features: ['24/7 IT Monitoring', 'Help Desk Support', 'Infrastructure Management', 'Backup & Recovery'],
       benefits: ['99.9% Uptime', '24/7 Support', '30% Cost Savings', 'Proactive Maintenance'],
       icon: Settings,
-      image: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+      image: '/insight-4.jpg',
       href: '/services/managed-it-services'
     }
   ];

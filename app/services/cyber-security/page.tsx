@@ -1,16 +1,18 @@
-"use client"
+"use client";
 
-import PageLayout from "@/components/PageLayout"
-import { Lock, CheckCircle, Shield, Eye, ArrowRight, Phone, Search, Database, Cloud, Key, Clock, Users, Globe } from "lucide-react"
-import { useState } from "react"
-import ServiceDetailModal from "@/components/ServiceDetailModal"
+import PageLayout from "@/components/PageLayout";
+import { Lock, CheckCircle, Shield, Eye, ArrowRight, Phone, Search, Database, Cloud, Key, Clock, Users, Globe, Zap, DollarSign, Activity, Plus, Minus, BookOpen, TrendingUp, BarChart } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import ServiceDetailModal from "@/components/ServiceDetailModal";
 
 export default function CyberSecurity() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const totalSlides = 8;
   const slidesToShow = 3;
   const [selectedService, setSelectedService] = useState<any>(null);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
   const servicesData = {
     threatDetection: {
@@ -466,7 +468,7 @@ export default function CyberSecurity() {
   };
 
   const handleLearnMore = (serviceKey: string) => {
-    setSelectedService(servicesData[serviceKey]);
+    setSelectedService(servicesData[serviceKey as keyof typeof servicesData]);
     setShowModal(true);
   };
 
@@ -482,7 +484,7 @@ export default function CyberSecurity() {
     );
   };
 
-  const goToSlide = (index) => {
+  const goToSlide = (index: number) => {
     setCurrentSlide(index);
   };
 
@@ -493,7 +495,7 @@ export default function CyberSecurity() {
         <section className="relative bg-slate-900 h-[70vh] flex items-center">
           <div className="absolute inset-0">
             <img 
-              src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+              src="/cyber-hero-bg.jpg" 
               alt="Cyber Security Background"
               className="w-full h-full object-cover opacity-20"
             />
@@ -528,468 +530,915 @@ export default function CyberSecurity() {
           </div>
         </section>
 
-        {/* Digital Security Solutions */}
-        <section className="relative py-20 bg-white">
-          <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-6xl">
-            <div className="text-center space-y-8 mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold">
-                <span className="text-blue-900">Digital Security </span>
-                <span className="text-orange-500">Solutions</span>
-              </h2>
-              
-              <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                Protect your digital ecosystem with our comprehensive cybersecurity solutions powered by AI and advanced threat intelligence.
-              </p>
-            </div>
-
-            <div className="grid lg:grid-cols-3 gap-8 mb-16">
-              
-              <div className="lg:col-span-2 bg-white rounded-3xl p-8 border border-gray-200 hover:border-orange-300 transition-all duration-500 shadow-sm hover:shadow-lg">
-                <div className="flex items-start space-x-6">
-                  <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
-                    <Shield className="w-10 h-10 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-2xl font-bold text-blue-900 mb-4">AI-Powered Threat Detection</h3>
-                    <p className="text-gray-600 mb-6 leading-relaxed">
-                      Advanced machine learning algorithms continuously monitor your digital infrastructure, identifying and neutralizing threats in real-time with 99.9% accuracy.
-                    </p>
-                    <div className="flex flex-wrap gap-3 mb-6">
-                      <span className="px-3 py-1 bg-blue-100 text-blue-700 text-sm rounded-full border border-blue-200">24/7 Monitoring</span>
-                      <span className="px-3 py-1 bg-green-100 text-green-700 text-sm rounded-full border border-green-200">Real-time Response</span>
-                      <span className="px-3 py-1 bg-purple-100 text-purple-700 text-sm rounded-full border border-purple-200">AI-Driven</span>
-                    </div>
-                    <button 
-                      onClick={() => handleLearnMore('threatDetection')}
-                      className="inline-flex items-center px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors duration-300"
-                    >
-                      Learn More
-                      <ArrowRight className="ml-2 w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-6">
-                <div className="bg-white rounded-2xl p-6 border border-gray-200 text-center shadow-sm hover:shadow-md transition-all duration-300">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl mx-auto mb-4 flex items-center justify-center">
-                    <Eye className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="text-3xl font-bold text-blue-900 mb-1">10M+</div>
-                  <div className="text-gray-600 text-sm">Threats Blocked</div>
-                </div>
+        {/* Unified Background Container for All Sections */}
+        <div className="bg-white overflow-hidden">
+        
+          {/* Digital Security Solutions */}
+          <section className="relative py-20">
+            <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-6xl">
+              <div className="text-center space-y-8 mb-16">
+                <h2 className="text-4xl md:text-5xl font-bold">
+                  <span className="text-blue-900">Digital Security </span>
+                  <span className="text-orange-500">Solutions</span>
+                </h2>
                 
-                <div className="bg-white rounded-2xl p-6 border border-gray-200 text-center shadow-sm hover:shadow-md transition-all duration-300">
-                  <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl mx-auto mb-4 flex items-center justify-center">
-                    <Clock className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="text-3xl font-bold text-blue-900 mb-1">&lt; 1s</div>
-                  <div className="text-gray-600 text-sm">Response Time</div>
-                </div>
+                <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                  Protect your digital ecosystem with our comprehensive cybersecurity solutions powered by AI and advanced threat intelligence.
+                </p>
               </div>
 
-            </div>
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              
-              <div className="group bg-white rounded-2xl p-6 border border-gray-200 hover:border-orange-300 transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-lg">
-                <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Search className="w-7 h-7 text-white" />
-                </div>
-                <h4 className="text-lg font-bold text-blue-900 mb-2 group-hover:text-orange-600 transition-colors">Penetration Testing</h4>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">Advanced vulnerability assessment and ethical hacking services.</p>
-                <button 
-                  onClick={() => handleLearnMore('penetrationTesting')}
-                  className="text-orange-500 hover:text-orange-600 font-semibold text-sm inline-flex items-center"
-                >
-                  Learn More
-                  <ArrowRight className="ml-1 w-3 h-3" />
-                </button>
-              </div>
-
-              <div className="group bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-300 transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-lg">
-                <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Cloud className="w-7 h-7 text-white" />
-                </div>
-                <h4 className="text-lg font-bold text-blue-900 mb-2 group-hover:text-blue-600 transition-colors">Cloud Security</h4>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">Comprehensive cloud infrastructure protection and compliance.</p>
-                <button 
-                  onClick={() => handleLearnMore('cloudSecurity')}
-                  className="text-blue-500 hover:text-blue-600 font-semibold text-sm inline-flex items-center"
-                >
-                  Learn More
-                  <ArrowRight className="ml-1 w-3 h-3" />
-                </button>
-              </div>
-
-              <div className="group bg-white rounded-2xl p-6 border border-gray-200 hover:border-green-300 transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-lg">
-                <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Key className="w-7 h-7 text-white" />
-                </div>
-                <h4 className="text-lg font-bold text-blue-900 mb-2 group-hover:text-green-600 transition-colors">Identity Management</h4>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">Advanced authentication and access control solutions.</p>
-                <button 
-                  onClick={() => handleLearnMore('identityManagement')}
-                  className="text-green-500 hover:text-green-600 font-semibold text-sm inline-flex items-center"
-                >
-                  Learn More
-                  <ArrowRight className="ml-1 w-3 h-3" />
-                </button>
-              </div>
-
-              <div className="group bg-white rounded-2xl p-6 border border-gray-200 hover:border-purple-300 transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-lg">
-                <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Database className="w-7 h-7 text-white" />
-                </div>
-                <h4 className="text-lg font-bold text-blue-900 mb-2 group-hover:text-purple-600 transition-colors">Data Protection</h4>
-                <p className="text-gray-600 text-sm leading-relaxed mb-4">Enterprise-grade encryption and data loss prevention.</p>
-                <button 
-                  onClick={() => handleLearnMore('dataProtection')}
-                  className="text-purple-500 hover:text-purple-600 font-semibold text-sm inline-flex items-center"
-                >
-                  Learn More
-                  <ArrowRight className="ml-1 w-3 h-3" />
-                </button>
-              </div>
-
-            </div>
-
-          </div>
-        </section>
-
-        {/* Best Computer Security Services */}
-        <section className="relative py-20 bg-white">
-          <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-6xl">
-            
-            {/* Section Header */}
-            <div className="text-center mb-16">
-              <h5 className="font-semibold mb-4 uppercase tracking-wider text-sm" style={{ color: '#f97316' }}>Best Computer Security Services</h5>
-              <h2 className="text-3xl md:text-4xl font-bold text-blue-900 leading-tight max-w-4xl mx-auto mb-6">
-                Brillion Digital - Your Trusted Partner For Comprehensive Cyber Security Solutions
-              </h2>
-            </div>
-
-            {/* Main Content - Side by Side Layout */}
-            <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
-              
-              {/* Left Side - Image */}
-              <div className="relative">
-                <div className="relative overflow-hidden rounded-2xl shadow-xl">
-                  <img 
-                    src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                    alt="Cybersecurity Protection Services"
-                    className="w-full h-[350px] lg:h-[420px] object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-900/70 via-blue-800/50 to-cyan-800/70"></div>
-                  
-                  {/* Overlay Content */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center text-white p-6">
-                      <div className="w-20 h-20 mx-auto mb-4 bg-white/20 backdrop-blur rounded-full flex items-center justify-center border border-white/30">
-                        <Shield className="w-10 h-10 text-white" />
+              <div className="grid lg:grid-cols-3 gap-8 mb-16">
+                
+                <div className="lg:col-span-2 bg-white rounded-3xl p-8 border border-gray-200 hover:border-orange-300 transition-all duration-500 shadow-sm hover:shadow-lg">
+                  <div className="flex items-start space-x-6">
+                    <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-pink-600 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                      <Shield className="w-10 h-10 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold text-blue-900 mb-4">AI-Powered Threat Detection</h3>
+                      <p className="text-gray-600 mb-6 leading-relaxed">
+                        Advanced machine learning algorithms continuously monitor your digital infrastructure, identifying and neutralizing threats in real-time with 99.9% accuracy.
+                      </p>
+                      <div className="flex flex-wrap gap-3 mb-6">
+                        <span className="px-3 py-1 bg-blue-100 text-blue-700 text-sm rounded-full border border-blue-200">24/7 Monitoring</span>
+                        <span className="px-3 py-1 bg-green-100 text-green-700 text-sm rounded-full border border-green-200">Real-time Response</span>
+                        <span className="px-3 py-1 bg-purple-100 text-purple-700 text-sm rounded-full border border-purple-200">AI-Driven</span>
                       </div>
-                      <h3 className="text-2xl md:text-3xl font-bold mb-2">Comprehensive Protection</h3>
-                      <p className="text-lg opacity-90">24/7 Security Monitoring & Response</p>
+                      <button 
+                        onClick={() => handleLearnMore('threatDetection')}
+                        className="inline-flex items-center px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-lg transition-colors duration-300"
+                      >
+                        Learn More
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Right Side - Content */}
-              <div className="space-y-6">
-                
-                {/* Introduction */}
-                <div>
-                  <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                    At Brillion Digital, we specialize in providing top-tier computer security services to businesses of all sizes. With cyber threats becoming increasingly sophisticated, it's crucial to partner with a company that understands the ever-changing landscape of cybersecurity.
-                  </p>
+                <div className="space-y-6">
+                  <div className="bg-white rounded-2xl p-6 border border-gray-200 text-center shadow-sm hover:shadow-md transition-all duration-300">
+                    <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-xl mx-auto mb-4 flex items-center justify-center">
+                      <Eye className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="text-3xl font-bold text-blue-900 mb-1">10M+</div>
+                    <div className="text-gray-600 text-sm">Threats Blocked</div>
+                  </div>
                   
-                  <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                    Our company is a Managed Security Services Provider (MSSP) that specializes in threat mitigation, compliance, and risk management. We aim to be a reliable partner in safeguarding your digital assets by offering services such as 24x7 monitoring and expert consulting.
-                  </p>
-                  
-                  <p className="text-lg text-gray-700 leading-relaxed">
-                    Whether you're looking for Cybersecurity services in the USA or beyond, Brillion Digital is here to help. With our comprehensive Cybersecurity service offerings, you can rest assured that your business is in good hands.
-                  </p>
+                  <div className="bg-white rounded-2xl p-6 border border-gray-200 text-center shadow-sm hover:shadow-md transition-all duration-300">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl mx-auto mb-4 flex items-center justify-center">
+                      <Clock className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="text-3xl font-bold text-blue-900 mb-1">&lt; 1s</div>
+                    <div className="text-gray-600 text-sm">Response Time</div>
+                  </div>
                 </div>
 
-                {/* Call to Action */}
-                <div className="pt-4">
-                  <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-semibold transition-colors duration-300">
-                    Get Started Today
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <div className="group bg-white rounded-2xl p-6 border border-gray-200 hover:border-orange-300 transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-lg">
+                  <div className="w-14 h-14 bg-gradient-to-br from-orange-500 to-red-500 rounded-xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Search className="w-7 h-7 text-white" />
+                  </div>
+                  <h4 className="text-lg font-bold text-blue-900 mb-2 group-hover:text-orange-600 transition-colors">Penetration Testing</h4>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">Advanced vulnerability assessment and ethical hacking services.</p>
+                  <button 
+                    onClick={() => handleLearnMore('penetrationTesting')}
+                    className="text-orange-500 hover:text-orange-600 font-semibold text-sm inline-flex items-center"
+                  >
+                    Learn More
+                    <ArrowRight className="ml-1 w-3 h-3" />
+                  </button>
+                </div>
+
+                <div className="group bg-white rounded-2xl p-6 border border-gray-200 hover:border-blue-300 transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-lg">
+                  <div className="w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Cloud className="w-7 h-7 text-white" />
+                  </div>
+                  <h4 className="text-lg font-bold text-blue-900 mb-2 group-hover:text-blue-600 transition-colors">Cloud Security</h4>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">Comprehensive cloud infrastructure protection and compliance.</p>
+                  <button 
+                    onClick={() => handleLearnMore('cloudSecurity')}
+                    className="text-blue-500 hover:text-blue-600 font-semibold text-sm inline-flex items-center"
+                  >
+                    Learn More
+                    <ArrowRight className="ml-1 w-3 h-3" />
+                  </button>
+                </div>
+
+                <div className="group bg-white rounded-2xl p-6 border border-gray-200 hover:border-green-300 transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-lg">
+                  <div className="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Key className="w-7 h-7 text-white" />
+                  </div>
+                  <h4 className="text-lg font-bold text-blue-900 mb-2 group-hover:text-green-600 transition-colors">Identity Management</h4>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">Advanced authentication and access control solutions.</p>
+                  <button 
+                    onClick={() => handleLearnMore('identityManagement')}
+                    className="text-green-500 hover:text-green-600 font-semibold text-sm inline-flex items-center"
+                  >
+                    Learn More
+                    <ArrowRight className="ml-1 w-3 h-3" />
+                  </button>
+                </div>
+
+                <div className="group bg-white rounded-2xl p-6 border border-gray-200 hover:border-purple-300 transition-all duration-500 hover:-translate-y-2 shadow-sm hover:shadow-lg">
+                  <div className="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <Database className="w-7 h-7 text-white" />
+                  </div>
+                  <h4 className="text-lg font-bold text-blue-900 mb-2 group-hover:text-purple-600 transition-colors">Data Protection</h4>
+                  <p className="text-gray-600 text-sm leading-relaxed mb-4">Enterprise-grade encryption and data loss prevention.</p>
+                  <button 
+                    onClick={() => handleLearnMore('dataProtection')}
+                    className="text-purple-500 hover:text-purple-600 font-semibold text-sm inline-flex items-center"
+                  >
+                    Learn More
+                    <ArrowRight className="ml-1 w-3 h-3" />
                   </button>
                 </div>
 
               </div>
+
+            </div>
+          </section>
+
+          {/* Best Computer Security Services */}
+          <section className="relative py-20">
+            <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-6xl">
+              
+              {/* Section Header */}
+              <div className="text-center mb-16">
+                <h5 className="font-semibold mb-4 uppercase tracking-wider text-sm" style={{ color: '#f97316' }}>Best Computer Security Services</h5>
+                <h2 className="text-3xl md:text-4xl font-bold text-blue-900 leading-tight max-w-4xl mx-auto mb-6">
+                  Brillion Digital - Your Trusted Partner For Comprehensive Cyber Security Solutions
+                </h2>
+              </div>
+
+              {/* Main Content - Side by Side Layout */}
+              <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
+                
+                {/* Left Side - Image */}
+                <div className="relative">
+                  <div className="relative overflow-hidden rounded-2xl shadow-xl">
+                    <img 
+                      src="/cyber-security-team.jpg" 
+                      alt="Cybersecurity Protection Services"
+                      className="w-full h-[350px] lg:h-[420px] object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-900/70 via-blue-800/50 to-cyan-800/70"></div>
+                    
+                    {/* Overlay Content */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="text-center text-white p-6">
+                        <div className="w-20 h-20 mx-auto mb-4 bg-white/20 backdrop-blur rounded-full flex items-center justify-center border border-white/30">
+                          <Shield className="w-10 h-10 text-white" />
+                        </div>
+                        <h3 className="text-2xl md:text-3xl font-bold mb-2">Comprehensive Protection</h3>
+                        <p className="text-lg opacity-90">24/7 Security Monitoring & Response</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right Side - Content */}
+                <div className="space-y-6">
+                  
+                  {/* Introduction */}
+                  <div>
+                    <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                      At Brillion Digital, we specialize in providing top-tier computer security services to businesses of all sizes. With cyber threats becoming increasingly sophisticated, it's crucial to partner with a company that understands the ever-changing landscape of cybersecurity.
+                    </p>
+                    
+                    <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                      Our company is a Managed Security Services Provider (MSSP) that specializes in threat mitigation, compliance, and risk management. We aim to be a reliable partner in safeguarding your digital assets by offering services such as 24x7 monitoring and expert consulting.
+                    </p>
+                    
+                    <p className="text-lg text-gray-700 leading-relaxed">
+                      Whether you're looking for Cybersecurity services in the USA or beyond, Brillion Digital is here to help. With our comprehensive Cybersecurity service offerings, you can rest assured that your business is in good hands.
+                    </p>
+                  </div>
+
+                  {/* Call to Action */}
+                  <div className="pt-4">
+                    <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-xl font-semibold transition-colors duration-300">
+                      Get Started Today
+                    </button>
+                  </div>
+
+                </div>
+              </div>
+
+
+            </div>
+          </section>
+
+          {/* Cybersecurity Process Steps Slideshow */}
+          <section className="relative py-20">
+            <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
+              <div className="text-center mb-16">
+                <h5 className="text-orange-500 font-semibold mb-4 uppercase tracking-wider text-sm">Industry recognized development process</h5>
+                <h3 className="text-4xl md:text-5xl font-bold text-blue-900 mb-6">
+                  Steps to Secure Cybersecurity Services
+                </h3>
+              </div>
+
+              {/* Slideshow Container */}
+              <div className="relative">
+                
+                {/* Navigation Arrows */}
+                <button 
+                  onClick={prevSlide}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full shadow-lg flex items-center justify-center"
+                  style={{ backgroundColor: '#f97316' }}
+                >
+                  <ArrowRight className="w-5 h-5 rotate-180" style={{ color: 'white' }} />
+                </button>
+                
+                <button 
+                  onClick={nextSlide}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full shadow-lg flex items-center justify-center"
+                  style={{ backgroundColor: '#f97316' }}
+                >
+                  <ArrowRight className="w-5 h-5" style={{ color: 'white' }} />
+                </button>
+
+                {/* Slider Cards */}
+                <div className="overflow-hidden">
+                  <div 
+                    className="flex gap-8 transition-transform duration-500 ease-in-out"
+                    style={{
+                      transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)`
+                    }}
+                  >
+                    
+                    {/* Card 1 */}
+                    <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
+                      <div className="relative h-48 overflow-hidden">
+                        <img 
+                          src="/cyber-analytics-dash.jpg" 
+                          alt="Assessment and Analysis"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div className="absolute top-6 left-6">
+                          <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+                            <span className="text-xl font-bold text-white">01</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-8">
+                        <h4 className="text-xl font-bold text-blue-900 mb-3">Assessment and Analysis</h4>
+                        <p className="text-gray-600 leading-relaxed">Begin with a comprehensive evaluation of your current cybersecurity posture and identify potential vulnerabilities and compliance gaps.</p>
+                      </div>
+                    </div>
+
+                    {/* Card 2 */}
+                    <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
+                      <div className="relative h-48 overflow-hidden">
+                        <img 
+                          src="/cyber-network.jpg" 
+                          alt="Customized Solutions"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div className="absolute top-6 left-6">
+                          <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+                            <span className="text-xl font-bold text-white">02</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-8">
+                        <h4 className="text-xl font-bold text-blue-900 mb-3">Customized Solutions</h4>
+                        <p className="text-gray-600 leading-relaxed">Tailor cybersecurity solutions to address specific needs, leveraging industry best practices and cutting-edge technologies for maximum effectiveness.</p>
+                      </div>
+                    </div>
+
+                    {/* Card 3 */}
+                    <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
+                      <div className="relative h-48 overflow-hidden">
+                        <img 
+                          src="/cyber-infra.jpg" 
+                          alt="Implementation and Integration"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div className="absolute top-6 left-6">
+                          <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+                            <span className="text-xl font-bold text-white">03</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-8">
+                        <h4 className="text-xl font-bold text-blue-900 mb-3">Implementation and Integration</h4>
+                        <p className="text-gray-600 leading-relaxed">Seamlessly integrate security measures across your organization's infrastructure, ensuring proper configuration and compatibility with existing systems.</p>
+                      </div>
+                    </div>
+
+                    {/* Card 4 */}
+                    <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
+                      <div className="relative h-48 overflow-hidden">
+                        <img 
+                          src="/cyber-monitoring.jpg" 
+                          alt="Continuous Monitoring"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div className="absolute top-6 left-6">
+                          <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+                            <span className="text-xl font-bold text-white">04</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-8">
+                        <h4 className="text-xl font-bold text-blue-900 mb-3">Continuous Monitoring</h4>
+                        <p className="text-gray-600 leading-relaxed">Implement 24/7 monitoring services to detect and respond to threats in real-time, proactively defending against cyber attacks.</p>
+                      </div>
+                    </div>
+
+                    {/* Card 5 */}
+                    <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
+                      <div className="relative h-48 overflow-hidden">
+                        <img 
+                          src="/cyber-security-team.jpg" 
+                          alt="Regular Updates and Maintenance"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div className="absolute top-6 left-6">
+                          <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+                            <span className="text-xl font-bold text-white">05</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-8">
+                        <h4 className="text-xl font-bold text-blue-900 mb-3">Regular Updates and Maintenance</h4>
+                        <p className="text-gray-600 leading-relaxed">Keep security measures up-to-date with regular updates and maintenance to stay compliant and resilient against evolving threats.</p>
+                      </div>
+                    </div>
+
+                    {/* Card 6 */}
+                    <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
+                      <div className="relative h-48 overflow-hidden">
+                        <img 
+                          src="/cyber-coding.jpg" 
+                          alt="Training and Awareness"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div className="absolute top-6 left-6">
+                          <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+                            <span className="text-xl font-bold text-white">06</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-8">
+                        <h4 className="text-xl font-bold text-blue-900 mb-3">Training and Awareness</h4>
+                        <p className="text-gray-600 leading-relaxed">Educate employees on cybersecurity best practices to recognize and mitigate threats effectively, fostering a culture of security awareness.</p>
+                      </div>
+                    </div>
+
+                    {/* Card 7 */}
+                    <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
+                      <div className="relative h-48 overflow-hidden">
+                        <img 
+                          src="/cyber-network.jpg" 
+                          alt="Incident Response and Recovery"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div className="absolute top-6 left-6">
+                          <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+                            <span className="text-xl font-bold text-white">07</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-8">
+                        <h4 className="text-xl font-bold text-blue-900 mb-3">Incident Response and Recovery</h4>
+                        <p className="text-gray-600 leading-relaxed">Develop and implement incident response plans to contain and mitigate security incidents swiftly, minimizing damage and downtime.</p>
+                      </div>
+                    </div>
+
+                    {/* Card 8 */}
+                    <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
+                      <div className="relative h-48 overflow-hidden">
+                        <img 
+                          src="/cyber-analytics-dash.jpg" 
+                          alt="Regular Assessments and Reviews"
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        <div className="absolute top-6 left-6">
+                          <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
+                            <span className="text-xl font-bold text-white">08</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-8">
+                        <h4 className="text-xl font-bold text-blue-900 mb-3">Regular Assessments and Reviews</h4>
+                        <p className="text-gray-600 leading-relaxed">Conduct periodic assessments and reviews of security infrastructure to identify areas for improvement and ensure ongoing protection.</p>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </section>
+
+          {/* Benefits Section */}
+          <section className="py-24 relative">
+            <div className="absolute inset-0">
+              <div className="absolute top-20 left-10 w-64 h-64 bg-blue-900/5 rounded-full blur-2xl"></div>
+              <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#f97316]/5 rounded-full blur-3xl"></div>
+            </div>
+            
+            <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl relative z-10">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                  <span className="text-blue-900">Security Solution</span>{" "}
+                  <span className="text-[#f97316]">Benefits</span>
+                </h2>
+                <p className="text-xl text-blue-900 max-w-3xl mx-auto leading-relaxed">
+                  Discover how our cybersecurity solutions provide comprehensive protection and peace of mind for your business
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {[
+                  {
+                    title: "Advanced Threat Protection",
+                    description: "Block 99.9% of cyber threats with AI-powered detection systems that identify and neutralize attacks in real-time before they impact your business.",
+                    icon: Shield,
+                    color: "from-blue-500 to-blue-600"
+                  },
+                  {
+                    title: "24/7 Security Monitoring",
+                    description: "Round-the-clock surveillance by our expert security team ensures threats are detected and responded to within seconds, not hours.",
+                    icon: Eye,
+                    color: "from-green-500 to-green-600"
+                  },
+                  {
+                    title: "Compliance Assurance",
+                    description: "Achieve and maintain compliance with GDPR, HIPAA, SOC 2, and other regulations through automated monitoring and reporting.",
+                    icon: CheckCircle,
+                    color: "from-purple-500 to-purple-600"
+                  },
+                  {
+                    title: "Zero Downtime Protection",
+                    description: "Seamless security integration that protects your business without disrupting operations or affecting system performance.",
+                    icon: Zap,
+                    color: "from-yellow-500 to-orange-500"
+                  },
+                  {
+                    title: "Cost-Effective Security",
+                    description: "Reduce security costs by up to 60% compared to building an in-house security team while getting enterprise-grade protection.",
+                    icon: DollarSign,
+                    color: "from-emerald-500 to-emerald-600"
+                  },
+                  {
+                    title: "Rapid Incident Response",
+                    description: "Average response time under 1 second for automated threats and under 15 minutes for complex incidents requiring human intervention.",
+                    icon: Activity,
+                    color: "from-red-500 to-red-600"
+                  }
+                ].map((benefit, index) => (
+                  <div key={index} className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 group border border-gray-100">
+                    <div className={`w-16 h-16 mb-6 rounded-2xl bg-gradient-to-br ${benefit.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                      <benefit.icon className="w-8 h-8 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-blue-900 mb-4 group-hover:text-[#f97316] transition-colors">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-gray-600 leading-relaxed">
+                      {benefit.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Use Cases Section */}
+          <section className="py-24 relative">
+            <div className="absolute inset-0">
+              <div className="absolute top-20 right-10 w-64 h-64 bg-[#f97316]/5 rounded-full blur-2xl"></div>
+              <div className="absolute bottom-20 left-10 w-96 h-96 bg-blue-900/5 rounded-full blur-3xl"></div>
+            </div>
+            
+            <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl relative z-10">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                  <span className="text-blue-900">Security Success</span>{" "}
+                  <span className="text-[#f97316]">Stories</span>
+                </h2>
+                <p className="text-xl text-blue-900 max-w-3xl mx-auto leading-relaxed">
+                  Real-world examples of how our cybersecurity solutions have protected businesses from cyber threats
+                </p>
+              </div>
+
+              <div className="grid lg:grid-cols-3 gap-8">
+                {[
+                  {
+                    industry: "Healthcare",
+                    company: "Regional Medical Center",
+                    challenge: "Facing 200+ daily cyber attack attempts and struggling with HIPAA compliance while protecting 50,000+ patient records.",
+                    solution: "Deployed AI-powered threat detection, endpoint protection, and automated compliance monitoring with 24/7 SOC services.",
+                    result: "Blocked 99.8% of attacks, achieved 100% HIPAA compliance, and reduced security incidents by 95% within 6 months.",
+                    metrics: "99.8% Attack Prevention",
+                    bgColor: "from-blue-900 to-blue-700",
+                    accentColor: "text-blue-900"
+                  },
+                  {
+                    industry: "Financial Services",
+                    company: "Community Bank Network",
+                    challenge: "Multiple branches vulnerable to ransomware attacks with outdated security systems and limited IT resources.",
+                    solution: "Implemented comprehensive endpoint protection, network segmentation, and advanced threat intelligence with managed security services.",
+                    result: "Zero successful ransomware attacks, 90% reduction in security alerts, and achieved PCI DSS compliance across all locations.",
+                    metrics: "Zero Ransomware Hits",
+                    bgColor: "from-[#f97316] to-orange-500",
+                    accentColor: "text-[#f97316]"
+                  },
+                  {
+                    industry: "Manufacturing",
+                    company: "Industrial Equipment Manufacturer",
+                    challenge: "Legacy industrial systems exposed to cyber threats with production disruptions costing $100K per hour of downtime.",
+                    solution: "Secured OT/IT networks with industrial-grade firewalls, network monitoring, and incident response planning specifically for manufacturing.",
+                    result: "Eliminated production disruptions, improved network visibility by 100%, and prevented $2.4M in potential losses.",
+                    metrics: "$2.4M Loss Prevention",
+                    bgColor: "from-blue-900 to-blue-700",
+                    accentColor: "text-blue-900"
+                  }
+                ].map((useCase, index) => (
+                  <div key={index} className="bg-white rounded-2xl border border-gray-100 overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-xl">
+                    <div className={`bg-gradient-to-r ${useCase.bgColor} p-6 text-white relative overflow-hidden`}>
+                      <div className="absolute inset-0 opacity-20">
+                        <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-16 translate-x-16"></div>
+                        <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full translate-y-12 -translate-x-12"></div>
+                      </div>
+                      
+                      <div className="relative z-10">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="text-sm font-semibold text-white/80">{useCase.industry}</div>
+                          <div className="text-right">
+                            <div className="text-2xl font-bold">{useCase.metrics}</div>
+                            <div className="text-sm text-white/80">Result</div>
+                          </div>
+                        </div>
+                        
+                        <h3 className="text-xl font-bold text-white">
+                          {useCase.company}
+                        </h3>
+                      </div>
+                    </div>
+                    
+                    <div className="p-6">
+                      <div className="space-y-4">
+                        <div>
+                          <h4 className="font-semibold text-blue-900 mb-2">Challenge:</h4>
+                          <p className="text-gray-600 text-sm leading-relaxed">{useCase.challenge}</p>
+                        </div>
+                        
+                        <div>
+                          <h4 className="font-semibold text-blue-900 mb-2">Security Solution:</h4>
+                          <p className="text-gray-600 text-sm leading-relaxed">{useCase.solution}</p>
+                        </div>
+                        
+                        <div>
+                          <h4 className="font-semibold text-blue-900 mb-2">Result:</h4>
+                          <p className={`${useCase.accentColor} font-semibold text-sm leading-relaxed`}>
+                            {useCase.result}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* FAQ Section */}
+          <section className="py-16 sm:py-20 lg:py-24 relative overflow-hidden">
+            {/* Background Elements */}
+            <div className="absolute inset-0">
+              <div className="absolute top-20 left-4 sm:left-10 w-48 sm:w-64 h-48 sm:h-64 bg-[#f97316]/5 rounded-full blur-2xl"></div>
+              <div className="absolute bottom-20 right-4 sm:right-10 w-64 sm:w-96 h-64 sm:h-96 bg-blue-900/5 rounded-full blur-3xl"></div>
             </div>
 
-            {/* Key Features - Below main content */}
-            <div className="grid sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
-              <div className="flex items-center space-x-3 p-4 bg-orange-50 rounded-xl border border-orange-100">
-                <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center">
-                  <Eye className="w-5 h-5 text-orange-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-blue-900 text-sm">24/7 Monitoring</h4>
-                  <p className="text-xs text-gray-600">Continuous threat detection</p>
-                </div>
+            <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 max-w-4xl relative z-10">
+              {/* Header */}
+              <div className="text-center mb-12 sm:mb-16">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6">
+                  <span className="text-blue-900">Frequently Asked</span>{" "}
+                  <span className="text-[#f97316]">Questions</span>
+                </h2>
+                <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed px-4">
+                  Common questions about cybersecurity services and how we protect your business
+                </p>
               </div>
-              
-              <div className="flex items-center space-x-3 p-4 bg-blue-50 rounded-xl border border-blue-100">
-                <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                  <Users className="w-5 h-5 text-blue-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-blue-900 text-sm">Expert Consulting</h4>
-                  <p className="text-xs text-gray-600">Professional guidance</p>
-                </div>
+
+              {/* FAQ Accordion */}
+              <div className="space-y-3 sm:space-y-4">
+                {[
+                  {
+                    question: "How quickly can you detect and respond to cyber threats?",
+                    answer: "Our AI-powered systems detect threats in real-time with automated responses occurring within 1 second. For complex threats requiring human analysis, our 24/7 SOC team responds within 15 minutes. We maintain a 99.9% threat detection rate and can stop most attacks before they cause any damage."
+                  },
+                  {
+                    question: "What types of businesses do you protect?",
+                    answer: "We protect businesses of all sizes across industries including healthcare, finance, manufacturing, retail, and professional services. Our solutions scale from small businesses with 10 employees to large enterprises with 10,000+ users, with customized security strategies for each industry's specific compliance and risk requirements."
+                  },
+                  {
+                    question: "How do you ensure compliance with industry regulations?",
+                    answer: "We maintain expertise in major compliance frameworks including HIPAA, PCI DSS, SOC 2, GDPR, and SOX. Our compliance automation tools continuously monitor your security posture, generate required reports, and alert you to any compliance gaps. We also provide audit support and documentation to help you pass regulatory inspections."
+                  },
+                  {
+                    question: "What happens if my business suffers a security breach?",
+                    answer: "We provide comprehensive incident response services including immediate threat containment, forensic analysis, system recovery, and regulatory notification assistance. Our cyber insurance partnerships can help cover breach-related costs, and we work with legal teams to ensure proper disclosure and compliance with breach notification laws."
+                  },
+                  {
+                    question: "How much do cybersecurity services cost?",
+                    answer: "Our pricing varies based on your business size, industry, and security requirements. We offer flexible plans starting from $299/month for small businesses up to custom enterprise packages. Most clients save 40-60% compared to hiring in-house security staff while receiving 24/7 expert protection."
+                  },
+                  {
+                    question: "Can you work with our existing IT infrastructure?",
+                    answer: "Yes, our solutions integrate seamlessly with existing systems including Windows, Mac, Linux environments, cloud platforms (AWS, Azure, Google Cloud), and popular business applications. We perform a thorough assessment to ensure compatibility and can work around any constraints while strengthening your overall security posture."
+                  }
+                ].map((faq, index) => (
+                  <div 
+                    key={index} 
+                    className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                  >
+                    <button
+                      onClick={() => setOpenFAQ(openFAQ === index ? null : index)}
+                      className="w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-5 lg:py-6 text-left focus:outline-none focus:ring-2 focus:ring-[#f97316]/20 focus:ring-offset-2 group"
+                    >
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-base sm:text-lg lg:text-xl font-bold text-blue-900 group-hover:text-[#f97316] transition-colors duration-300 pr-4 leading-tight">
+                          {faq.question}
+                        </h3>
+                        <div className="flex-shrink-0 ml-2">
+                          <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r from-[#f97316] to-orange-500 flex items-center justify-center transition-transform duration-300 ${
+                            openFAQ === index ? 'rotate-180' : 'rotate-0'
+                          }`}>
+                            {openFAQ === index ? (
+                              <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                            ) : (
+                              <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </button>
+                    
+                    <div className={`transition-all duration-300 ease-in-out ${
+                      openFAQ === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    } overflow-hidden`}>
+                      <div className="px-4 sm:px-6 lg:px-8 pb-4 sm:pb-5 lg:pb-6">
+                        <div className="w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent mb-4"></div>
+                        <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
+                          {faq.answer}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-              
-              <div className="flex items-center space-x-3 p-4 bg-green-50 rounded-xl border border-green-100">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
-                  <Shield className="w-5 h-5 text-green-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-blue-900 text-sm">Threat Mitigation</h4>
-                  <p className="text-xs text-gray-600">Proactive protection</p>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-3 p-4 bg-purple-50 rounded-xl border border-purple-100">
-                <div className="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center">
-                  <Database className="w-5 h-5 text-purple-600" />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-blue-900 text-sm">Risk Management</h4>
-                  <p className="text-xs text-gray-600">Comprehensive assessment</p>
-                </div>
-              </div>
+
             </div>
+          </section>
 
-          </div>
-        </section>
+        </div>
 
-        {/* Cybersecurity Process Steps Slideshow */}
-        <section className="relative py-20 bg-white">
+        {/* Related Insights Section */}
+        <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50/30">
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             <div className="text-center mb-16">
-              <h5 className="text-orange-500 font-semibold mb-4 uppercase tracking-wider text-sm">Industry recognized development process</h5>
-              <h3 className="text-4xl md:text-5xl font-bold text-blue-900 mb-6">
-                Steps to Secure Cybersecurity Services
-              </h3>
+              <h2 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-orange-500 bg-clip-text text-transparent mb-6">
+                Related Insights & Resources
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Stay informed with the latest cybersecurity trends, threats, and best practices from our industry experts
+              </p>
             </div>
 
-            {/* Slideshow Container */}
-            <div className="relative">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+              {/* Cybersecurity Threats Article */}
+              <Link href="/insights/cybersecurity-enterprise-threats-2024" className="group">
+                <div className="bg-white rounded-2xl border border-gray-200 hover:border-orange-300 overflow-hidden hover:shadow-lg transition-all duration-300">
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src="/cyber-security-team.jpg" 
+                      alt="Enterprise Cybersecurity Threats"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div className="absolute top-4 left-4">
+                      <span className="bg-orange-500 text-white text-xs font-medium px-3 py-1 rounded-full">
+                        Cybersecurity
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">
+                      Enterprise Cybersecurity: $4.88M Average Breach Cost Reality
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                      Learn about the real cost of data breaches and comprehensive protection strategies for modern enterprises.
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <BarChart className="w-4 h-4 text-blue-600" />
+                        <span className="text-xs text-gray-500">Key Statistics</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-orange-600">
+                        <span className="text-sm font-medium">Read More</span>
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Network Security Article */}
+              <Link href="/insights/network-security-best-practices" className="group">
+                <div className="bg-white rounded-2xl border border-gray-200 hover:border-orange-300 overflow-hidden hover:shadow-lg transition-all duration-300">
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src="/cyber-network.jpg" 
+                      alt="Network Security Best Practices"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div className="absolute top-4 left-4">
+                      <span className="bg-blue-500 text-white text-xs font-medium px-3 py-1 rounded-full">
+                        Network Security
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">
+                      Network Security Best Practices for Modern Enterprises
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                      Essential network security strategies to protect your organization from evolving cyber threats.
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Shield className="w-4 h-4 text-green-600" />
+                        <span className="text-xs text-gray-500">Best Practices</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-orange-600">
+                        <span className="text-sm font-medium">Read More</span>
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+
+              {/* Azure Cloud Security Article */}
+              <Link href="/insights/azure-cloud-security" className="group">
+                <div className="bg-white rounded-2xl border border-gray-200 hover:border-orange-300 overflow-hidden hover:shadow-lg transition-all duration-300">
+                  <div className="relative h-48 overflow-hidden">
+                    <img 
+                      src="/azure-migration.jpg" 
+                      alt="Azure Cloud Security"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                    <div className="absolute top-4 left-4">
+                      <span className="bg-purple-500 text-white text-xs font-medium px-3 py-1 rounded-full">
+                        Cloud Security
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-orange-600 transition-colors">
+                      Securing Your Azure Cloud Infrastructure
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                      Comprehensive guide to implementing robust security measures in your Azure cloud environment.
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Cloud className="w-4 h-4 text-blue-600" />
+                        <span className="text-xs text-gray-500">Cloud Guide</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-orange-600">
+                        <span className="text-sm font-medium">Read More</span>
+                        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </div>
+
+            {/* Downloadable Resources */}
+            <div className="bg-gradient-to-r from-slate-900 to-blue-900 rounded-3xl p-8 md:p-12 relative overflow-hidden">
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full -translate-y-32 translate-x-32"></div>
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-white rounded-full translate-y-24 -translate-x-24"></div>
+              </div>
               
-              {/* Navigation Arrows */}
-              <button 
-                onClick={prevSlide}
-                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full shadow-lg flex items-center justify-center"
-                style={{ backgroundColor: '#f97316' }}
-              >
-                <ArrowRight className="w-5 h-5 rotate-180" style={{ color: 'white' }} />
-              </button>
-              
-              <button 
-                onClick={nextSlide}
-                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 rounded-full shadow-lg flex items-center justify-center"
-                style={{ backgroundColor: '#f97316' }}
-              >
-                <ArrowRight className="w-5 h-5" style={{ color: 'white' }} />
-              </button>
-
-              {/* Slider Cards */}
-              <div className="overflow-hidden">
-                <div 
-                  className="flex gap-8 transition-transform duration-500 ease-in-out"
-                  style={{
-                    transform: `translateX(-${currentSlide * (100 / slidesToShow)}%)`
-                  }}
-                >
-                  
-                  {/* Card 1 */}
-                  <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
-                    <div className="relative h-48 overflow-hidden">
-                      <img 
-                        src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                        alt="Assessment and Analysis"
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                      <div className="absolute top-6 left-6">
-                        <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                          <span className="text-xl font-bold text-white">01</span>
-                        </div>
+              <div className="relative z-10">
+                <div className="text-center mb-8">
+                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                    Free Cybersecurity Resources
+                  </h3>
+                  <p className="text-blue-100 text-lg max-w-2xl mx-auto">
+                    Download our comprehensive cybersecurity guides and assessment tools
+                  </p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div 
+                    className="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 cursor-pointer"
+                    onClick={() => window.open('/cybersecurity-assessment-guide-2024.pdf', '_blank')}
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+                        <Shield className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xs text-blue-200">4.1K downloads</div>
+                        <div className="text-xs text-blue-300">1.8 KB</div>
                       </div>
                     </div>
-                    <div className="p-8">
-                      <h4 className="text-xl font-bold text-blue-900 mb-3">Assessment and Analysis</h4>
-                      <p className="text-gray-600 leading-relaxed">Begin with a comprehensive evaluation of your current cybersecurity posture and identify potential vulnerabilities and compliance gaps.</p>
+                    
+                    <h4 className="text-lg font-bold text-white mb-3 group-hover:text-orange-300 transition-colors">
+                      Cybersecurity Assessment Guide 2024
+                    </h4>
+                    
+                    <p className="text-blue-100 text-sm mb-4 leading-relaxed">
+                      Enterprise security framework addressing $4.88M average breach costs and modern threats
+                    </p>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-orange-300 font-medium">Guide</span>
+                      <div className="flex items-center gap-2 text-white group-hover:text-orange-300 transition-colors">
+                        <span className="text-sm font-medium">Download</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
                     </div>
                   </div>
 
-                  {/* Card 2 */}
-                  <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
-                    <div className="relative h-48 overflow-hidden">
-                      <img 
-                        src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                        alt="Customized Solutions"
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                      <div className="absolute top-6 left-6">
-                        <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                          <span className="text-xl font-bold text-white">02</span>
-                        </div>
+                  <div 
+                    className="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 hover:bg-white/20 transition-all duration-300 cursor-pointer"
+                    onClick={() => window.open('/finserv-security-framework-2024.pdf', '_blank')}
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center">
+                        <BookOpen className="w-6 h-6 text-white" />
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xs text-blue-200">1.7K downloads</div>
+                        <div className="text-xs text-blue-300">2.0 KB</div>
                       </div>
                     </div>
-                    <div className="p-8">
-                      <h4 className="text-xl font-bold text-blue-900 mb-3">Customized Solutions</h4>
-                      <p className="text-gray-600 leading-relaxed">Tailor cybersecurity solutions to address specific needs, leveraging industry best practices and cutting-edge technologies for maximum effectiveness.</p>
-                    </div>
-                  </div>
-
-                  {/* Card 3 */}
-                  <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
-                    <div className="relative h-48 overflow-hidden">
-                      <img 
-                        src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                        alt="Implementation and Integration"
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                      <div className="absolute top-6 left-6">
-                        <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                          <span className="text-xl font-bold text-white">03</span>
-                        </div>
+                    
+                    <h4 className="text-lg font-bold text-white mb-3 group-hover:text-orange-300 transition-colors">
+                      Financial Services Security Framework
+                    </h4>
+                    
+                    <p className="text-blue-100 text-sm mb-4 leading-relaxed">
+                      95% threat detection methodology: compliance requirements, risk assessment, incident response
+                    </p>
+                    
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-orange-300 font-medium">Framework</span>
+                      <div className="flex items-center gap-2 text-white group-hover:text-orange-300 transition-colors">
+                        <span className="text-sm font-medium">Download</span>
+                        <ArrowRight className="w-4 h-4" />
                       </div>
                     </div>
-                    <div className="p-8">
-                      <h4 className="text-xl font-bold text-blue-900 mb-3">Implementation and Integration</h4>
-                      <p className="text-gray-600 leading-relaxed">Seamlessly integrate security measures across your organization's infrastructure, ensuring proper configuration and compatibility with existing systems.</p>
-                    </div>
                   </div>
-
-                  {/* Card 4 */}
-                  <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
-                    <div className="relative h-48 overflow-hidden">
-                      <img 
-                        src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                        alt="Continuous Monitoring"
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                      <div className="absolute top-6 left-6">
-                        <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                          <span className="text-xl font-bold text-white">04</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="p-8">
-                      <h4 className="text-xl font-bold text-blue-900 mb-3">Continuous Monitoring</h4>
-                      <p className="text-gray-600 leading-relaxed">Implement 24/7 monitoring services to detect and respond to threats in real-time, proactively defending against cyber attacks.</p>
-                    </div>
-                  </div>
-
-                  {/* Card 5 */}
-                  <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
-                    <div className="relative h-48 overflow-hidden">
-                      <img 
-                        src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                        alt="Regular Updates and Maintenance"
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                      <div className="absolute top-6 left-6">
-                        <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                          <span className="text-xl font-bold text-white">05</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="p-8">
-                      <h4 className="text-xl font-bold text-blue-900 mb-3">Regular Updates and Maintenance</h4>
-                      <p className="text-gray-600 leading-relaxed">Keep security measures up-to-date with regular updates and maintenance to stay compliant and resilient against evolving threats.</p>
-                    </div>
-                  </div>
-
-                  {/* Card 6 */}
-                  <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
-                    <div className="relative h-48 overflow-hidden">
-                      <img 
-                        src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                        alt="Training and Awareness"
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                      <div className="absolute top-6 left-6">
-                        <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                          <span className="text-xl font-bold text-white">06</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="p-8">
-                      <h4 className="text-xl font-bold text-blue-900 mb-3">Training and Awareness</h4>
-                      <p className="text-gray-600 leading-relaxed">Educate employees on cybersecurity best practices to recognize and mitigate threats effectively, fostering a culture of security awareness.</p>
-                    </div>
-                  </div>
-
-                  {/* Card 7 */}
-                  <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
-                    <div className="relative h-48 overflow-hidden">
-                      <img 
-                        src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                        alt="Incident Response and Recovery"
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                      <div className="absolute top-6 left-6">
-                        <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                          <span className="text-xl font-bold text-white">07</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="p-8">
-                      <h4 className="text-xl font-bold text-blue-900 mb-3">Incident Response and Recovery</h4>
-                      <p className="text-gray-600 leading-relaxed">Develop and implement incident response plans to contain and mitigate security incidents swiftly, minimizing damage and downtime.</p>
-                    </div>
-                  </div>
-
-                  {/* Card 8 */}
-                  <div className="min-w-[350px] bg-white rounded-3xl shadow-lg overflow-hidden group hover:shadow-xl transition-shadow duration-300">
-                    <div className="relative h-48 overflow-hidden">
-                      <img 
-                        src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
-                        alt="Regular Assessments and Reviews"
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                      <div className="absolute top-6 left-6">
-                        <div className="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center">
-                          <span className="text-xl font-bold text-white">08</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="p-8">
-                      <h4 className="text-xl font-bold text-blue-900 mb-3">Regular Assessments and Reviews</h4>
-                      <p className="text-gray-600 leading-relaxed">Conduct periodic assessments and reviews of security infrastructure to identify areas for improvement and ensure ongoing protection.</p>
-                    </div>
-                  </div>
-
+                </div>
+                
+                <div className="text-center mt-8">
+                  <Link 
+                    href="/insights#all-resources"
+                    className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-full font-medium transition-all duration-300 backdrop-blur-sm border border-white/20"
+                  >
+                    <BookOpen className="w-4 h-4" />
+                    View All Resources
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
                 </div>
               </div>
-
             </div>
           </div>
         </section>
-
+        
         {/* Call to Action Section */}
         <section className="relative z-10 mb-20">
           <div className="relative bg-slate-800 overflow-hidden">
             {/* Background Image */}
             <div className="absolute inset-0">
               <img 
-                src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+                src="/cyber-cta-bg.jpg" 
                 alt="Cybersecurity Solutions Background"
                 className="w-full h-full object-cover opacity-40"
               />
@@ -999,14 +1448,20 @@ export default function CyberSecurity() {
             <div className="relative z-10 container mx-auto px-6 md:px-8 lg:px-12 1.25xl:px-16 max-w-7xl py-24">
               <div className="text-center max-w-4xl mx-auto">
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6">
-                  Ready to Secure Your Business?
+                  Partner With Leading <span className="text-[#f97316]">Cyber Security Experts</span> For Your Transformation Journey
                 </h2>
                 <p className="text-white/90 mb-10 text-lg leading-relaxed max-w-3xl mx-auto">
-                  Protect your business with our comprehensive cybersecurity solutions and expert security team.
+                  Connect with our cyber security specialists to accelerate your business growth. Get strategic guidance, technology insights, and implementation support from industry leaders in cyber security.
                 </p>
-                <div className="flex justify-center">
-                  <a href="/contact" className="bg-transparent border-2 border-[#f97316] text-[#f97316] px-8 py-4 rounded-full font-semibold hover:bg-[#f97316] hover:text-white transition-all duration-300 text-lg">
-                    Request A Proposal
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a href="/contact" className="bg-[#f97316] hover:bg-orange-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl">
+                    Download Our Guide
+                  </a>
+                  <a href="/work" className="bg-transparent border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300">
+                    See Case Studies
+                  </a>
+                  <a href="/contact" className="bg-transparent border-2 border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300">
+                    Get a Quote
                   </a>
                 </div>
               </div>
@@ -1025,8 +1480,7 @@ export default function CyberSecurity() {
             service={selectedService}
           />
         )}
-
       </div>
     </PageLayout>
-  )
+  );
 }
