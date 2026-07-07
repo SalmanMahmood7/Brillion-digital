@@ -152,14 +152,14 @@ const Navigation = () => {
               <img 
                 src="/brillion-digital-logo.png" 
                 alt="BRILLION Digital" 
-                className="h-12 sm:h-14 w-auto transition-all duration-300 group-hover:scale-105"
+                className="h-12 sm:h-14 lg:h-12 xl:h-14 w-auto transition-all duration-300 group-hover:scale-105"
               />
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-center space-x-1">
+          <div className="hidden lg:block">
+            <div className="ml-2 xl:ml-10 flex items-center space-x-0.5 xl:space-x-1">
               {/* Services Dropdown */}
               <div 
                 ref={dropdownRef}
@@ -197,7 +197,7 @@ const Navigation = () => {
                     // Toggle on click for better UX
                     setIsServicesOpen(!isServicesOpen);
                   }}
-                  className={`${isScrolled ? 'text-[#1e3a8a] hover:text-[#1e3a8a]' : 'text-[#1e3a8a] hover:text-orange-600'} transition-all duration-300 px-4 py-2 text-sm font-semibold flex items-center rounded-full ${isScrolled ? 'hover:bg-blue-50' : 'hover:bg-blue-50'} relative group`}
+                  className={`${isScrolled ? 'text-[#1e3a8a] hover:text-[#1e3a8a]' : 'text-[#1e3a8a] hover:text-orange-600'} transition-all duration-300 px-2 xl:px-4 py-2 text-sm font-semibold flex items-center whitespace-nowrap rounded-full ${isScrolled ? 'hover:bg-blue-50' : 'hover:bg-blue-50'} relative group`}
                 >
                   Services
                   <ChevronDown className={`ml-1 h-4 w-4 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} />
@@ -317,7 +317,7 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`${isScrolled ? 'text-[#1e3a8a] hover:text-[#1e3a8a]' : 'text-[#1e3a8a] hover:text-orange-600'} transition-all duration-300 px-4 py-2 text-sm font-semibold rounded-full ${isScrolled ? 'hover:bg-blue-50' : 'hover:bg-blue-50'}`}
+                  className={`${isScrolled ? 'text-[#1e3a8a] hover:text-[#1e3a8a]' : 'text-[#1e3a8a] hover:text-orange-600'} transition-all duration-300 px-2 xl:px-4 py-2 text-sm font-semibold text-center whitespace-nowrap rounded-full ${isScrolled ? 'hover:bg-blue-50' : 'hover:bg-blue-50'}`}
                 >
                   {item.name}
                 </Link>
@@ -351,7 +351,7 @@ const Navigation = () => {
               ) : (
                 <Button
                   onClick={() => setShowLoginModal(true)}
-                  className="bg-gradient-to-r from-blue-600 to-orange-500 hover:from-blue-700 hover:to-orange-600 text-white font-semibold px-4 py-2 rounded-full transition-all duration-300"
+                  className="bg-gradient-to-r from-blue-600 to-orange-500 hover:from-blue-700 hover:to-orange-600 text-white font-semibold px-4 py-2 rounded-full transition-all duration-300 flex-shrink-0 whitespace-nowrap"
                 >
                   Sign In
                 </Button>
@@ -360,7 +360,7 @@ const Navigation = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden flex items-center">
+          <div className="lg:hidden flex items-center">
             <Button
               variant="ghost"
               size="sm"
@@ -375,7 +375,7 @@ const Navigation = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className={`md:hidden transition-colors duration-300 ${
+        <div className={`lg:hidden transition-colors duration-300 ${
           isScrolled 
             ? 'bg-white/95 backdrop-blur-xl border-t border-gray-200' 
             : 'bg-white/95 backdrop-blur-xl border-t border-gray-200'
@@ -416,6 +416,42 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
+
+            {/* Auth (mobile) */}
+            <div className="pt-2 border-t border-gray-200">
+              {mounted && user ? (
+                <div className="flex items-center justify-between px-4 py-3">
+                  <div className="flex items-center space-x-2">
+                    <User className="w-4 h-4 text-[#1e3a8a]" />
+                    <span className="text-sm font-medium text-[#1e3a8a]">
+                      {user.displayName || user.email?.split('@')[0]}
+                    </span>
+                  </div>
+                  <Button
+                    onClick={() => {
+                      logout();
+                      setIsOpen(false);
+                    }}
+                    variant="ghost"
+                    size="sm"
+                    className="text-[#1e3a8a] hover:text-orange-600 hover:bg-blue-50"
+                  >
+                    <LogOut className="w-4 h-4 mr-1" />
+                    Sign Out
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  onClick={() => {
+                    setShowLoginModal(true);
+                    setIsOpen(false);
+                  }}
+                  className="w-full bg-gradient-to-r from-blue-600 to-orange-500 hover:from-blue-700 hover:to-orange-600 text-white font-semibold px-4 py-3 rounded-xl transition-all duration-300"
+                >
+                  Sign In
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       )}

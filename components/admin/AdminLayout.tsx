@@ -17,7 +17,8 @@ import {
   X,
   Layers,
   Video,
-  Brain
+  Brain,
+  Star
 } from "lucide-react"
 
 const sidebarItems = [
@@ -45,6 +46,11 @@ const sidebarItems = [
     title: "Content",
     href: "/admin/content",
     icon: FileText,
+  },
+  {
+    title: "Reviews",
+    href: "/admin/reviews",
+    icon: Star,
   },
   {
     title: "Chatbot Knowledge",

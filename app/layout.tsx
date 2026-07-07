@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
@@ -16,6 +16,11 @@ const inter = Inter({
   adjustFontFallback: true,
   weight: ['400', '500', '600', '700'], // Only load needed weights
 });
+
+export const viewport: Viewport = {
+  colorScheme: "light",
+  themeColor: "#ffffff",
+};
 
 export const metadata: Metadata = {
   title: "BRILLION Digital",
@@ -50,7 +55,7 @@ export default function RootLayout({
         
         {/* Minimal critical CSS */}
         <style>{`
-          html{font-family:system-ui,sans-serif}
+          html{font-family:system-ui,sans-serif;color-scheme:light}
           body{margin:0;background:#fff}
           .animate-pulse{animation:pulse 2s infinite}
           @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}

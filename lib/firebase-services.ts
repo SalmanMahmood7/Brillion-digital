@@ -2245,3 +2245,56 @@ export const websiteInfoService = {
     }
   }
 };
+// Customer reviews
+export interface Review {
+  id?: string;
+  userId: string;
+  userName: string;
+  userEmail: string;
+  userTitle?: string; // e.g. "CTO, MaRS Discovery District"
+  rating: number; // 1-5
+  text: string;
+  createdAt?: Timestamp;
+}
+
+export const reviewsService = {
+  // Get all reviews, newest first
+  async getAll(): Promise<Review[]> {
+    try {
+      const reviewsCol = collection(db, 'reviews');
+      const q = query(reviewsCol, orderBy('createdAt', 'desc'));
+      const snapshot = await getDocs(q);
+      return snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      } as Review));
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+      return [];
+    }
+  },
+
+  // Create new review (requires signed-in user)
+  async create(review: Omit<Review, 'id' | 'createdAt'>): Promise<string> {
+    try {
+      const docRef = await addDoc(collection(db, 'reviews'), {
+        ...review,
+        createdAt: Timestamp.now()
+      });
+      return docRef.id;
+    } catch (error) {
+      console.error('Error creating review:', error);
+      throw error;
+    }
+  },
+
+  // Delete review (admin)
+  async delete(id: string): Promise<void> {
+    try {
+      await deleteDoc(doc(db, 'reviews', id));
+    } catch (error) {
+      console.error('Error deleting review:', error);
+      throw error;
+    }
+  }
+};

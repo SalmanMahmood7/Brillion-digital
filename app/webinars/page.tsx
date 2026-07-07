@@ -95,19 +95,19 @@ export default function Webinars() {
   const upcomingWebinars = [
     {
       title: "Future of Remote Work Technology",
-      date: "Jan 15, 2025",
+      date: "Aug 12, 2026",
       time: "2:00 PM EST",
       speaker: "Sarah Johnson, Future of Work Expert"
     },
     {
       title: "Blockchain in Enterprise Solutions", 
-      date: "Jan 22, 2025",
+      date: "Sep 16, 2026",
       time: "1:00 PM EST",
       speaker: "Alex Chen, Blockchain Developer"
     },
     {
       title: "Sustainable IT Infrastructure",
-      date: "Jan 29, 2025", 
+      date: "Oct 14, 2026",
       time: "3:00 PM EST",
       speaker: "Maria Garcia, Green IT Specialist"
     }

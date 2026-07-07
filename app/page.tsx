@@ -22,6 +22,9 @@ const InsightsSection = dynamic(() => import("@/components/InsightsSection"), {
 const FinalCTA = dynamic(() => import("@/components/FinalCTA"), {
   loading: () => <div className="h-64 animate-pulse bg-gray-100" />
 });
+const ReviewsSection = dynamic(() => import("@/components/ReviewsSection"), {
+  loading: () => <div className="h-96 animate-pulse bg-gray-100" />
+});
 
 export default function Home() {
   // Initialize scroll reveal animations
@@ -55,7 +58,8 @@ export default function Home() {
               <InsightsSection />
             </div>
           </div>
-          
+
+          <ReviewsSection />
           <FinalCTA />
         </div>
 

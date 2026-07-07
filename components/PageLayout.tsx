@@ -3,6 +3,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import Chatbot from "@/components/Chatbot";
+import ScrollAnimations from "@/components/ScrollAnimations";
 import { useEffect } from "react";
 import { useScrollReveal } from "@/lib/scroll-reveal";
 
@@ -19,6 +20,7 @@ const PageLayout = ({ children }: PageLayoutProps) => {
 
   return (
     <div className="min-h-screen">
+      <ScrollAnimations />
       <Navigation />
       <main className="pt-18">
         {children}

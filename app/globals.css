@@ -5,6 +5,9 @@
 /* Professional Software House Design System */
 @layer base {
   :root {
+    /* Light-only site: opt out of browser auto/forced dark mode */
+    color-scheme: light;
+
     /* Clean Modern Professional Theme */
     --color-bg: 0 0% 100%; /* Pure white background */
     --color-surface: 220 13% 97%; /* Very light gray surface */
@@ -710,3 +713,58 @@ body {
 }
 
 
+
+/* Full-height sections must fit the visible screen on every device.
+   100vh on mobile includes the area behind the browser address bar,
+   pushing hero content below center; svh measures only the visible
+   viewport. Falls back to 100vh where svh is unsupported. */
+@supports (min-height: 100svh) {
+  .min-h-screen {
+    min-height: 100svh;
+  }
+  .h-screen {
+    height: 100svh;
+  }
+}
+
+/* ===== Scroll-triggered reveal animations =====
+   Classes are applied automatically by components/ScrollAnimations.tsx:
+   every section starts hidden once JS loads and fades/slides up the first
+   time it enters the viewport. Users with prefers-reduced-motion (and
+   crawlers / no-JS visitors) always see content immediately. */
+.reveal-section {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-section.reveal-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hero section: the text inside rises in after the section itself,
+   giving a staggered entrance on page load */
+.reveal-hero h1,
+.reveal-hero h1 + p {
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.reveal-hero.reveal-in h1 {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s;
+}
+
+.reveal-hero.reveal-in h1 + p {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.4s,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+}

@@ -468,19 +468,19 @@ export default function Work() {
                 {
                   quote: "Brillion transformed our entire infrastructure. The efficiency gains have been remarkable.",
                   author: "Hamza Khan",
-                  role: "CTO, MaRS Discovery District",
+                  role: "Trainer, UBK Academy",
                   image: "/hamza-khan.jpg"
                 },
                 {
                   quote: "Their data analytics solution gave us insights we never knew existed. Game-changing work.",
                   author: "Shahzaib Kamal",
-                  role: "VP Operations, Superior Propane",
+                  role: "Founder of AKHEE",
                   image: "/shahzaib-kamal.png"
                 },
                 {
                   quote: "The security implementation was flawless. We sleep better knowing our data is protected.",
                   author: "Salman Mahmood",
-                  role: "CISO, Ontario Health",
+                  role: "FullStack Developer, Prepreneurship",
                   image: "/salman-mahmood.jpg"
                 }
               ].map((testimonial, index) => (

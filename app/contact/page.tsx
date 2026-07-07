@@ -23,13 +23,13 @@ export default function Contact() {
     {
       icon: Phone,
       title: "Call Us",
-      details: ["+1 (555) 123-4567", "+1 (555) 987-6543"],
+      details: ["+1 (647) 891-2155"],
       action: "Call Now"
     },
     {
       icon: MapPin,
       title: "Visit Us",
-      details: ["123 Digital Street", "Tech City, TC 12345"],
+      details: ["233 Speers Rd Unit 5", "Oakville, ON L6K 0J5"],
       action: "Get Directions"
     }
   ];
@@ -130,13 +130,10 @@ export default function Contact() {
         </section>
 
         {/* Transition Background Section */}
-        <div className="relative">
-          
-          {/* Bottom Background - Different Color */}
-          <div className="bg-gray-50 h-32"></div>
-          
-          {/* Overlapping Get in Touch Card */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 1366:-top-[170px] 1366:translate-y-0 z-10 w-full max-w-7xl px-4 sm:px-6">
+        <div className="relative bg-gray-50">
+          {/* Overlapping Get in Touch Card — in normal flow (negative top margin)
+              so its height pushes the sections below instead of covering them */}
+          <div className="relative z-10 w-full max-w-7xl mx-auto -mt-24 sm:-mt-32 px-4 sm:px-6">
             <div className="flex justify-center">
               {/* Two-column Contact Card */}
               <div className="w-full max-w-5xl bg-white rounded-[12px] sm:rounded-[20px] shadow-2xl overflow-hidden">
@@ -150,13 +147,13 @@ export default function Contact() {
                     <div className="space-y-4 sm:space-y-6">
                       {/* Phone */}
                       <a 
-                        href="tel:+19174513717" 
+                        href="tel:+16478912155" 
                         className="flex items-center space-x-4 text-[#f2f2f2] hover:text-white transition-colors duration-200 group"
                       >
                         <div className="w-5 h-5 flex items-center justify-center">
                           <Phone className="w-5 h-5" strokeWidth={1.5} />
                         </div>
-                        <span className="text-base font-['Inter',sans-serif]">+1 (917) 451-3717</span>
+                        <span className="text-base font-['Inter',sans-serif]">+1 (647) 891-2155</span>
                       </a>
 
                       {/* Email */}
@@ -176,8 +173,8 @@ export default function Contact() {
                           <MapPin className="w-5 h-5" strokeWidth={1.5} />
                         </div>
                         <div className="text-base leading-relaxed font-['Inter',sans-serif]">
-                          123 Bay Street, Suite 2500<br />
-                          Toronto, ON M5J 2T3 Canada
+                          233 Speers Rd Unit 5<br />
+                          Oakville, ON L6K 0J5 Canada
                         </div>
                       </div>
                     </div>
@@ -304,11 +301,8 @@ export default function Contact() {
           </div>
         </div>
 
-        {/* Spacer to account for overlapping card */}
-        <div className="bg-gray-50 pb-16 sm:pb-24 lg:pb-32"></div>
-
         {/* Map Section */}
-        <section className="relative pt-[55px] sm:pt-10 1366:pt-[55px] pb-12 sm:pb-16 lg:pb-20 bg-gray-50">
+        <section className="relative pt-12 sm:pt-16 pb-12 sm:pb-16 lg:pb-20 bg-gray-50">
           <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-12 1366:px-8 max-w-7xl 1366:max-w-6xl">
             <div className="text-center mb-6 sm:mb-8 lg:mb-10">
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl 1366:text-4xl font-bold mb-3 sm:mb-4">
@@ -316,7 +310,7 @@ export default function Contact() {
                 <span className="text-orange-500">Us</span>
               </h2>
               <p className="text-sm sm:text-base lg:text-lg text-gray-600 max-w-xl sm:max-w-2xl mx-auto px-4 sm:px-0">
-                Visit our office or get in touch with our team. We're located in the heart of Wilmington, Delaware.
+                Visit our office or get in touch with our team. We're located in Oakville, Ontario.
               </p>
             </div>
 
@@ -325,7 +319,7 @@ export default function Contact() {
               <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] bg-gray-200">
                 {/* Using Google Maps Embed */}
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3067.1234567890123!2d-75.5457890!3d39.7459470!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s3%20Germay%20Dr%2C%20Wilmington%2C%20DE%2019804!5e0!3m2!1sen!2sus!4v1234567890123"
+                  src="https://www.google.com/maps?q=233+Speers+Rd+Unit+5,+Oakville,+ON+L6K+0J5,+Canada&output=embed"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -343,16 +337,16 @@ export default function Contact() {
                     <div className="flex items-start space-x-3">
                       <MapPin className="w-5 h-5 text-orange-500 mt-0.5 flex-shrink-0" />
                       <div className="text-sm text-gray-600">
-                        123 Bay Street, Suite 2500<br />
-                        Toronto, ON M5J 2T3<br />
+                        233 Speers Rd Unit 5<br />
+                        Oakville, ON L6K 0J5<br />
                         Canada
                       </div>
                     </div>
 
                     <div className="flex items-center space-x-3">
                       <Phone className="w-5 h-5 text-orange-500" />
-                      <a href="tel:+19174513717" className="text-sm text-gray-600 hover:text-orange-500 transition-colors">
-                        +1 (917) 451-3717
+                      <a href="tel:+16478912155" className="text-sm text-gray-600 hover:text-orange-500 transition-colors">
+                        +1 (647) 891-2155
                       </a>
                     </div>
 
@@ -407,7 +401,7 @@ export default function Contact() {
                 </div>
                 <h3 className="text-lg font-bold text-[#1e3a8a] mb-2">Visit Our Office</h3>
                 <p className="text-sm text-gray-600">
-                  Located in the business district of Wilmington, with easy access to major highways and public transportation.
+                  Located on Speers Road in Oakville, with easy access to the QEW and public transportation.
                 </p>
               </div>
 
