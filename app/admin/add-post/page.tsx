@@ -111,7 +111,7 @@ export default function AddPostPage() {
       <div className="max-w-5xl mx-auto py-6">
         {/* Header */}
         <div className="mb-6">
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">Create New Article</h1>
               <p className="text-gray-600 mt-1">Add a new article to the insights section</p>
@@ -160,7 +160,7 @@ export default function AddPostPage() {
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="slug">URL Slug *</Label>
                     <Input
@@ -185,7 +185,7 @@ export default function AddPostPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="status">Status</Label>
                     <Select 
@@ -224,7 +224,7 @@ export default function AddPostPage() {
                 <CardDescription>Organize your article with categories and tags</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="category">Category *</Label>
                     <Select 
@@ -334,7 +334,7 @@ export default function AddPostPage() {
                   </p>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="download">Downloadable Asset</Label>
                     <Input

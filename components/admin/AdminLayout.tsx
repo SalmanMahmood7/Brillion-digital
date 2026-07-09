@@ -90,10 +90,10 @@ export function AdminLayout({ children }: AdminLayoutProps) {
 
       {/* Sidebar */}
       <div className={cn(
-        "fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0",
+        "fixed inset-y-0 left-0 z-50 w-64 flex flex-col bg-white border-r border-gray-200 shadow-lg transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static lg:inset-0",
         sidebarOpen ? "translate-x-0" : "-translate-x-full"
       )}>
-        <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200 bg-gradient-to-r from-[#f97316] to-[#ea580c]">
+        <div className="flex items-center justify-between h-16 flex-shrink-0 px-4 border-b border-gray-200 bg-gradient-to-r from-[#f97316] to-[#ea580c]">
           <h1 className="text-xl font-bold text-white">Brillion Digital</h1>
           <Button
             variant="ghost"
@@ -105,7 +105,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
           </Button>
         </div>
         
-        <ScrollArea className="flex-1 py-4">
+        <ScrollArea className="flex-1 min-h-0 py-4">
           <nav className="space-y-1 px-3">
             {sidebarItems.map((item) => {
               const isActive = pathname === item.href || 
@@ -133,7 +133,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
 
         <Separator />
         
-        <div className="p-3">
+        <div className="p-3 flex-shrink-0">
           <Button
             variant="ghost"
             className="w-full justify-start text-gray-600 hover:text-[#f97316] hover:bg-orange-50"
@@ -146,34 +146,34 @@ export function AdminLayout({ children }: AdminLayoutProps) {
       </div>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col lg:ml-0">
+      <div className="flex-1 flex flex-col min-w-0 lg:ml-0">
         {/* Top bar */}
-        <header className="bg-white shadow-sm border-b border-gray-200 h-16 flex items-center px-4 lg:px-6">
+        <header className="bg-white shadow-sm border-b border-gray-200 h-16 flex-shrink-0 flex items-center px-4 lg:px-6">
           <Button
             variant="ghost"
             size="sm"
-            className="lg:hidden mr-3 text-gray-600 hover:text-[#f97316]"
+            className="lg:hidden mr-3 flex-shrink-0 text-gray-600 hover:text-[#f97316]"
             onClick={() => setSidebarOpen(true)}
           >
             <Menu className="h-4 w-4" />
           </Button>
-          
-          <div className="flex-1">
-            <h2 className="text-lg font-semibold text-gray-900">
-              {sidebarItems.find(item => 
-                pathname === item.href || 
+
+          <div className="flex-1 min-w-0">
+            <h2 className="text-lg font-semibold text-gray-900 truncate">
+              {sidebarItems.find(item =>
+                pathname === item.href ||
                 (item.href !== "/admin" && pathname.startsWith(item.href))
               )?.title || "Dashboard"}
             </h2>
           </div>
-          
-          <div className="flex items-center space-x-3">
+
+          <div className="hidden sm:flex items-center space-x-3 flex-shrink-0">
             <span className="text-sm text-gray-600">Admin User</span>
           </div>
         </header>
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto p-4 lg:p-6 max-h-[calc(100vh-4rem)] bg-gray-50">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden p-4 lg:p-6 max-h-[calc(100vh-4rem)] bg-gray-50">
           {children}
         </main>
       </div>

@@ -344,7 +344,7 @@ export default function AdminServices() {
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
           <div>
             <h1 className="text-2xl font-display font-bold text-foreground">Services Management</h1>
             <p className="text-muted-foreground mt-1">Manage services stored in Firebase database</p>
@@ -372,7 +372,7 @@ export default function AdminServices() {
             </div>
           </div>
           
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <Button onClick={loadServices} variant="outline" disabled={loading}>
               <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
               Refresh
@@ -507,7 +507,7 @@ export default function AdminServices() {
 
         {/* Enhanced Edit/Add Dialog */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogContent className="fixed top-[5%] left-[50%] translate-x-[-50%] translate-y-[0%] w-full max-w-4xl mx-4 max-h-[90vh] overflow-hidden z-50 bg-background border rounded-lg shadow-lg">
+          <DialogContent className="w-[calc(100vw-2rem)] max-w-4xl max-h-[90vh] overflow-hidden p-0 rounded-lg">
             <div className="flex flex-col max-h-[90vh]">
               <DialogHeader className="flex-shrink-0 p-6 pb-4">
                 <DialogTitle>{editingService ? 'Edit Service' : 'Add New Service'}</DialogTitle>

@@ -211,13 +211,13 @@ export default function UsersPage() {
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-foreground">Users</h1>
             <p className="text-muted-foreground mt-1">Manage user accounts and permissions (Real-time Database)</p>
           </div>
-          
-          <div className="flex gap-2">
+
+          <div className="flex flex-wrap gap-2">
             <Button 
               variant="outline" 
               onClick={loadUsers}
@@ -234,7 +234,7 @@ export default function UsersPage() {
                 Add User
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
+            <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Add New User</DialogTitle>
                 <DialogDescription>
@@ -242,32 +242,32 @@ export default function UsersPage() {
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="displayName" className="text-right">Name</Label>
+                <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-2 sm:gap-4">
+                  <Label htmlFor="displayName" className="sm:text-right">Name</Label>
                   <Input
                     id="displayName"
                     value={newUser.displayName}
                     onChange={(e) => setNewUser({...newUser, displayName: e.target.value})}
-                    className="col-span-3"
+                    className="sm:col-span-3"
                   />
                 </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="email" className="text-right">Email</Label>
+                <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-2 sm:gap-4">
+                  <Label htmlFor="email" className="sm:text-right">Email</Label>
                   <Input
                     id="email"
                     type="email"
                     value={newUser.email}
                     onChange={(e) => setNewUser({...newUser, email: e.target.value})}
-                    className="col-span-3"
+                    className="sm:col-span-3"
                   />
                 </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="phone" className="text-right">Phone</Label>
+                <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-2 sm:gap-4">
+                  <Label htmlFor="phone" className="sm:text-right">Phone</Label>
                   <Input
                     id="phone"
                     value={newUser.phone}
                     onChange={(e) => setNewUser({...newUser, phone: e.target.value})}
-                    className="col-span-3"
+                    className="sm:col-span-3"
                   />
                 </div>
               </div>
@@ -285,8 +285,8 @@ export default function UsersPage() {
             <CardDescription>
               View and manage all user accounts
             </CardDescription>
-            <div className="flex items-center space-x-2">
-              <div className="relative flex-1 max-w-sm">
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="relative w-full sm:w-auto sm:flex-1 sm:max-w-sm">
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder="Search users..."
@@ -411,7 +411,7 @@ export default function UsersPage() {
 
       {/* Edit User Dialog */}
       <Dialog open={!!editingUser} onOpenChange={() => setEditingUser(null)}>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-[425px] max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Edit User</DialogTitle>
             <DialogDescription>
@@ -419,32 +419,32 @@ export default function UsersPage() {
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="edit-displayName" className="text-right">Name</Label>
+            <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-2 sm:gap-4">
+              <Label htmlFor="edit-displayName" className="sm:text-right">Name</Label>
               <Input
                 id="edit-displayName"
                 value={newUser.displayName}
                 onChange={(e) => setNewUser({...newUser, displayName: e.target.value})}
-                className="col-span-3"
+                className="sm:col-span-3"
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="edit-email" className="text-right">Email</Label>
+            <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-2 sm:gap-4">
+              <Label htmlFor="edit-email" className="sm:text-right">Email</Label>
               <Input
                 id="edit-email"
                 type="email"
                 value={newUser.email}
                 onChange={(e) => setNewUser({...newUser, email: e.target.value})}
-                className="col-span-3"
+                className="sm:col-span-3"
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="edit-phone" className="text-right">Phone</Label>
+            <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-2 sm:gap-4">
+              <Label htmlFor="edit-phone" className="sm:text-right">Phone</Label>
               <Input
                 id="edit-phone"
                 value={newUser.phone}
                 onChange={(e) => setNewUser({...newUser, phone: e.target.value})}
-                className="col-span-3"
+                className="sm:col-span-3"
               />
             </div>
           </div>

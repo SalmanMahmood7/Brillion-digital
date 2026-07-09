@@ -284,13 +284,13 @@ export default function AdminWebinars() {
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Webinars Management</h1>
             <p className="text-gray-600 mt-1">Create and manage webinars and video content (Real-time Database)</p>
           </div>
-          
-          <div className="flex space-x-2">
+
+          <div className="flex flex-wrap gap-2">
             {webinars.length > 0 && (
               <Button 
                 onClick={handleResetToSix}
@@ -337,7 +337,7 @@ export default function AdminWebinars() {
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="category">Category *</Label>
                     <Select value={newWebinar.category} onValueChange={(value) => setNewWebinar({...newWebinar, category: value})}>
@@ -404,7 +404,7 @@ export default function AdminWebinars() {
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="status">Status</Label>
                     <Select value={newWebinar.status} onValueChange={(value: Webinar["status"]) => setNewWebinar({...newWebinar, status: value})}>
@@ -496,8 +496,8 @@ export default function AdminWebinars() {
             <CardDescription>
               View and manage all your webinars
             </CardDescription>
-            <div className="flex items-center space-x-2">
-              <div className="relative flex-1 max-w-sm">
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="relative w-full sm:w-auto sm:flex-1 sm:max-w-sm">
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
                 <Input
                   placeholder="Search webinars..."
@@ -677,7 +677,7 @@ export default function AdminWebinars() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="edit-category">Category *</Label>
                   <Select value={newWebinar.category} onValueChange={(value) => setNewWebinar({...newWebinar, category: value})}>
@@ -703,7 +703,7 @@ export default function AdminWebinars() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="edit-views">Views</Label>
                   <Input
@@ -765,7 +765,7 @@ export default function AdminWebinars() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="edit-status">Status</Label>
                   <Select value={newWebinar.status} onValueChange={(value: Webinar["status"]) => setNewWebinar({...newWebinar, status: value})}>

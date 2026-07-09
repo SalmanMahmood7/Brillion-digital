@@ -371,12 +371,12 @@ export default function ContentPage() {
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Content Management</h1>
             <p className="text-gray-600 mt-1">Create and manage your website content</p>
           </div>
-          
+
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
               <Button className="bg-[#f97316] hover:bg-[#ea580c] text-white">
@@ -384,7 +384,7 @@ export default function ContentPage() {
                 Add Content
               </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-[525px]">
+            <DialogContent className="sm:max-w-[525px] max-h-[90vh] overflow-y-auto">
               <DialogHeader>
                 <DialogTitle>Add New Content</DialogTitle>
                 <DialogDescription>
@@ -392,19 +392,19 @@ export default function ContentPage() {
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="title" className="text-right">Title</Label>
+                <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-2 sm:gap-4">
+                  <Label htmlFor="title" className="sm:text-right">Title</Label>
                   <Input
                     id="title"
                     value={newContent.title}
                     onChange={(e) => setNewContent({...newContent, title: e.target.value})}
-                    className="col-span-3"
+                    className="sm:col-span-3"
                   />
                 </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="type" className="text-right">Type</Label>
+                <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-2 sm:gap-4">
+                  <Label htmlFor="type" className="sm:text-right">Type</Label>
                   <Select value={newContent.type} onValueChange={(value: Content["type"]) => setNewContent({...newContent, type: value})}>
-                    <SelectTrigger className="col-span-3">
+                    <SelectTrigger className="sm:col-span-3">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -414,10 +414,10 @@ export default function ContentPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="status" className="text-right">Status</Label>
+                <div className="grid grid-cols-1 sm:grid-cols-4 items-center gap-2 sm:gap-4">
+                  <Label htmlFor="status" className="sm:text-right">Status</Label>
                   <Select value={newContent.status} onValueChange={(value: Content["status"]) => setNewContent({...newContent, status: value})}>
-                    <SelectTrigger className="col-span-3">
+                    <SelectTrigger className="sm:col-span-3">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -427,13 +427,13 @@ export default function ContentPage() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div className="grid grid-cols-4 items-start gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-4 items-start gap-2 sm:gap-4">
                   <Label htmlFor="excerpt" className="text-right mt-2">Excerpt</Label>
                   <Textarea
                     id="excerpt"
                     value={newContent.excerpt}
                     onChange={(e) => setNewContent({...newContent, excerpt: e.target.value})}
-                    className="col-span-3"
+                    className="sm:col-span-3"
                     rows={3}
                   />
                 </div>
@@ -499,8 +499,8 @@ export default function ContentPage() {
             <CardDescription>
               View and manage all your website content
             </CardDescription>
-            <div className="flex items-center space-x-2">
-              <div className="relative flex-1 max-w-sm">
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="relative w-full sm:w-auto sm:flex-1 sm:max-w-sm">
                 <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
                 <Input
                   placeholder="Search content..."
@@ -678,7 +678,7 @@ export default function ContentPage() {
                       />
                     </div>
                     
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="slug">URL Slug *</Label>
                         <Input
@@ -702,7 +702,7 @@ export default function ContentPage() {
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="status">Status</Label>
                         <Select 
@@ -738,7 +738,7 @@ export default function ContentPage() {
                 {/* Categorization Section */}
                 <div className="border-t pt-6">
                   <h3 className="text-lg font-medium mb-4 text-gray-900">Categorization</h3>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <Label htmlFor="category">Category</Label>
                       <Select 
@@ -837,7 +837,7 @@ export default function ContentPage() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="download">Downloadable Asset</Label>
                         <Input

@@ -375,9 +375,9 @@ const Navigation = () => {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className={`lg:hidden transition-colors duration-300 ${
-          isScrolled 
-            ? 'bg-white/95 backdrop-blur-xl border-t border-gray-200' 
+        <div className={`lg:hidden transition-colors duration-300 max-h-[calc(100vh-4rem)] overflow-y-auto overscroll-contain ${
+          isScrolled
+            ? 'bg-white/95 backdrop-blur-xl border-t border-gray-200'
             : 'bg-white/95 backdrop-blur-xl border-t border-gray-200'
         }`}>
           <div className="px-4 pt-4 pb-4 space-y-2">

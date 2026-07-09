@@ -567,7 +567,11 @@ body {
   animation: none !important;
 }
 
-/* Specifically target any animated elements */
+/* Specifically target any animated elements.
+   Note: animation only — do NOT reset `transform` here. These substring
+   selectors also match Radix/shadcn dialogs (`animate-in`), whose centering
+   relies on translate(-50%, -50%); killing transform shoves every modal
+   off-center. */
 [class*="animate"],
 [class*="floating"],
 [class*="bounce"],
@@ -581,7 +585,6 @@ body {
 .animate-spin,
 .animate-ping {
   animation: none !important;
-  transform: none !important;
 }
 
 /* Remove any background animations */
@@ -655,13 +658,6 @@ body {
   .lg\\:grid-cols-4 {
     grid-template-columns: repeat(4, 1fr) !important;
     gap: 1rem !important;
-  }
-  
-  /* Modal optimizations for 1366x768 */
-  .modal-1366,
-  [role="dialog"] {
-    max-width: 28rem !important;
-    padding: 1.5rem !important;
   }
   
   /* Navigation optimizations for 1366x768 */

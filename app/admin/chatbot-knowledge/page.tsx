@@ -363,7 +363,7 @@ export default function ChatbotKnowledgePage() {
 
         {/* Knowledge Items */}
         <Tabs defaultValue="all" className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full h-auto grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
             <TabsTrigger value="all">All ({stats.total})</TabsTrigger>
             <TabsTrigger value="company">Company ({stats.company})</TabsTrigger>
             <TabsTrigger value="services">Services ({stats.services})</TabsTrigger>

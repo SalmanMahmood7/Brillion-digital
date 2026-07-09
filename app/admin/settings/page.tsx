@@ -81,19 +81,19 @@ export default function SettingsPage() {
   return (
     <AdminLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
             <h1 className="text-2xl font-bold text-foreground">Settings</h1>
             <p className="text-muted-foreground mt-1">Manage your application settings and preferences</p>
           </div>
-          <Button onClick={handleSaveSettings}>
+          <Button onClick={handleSaveSettings} className="w-full sm:w-auto">
             <Save className="h-4 w-4 mr-2" />
             Save Changes
           </Button>
         </div>
 
         <Tabs defaultValue="general" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full h-auto grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
             <TabsTrigger value="general">General</TabsTrigger>
             <TabsTrigger value="security">Security</TabsTrigger>
             <TabsTrigger value="email">Email</TabsTrigger>
@@ -113,7 +113,7 @@ export default function SettingsPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="siteName">Site Name</Label>
                     <Input
@@ -180,7 +180,7 @@ export default function SettingsPage() {
                 
                 <Separator />
                 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="sessionTimeout">Session Timeout (minutes)</Label>
                     <Input
@@ -216,7 +216,7 @@ export default function SettingsPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="smtpHost">SMTP Host</Label>
                     <Input
@@ -234,7 +234,7 @@ export default function SettingsPage() {
                     />
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="smtpUsername">SMTP Username</Label>
                     <Input

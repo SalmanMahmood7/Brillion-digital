@@ -70,3 +70,6 @@ Thumbs.db
 # Misc
 *.pem
 .eslintcache
+
+.vercel
+.env*

@@ -309,33 +309,6 @@ export default function AdminDashboard() {
           </Card>
         </div>
 
-        {/* Quick Actions */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-            <CardDescription>Common tasks and shortcuts</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <button className="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:border-[#f97316] hover:bg-orange-50 transition-colors">
-                <Users className="h-8 w-8 text-[#f97316] mb-2" />
-                <span className="text-sm font-medium text-gray-700">Add User</span>
-              </button>
-              <button className="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:border-[#f97316] hover:bg-orange-50 transition-colors">
-                <FileText className="h-8 w-8 text-[#f97316] mb-2" />
-                <span className="text-sm font-medium text-gray-700">New Article</span>
-              </button>
-              <button className="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:border-[#f97316] hover:bg-orange-50 transition-colors">
-                <MessageSquare className="h-8 w-8 text-[#f97316] mb-2" />
-                <span className="text-sm font-medium text-gray-700">View Messages</span>
-              </button>
-              <button className="flex flex-col items-center p-4 rounded-lg border border-gray-200 hover:border-[#f97316] hover:bg-orange-50 transition-colors">
-                <TrendingUp className="h-8 w-8 text-[#f97316] mb-2" />
-                <span className="text-sm font-medium text-gray-700">Analytics</span>
-              </button>
-            </div>
-          </CardContent>
-        </Card>
       </div>
       )}
     </AdminLayout>
