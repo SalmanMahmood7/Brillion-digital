@@ -63,7 +63,9 @@
       "Bash(LD_LIBRARY_PATH=/tmp/claude-1000/-mnt-d-Work-Brillion-digital/6062c1f0-4dc6-47f0-b57b-ed4609fd628b/scratchpad/pw/localroot/usr/lib/x86_64-linux-gnu node dialog-probe.js)",
       "Bash(timeout 120 bash -c 'until curl -sf http://localhost:3001 >/dev/null 2>&1; do sleep 1; done')",
       "Bash(node -e ' *)",
-      "Bash(awk '/1366x768 Screen Optimizations/,/^}$/' app/globals.css)"
+      "Bash(awk '/1366x768 Screen Optimizations/,/^}$/' app/globals.css)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3001/webinars --max-time 30)",
+      "Bash(npx tsc *)"
     ]
   }
 }

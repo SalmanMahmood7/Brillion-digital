@@ -138,28 +138,6 @@ export default function Careers() {
               <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
                 Build your career with Brillion Digital and help organizations transform through innovative technology solutions. Be part of a team that's shaping the future of digital transformation.
               </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-                <Button 
-                  asChild
-                  className="bg-blue-900 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300"
-                >
-                  <a href="#openings">
-                    View Open Positions
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
-                <Button 
-                  asChild
-                  variant="outline"
-                  className="text-white hover:text-white font-semibold py-3 px-8 rounded-lg transition-all duration-300"
-                  style={{borderColor: '#f97316', backgroundColor: '#f97316'}}
-                >
-                  <a href="#culture">
-                    Download Our Guide
-                  </a>
-                </Button>
-              </div>
             </div>
           </div>
         </section>

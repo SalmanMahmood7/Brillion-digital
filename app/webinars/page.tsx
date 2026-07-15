@@ -1,127 +1,96 @@
 "use client"
 
 import PageLayout from "@/components/PageLayout";
-import { Play, Calendar, Clock, Users, BookOpen, TrendingUp, Shield, Cloud, Brain, Database, ChevronRight, ExternalLink, X } from "lucide-react";
-import { useState, useEffect } from "react";
-import { webinarsService, Webinar } from "@/lib/firebase-services";
+import { Play, Calendar, Clock, Users, BookOpen, TrendingUp, ChevronRight, ExternalLink, X, Bell } from "lucide-react";
+import { useState } from "react";
 import AuthButton from "@/components/auth/AuthButton";
+
+interface UpcomingWebinar {
+  title: string;
+  description: string;
+  category: string;
+  date: string;
+  time: string;
+  topics: string[];
+  thumbnail: string;
+}
 
 export default function Webinars() {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedWebinar, setSelectedWebinar] = useState(null);
-  const [webinars, setWebinars] = useState<Webinar[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [showVideoModal, setShowVideoModal] = useState(false);
-  const [debugLogs, setDebugLogs] = useState([]);
-  const [showDebugConsole, setShowDebugConsole] = useState(false);
-
-  const addDebugLog = (step, details, status = 'info') => {
-    const timestamp = new Date().toLocaleTimeString();
-    const newLog = { 
-      id: Date.now(), 
-      timestamp, 
-      step, 
-      details, 
-      status 
-    };
-    setDebugLogs(prev => [...prev, newLog]);
-    console.log(`[${timestamp}] ${step}: ${details}`);
-  };
-
-  const handleWatchWebinar = (webinar) => {
-    addDebugLog('🎬 VIDEO_CLICK', `User clicked play on "${webinar.title}"`, 'info');
-    addDebugLog('🔍 WEBINAR_DATA', `Loading webinar data: ID=${webinar.id}, Duration=${webinar.duration}`, 'info');
-    addDebugLog('🔒 AUTH_CHECK', 'Checking user authentication status...', 'warning');
-    
-    // Simulate authentication check delay
-    setTimeout(() => {
-      addDebugLog('✅ AUTH_SUCCESS', 'User is authenticated, proceeding to video load', 'success');
-      addDebugLog('📋 STATE_UPDATE', 'Setting selectedWebinar state and opening modal', 'info');
-      
-      setSelectedWebinar(webinar);
-      setShowVideoModal(true);
-      
-      addDebugLog('🖼️ MODAL_RENDER', 'Video modal component mounted', 'success');
-      addDebugLog('🎥 IFRAME_LOAD', `Loading YouTube iframe: youtubeId=${webinar.youtubeId}`, 'info');
-      
-      // Simulate iframe load time
-      setTimeout(() => {
-        addDebugLog('▶️ VIDEO_READY', 'Video player ready, auto-play initiated', 'success');
-        addDebugLog('📊 ANALYTICS', `Tracking view for webinar ID: ${webinar.id}`, 'info');
-      }, 1500);
-      
-    }, 500);
-  };
-
-  const closeVideoModal = () => {
-    addDebugLog('❌ MODAL_CLOSE', 'User requested modal close', 'warning');
-    addDebugLog('🧹 CLEANUP', 'Cleaning up video player and state', 'info');
-    
-    setShowVideoModal(false);
-    setSelectedWebinar(null);
-    
-    addDebugLog('✅ CLEANUP_COMPLETE', 'Modal closed, state reset complete', 'success');
-  };
-
-  const clearDebugLogs = () => {
-    setDebugLogs([]);
-    addDebugLog('🗑️ LOGS_CLEARED', 'Debug console cleared by user', 'info');
-  };
+  const [selectedWebinar, setSelectedWebinar] = useState<UpcomingWebinar | null>(null);
 
   const categories = ["All", "Digital Transformation", "Cloud Solutions", "AI & Machine Learning", "Cybersecurity", "Data Analytics"];
 
-  // Fetch webinars from Firebase
-  useEffect(() => {
-    const fetchWebinars = async () => {
-      try {
-        setLoading(true);
-        const webinarsList = await webinarsService.getAll();
-        console.log('Public page - fetched webinars:', webinarsList.length);
-        setWebinars(webinarsList);
-      } catch (error) {
-        console.error('Error fetching webinars:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchWebinars();
-  }, []);
-
-  const filteredWebinars = selectedCategory === "All" 
-    ? webinars 
-    : webinars.filter(webinar => webinar.category === selectedCategory);
-
-  const upcomingWebinars = [
+  const upcomingWebinars: UpcomingWebinar[] = [
     {
-      title: "Future of Remote Work Technology",
-      date: "Aug 12, 2026",
+      title: "Cybersecurity Fundamentals for Enterprise: Protecting Your Digital Assets",
+      description: "Essential cybersecurity principles every business leader needs to know. Learn about threat detection, risk management, and building a security-first culture in your organization.",
+      category: "Cybersecurity",
+      date: "November 18, 2026",
       time: "2:00 PM EST",
-      speaker: "Sarah Johnson, Future of Work Expert"
+      topics: ["Enterprise Security", "Threat Detection", "Risk Management"],
+      thumbnail: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&q=80"
     },
     {
-      title: "Blockchain in Enterprise Solutions", 
-      date: "Sep 16, 2026",
+      title: "Digital Transformation Strategies: Modernizing Legacy Business Systems",
+      description: "Proven strategies for successfully transforming traditional business operations into modern, efficient digital workflows. Essential for business leaders planning their digital journey.",
+      category: "Digital Transformation",
+      date: "December 9, 2026",
       time: "1:00 PM EST",
-      speaker: "Alex Chen, Blockchain Developer"
+      topics: ["Legacy Modernization", "Digital Workflows", "Change Management"],
+      thumbnail: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&q=80"
     },
     {
-      title: "Sustainable IT Infrastructure",
-      date: "Oct 14, 2026",
+      title: "Cloud Migration Best Practices: Enterprise-Scale Implementation Guide",
+      description: "Real-world guidance on migrating enterprise systems to the cloud. Discover cost optimization strategies, security considerations, and common pitfalls to avoid.",
+      category: "Cloud Solutions",
+      date: "January 13, 2027",
       time: "3:00 PM EST",
-      speaker: "Maria Garcia, Green IT Specialist"
+      topics: ["Cloud Migration", "Cost Optimization", "Enterprise Architecture"],
+      thumbnail: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&q=80"
+    },
+    {
+      title: "AI Implementation in Business: Practical Applications and ROI Analysis",
+      description: "Demystifying AI implementation for business leaders. Explore practical use cases, calculate ROI, and understand how to integrate AI into your existing business processes.",
+      category: "AI & Machine Learning",
+      date: "February 10, 2027",
+      time: "2:00 PM EST",
+      topics: ["AI Implementation", "Business Intelligence", "ROI Analysis"],
+      thumbnail: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80"
+    },
+    {
+      title: "Data Analytics for Business Growth: From Raw Data to Strategic Insights",
+      description: "How to transform your business data into actionable insights. Learn advanced analytics techniques, data visualization strategies, and how to build a data-driven culture.",
+      category: "Data Analytics",
+      date: "March 10, 2027",
+      time: "1:00 PM EST",
+      topics: ["Data Visualization", "Business Analytics", "Data-Driven Culture"],
+      thumbnail: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
+    },
+    {
+      title: "Future of Remote Work Technology: Building the Modern Digital Workplace",
+      description: "Explore the tools, platforms, and strategies shaping the future of distributed teams and the modern digital workplace.",
+      category: "Digital Transformation",
+      date: "April 14, 2027",
+      time: "2:00 PM EST",
+      topics: ["Remote Work", "Collaboration Tools", "Digital Workplace"],
+      thumbnail: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80"
     }
   ];
+
+  const filteredWebinars = selectedCategory === "All"
+    ? upcomingWebinars
+    : upcomingWebinars.filter(webinar => webinar.category === selectedCategory);
 
   return (
     <PageLayout>
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-        
+
         {/* Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center">
           <div className="absolute inset-0">
-            <img 
-              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            <img
+              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
               alt="Webinars Background"
               className="w-full h-full object-cover"
             />
@@ -130,11 +99,11 @@ export default function Webinars() {
 
           <div className="relative z-10 container mx-auto px-6 md:px-8 lg:px-12 max-w-6xl">
             <div className="text-center space-y-8 pt-12">
-              
+
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white">
                 Expert <span className="text-[#f97316]">Webinars</span> & Learning
               </h1>
-              
+
               <p className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
                 Join industry experts as they share insights, best practices, and cutting-edge strategies for digital transformation and technology implementation.
               </p>
@@ -143,10 +112,10 @@ export default function Webinars() {
               <div className="flex flex-wrap justify-center gap-12 pt-8">
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
-                    <Play className="w-8 h-8 text-[#f97316]" />
+                    <Calendar className="w-8 h-8 text-[#f97316]" />
                   </div>
-                  <p className="text-4xl font-bold text-white">50+</p>
-                  <p className="text-gray-400 mt-1">Expert Sessions</p>
+                  <p className="text-4xl font-bold text-white">6+</p>
+                  <p className="text-gray-400 mt-1">Upcoming Sessions</p>
                 </div>
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
@@ -159,8 +128,8 @@ export default function Webinars() {
                   <div className="flex items-center justify-center mb-2">
                     <BookOpen className="w-8 h-8 text-[#f97316]" />
                   </div>
-                  <p className="text-4xl font-bold text-white">25+</p>
-                  <p className="text-gray-400 mt-1">Hours of Content</p>
+                  <p className="text-4xl font-bold text-white">5</p>
+                  <p className="text-gray-400 mt-1">Expert Topics</p>
                 </div>
               </div>
             </div>
@@ -192,50 +161,37 @@ export default function Webinars() {
         <section className="py-14">
           <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
             <div className="grid lg:grid-cols-3 gap-8">
-              
-              {/* Main Content - Webinars */}
+
+              {/* Main Content - Upcoming Webinars */}
               <div className="lg:col-span-2">
-                {loading ? (
-                  <div className="text-center py-14">
-                    <div className="max-w-md mx-auto">
-                      <div className="w-16 h-16 border-4 border-[#f97316] border-t-transparent rounded-full animate-spin mx-auto mb-8"></div>
-                      <h3 className="text-2xl font-bold text-gray-900 mb-4">Loading Webinars...</h3>
-                      <p className="text-gray-600">Please wait while we fetch the latest webinars.</p>
-                    </div>
-                  </div>
-                ) : filteredWebinars.length > 0 ? (
+                {filteredWebinars.length > 0 ? (
                   <div className="grid md:grid-cols-2 gap-8">
-                    {filteredWebinars.map((webinar) => (
+                    {filteredWebinars.map((webinar, index) => (
                       <div
-                        key={webinar.id}
-                        className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2"
+                        key={index}
+                        onClick={() => setSelectedWebinar(webinar)}
+                        className="group bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 cursor-pointer"
                       >
-                        {/* Video Thumbnail */}
+                        {/* Thumbnail */}
                         <div className="relative h-48 overflow-hidden">
-                          <img 
-                            src={webinar.thumbnail} 
+                          <img
+                            src={webinar.thumbnail}
                             alt={webinar.title}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
-                          
-                          {/* Play Button */}
-                          <div className="absolute inset-0 flex items-center justify-center">
-                            <div 
-                              onClick={() => {
-                                addDebugLog('▶️ PLAY_CLICK', `Play button clicked for "${webinar.title}"`, 'info');
-                                handleWatchWebinar(webinar);
-                              }}
-                              className="w-16 h-16 bg-[#f97316]/90 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer hover:bg-[#ea580c]/90"
-                            >
-                              <Play className="w-8 h-8 text-white ml-1" />
-                            </div>
-                          </div>
-                          
-                          {/* Duration Badge */}
+
+                          {/* Coming Soon Badge */}
                           <div className="absolute top-4 right-4">
-                            <span className="px-3 py-1 bg-black/70 backdrop-blur text-white text-sm font-semibold rounded-full">
-                              {webinar.duration}
+                            <span className="px-3 py-1 bg-[#f97316] text-white text-sm font-semibold rounded-full">
+                              Coming Soon
+                            </span>
+                          </div>
+
+                          {/* Category Badge */}
+                          <div className="absolute bottom-4 left-4">
+                            <span className="px-3 py-1 bg-black/70 backdrop-blur text-white text-xs font-semibold rounded-full">
+                              {webinar.category}
                             </span>
                           </div>
                         </div>
@@ -248,59 +204,35 @@ export default function Webinars() {
                               <span>{webinar.date}</span>
                             </span>
                             <span className="flex items-center space-x-1">
-                              <Users className="w-4 h-4" />
-                              <span>{webinar.views} views</span>
+                              <Clock className="w-4 h-4" />
+                              <span>{webinar.time}</span>
                             </span>
                           </div>
 
                           <h3 className="text-xl font-bold text-[#1e3a8a] group-hover:text-[#f97316] transition-colors duration-300 leading-tight">
                             {webinar.title}
                           </h3>
-                          
+
                           <p className="text-gray-600 line-clamp-3 text-sm leading-relaxed">
                             {webinar.description}
                           </p>
 
-                          <div className="space-y-3">
-                            <p className="text-sm font-medium text-gray-800">{webinar.speaker}</p>
-                            
-                            {/* Topics */}
-                            <div className="flex flex-wrap gap-2">
-                              {webinar.topics.slice(0, 3).map((topic, index) => (
-                                <span 
-                                  key={index}
-                                  className="px-2 py-1 bg-blue-50 text-[#1e3a8a] text-xs font-medium rounded-full"
-                                >
-                                  {topic}
-                                </span>
-                              ))}
-                              {webinar.topics.length > 3 && (
-                                <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
-                                  +{webinar.topics.length - 3}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-
-                          {/* Watch Button */}
-                          <div className="pt-4 border-t border-gray-100">
-                            <button
-                              onClick={() => {
-                                addDebugLog('👆 BUTTON_CLICK', `Watch Webinar button clicked for "${webinar.title}"`, 'info');
-                                handleWatchWebinar(webinar);
-                              }}
-                              className="w-full bg-[#f97316] text-white py-3 rounded-xl font-semibold hover:bg-[#ea580c] transition-all duration-300 flex items-center justify-center"
-                            >
-                              <Play className="w-4 h-4 mr-2" />
-                              Watch Webinar
-                            </button>
+                          {/* Topics */}
+                          <div className="flex flex-wrap gap-2">
+                            {webinar.topics.map((topic, topicIndex) => (
+                              <span
+                                key={topicIndex}
+                                className="px-2 py-1 bg-blue-50 text-[#1e3a8a] text-xs font-medium rounded-full"
+                              >
+                                {topic}
+                              </span>
+                            ))}
                           </div>
                         </div>
                       </div>
                     ))}
                   </div>
                 ) : (
-                  /* Coming Soon Message */
                   <div className="text-center py-14">
                     <div className="max-w-md mx-auto">
                       <div className="w-24 h-24 bg-gradient-to-br from-[#f97316] to-[#ea580c] rounded-full flex items-center justify-center mx-auto mb-8">
@@ -308,8 +240,7 @@ export default function Webinars() {
                       </div>
                       <h3 className="text-2xl font-bold text-gray-900 mb-4">Webinars Coming Soon</h3>
                       <p className="text-gray-600 mb-8 leading-relaxed">
-                        We're preparing high-quality webinar content featuring industry experts and cutting-edge topics. 
-                        Stay tuned for updates!
+                        We're preparing high-quality webinar content in this category. Stay tuned for updates!
                       </p>
                       <AuthButton
                         requireAuth={false}
@@ -324,16 +255,16 @@ export default function Webinars() {
                 )}
               </div>
 
-              {/* Sidebar - Upcoming Webinars */}
+              {/* Sidebar - Upcoming Schedule */}
               <div className="lg:col-span-1">
                 <div className="sticky top-28 space-y-8">
-                  
-                  {/* Upcoming Webinars */}
+
+                  {/* Upcoming Schedule */}
                   <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                    <h3 className="text-2xl font-bold text-[#1e3a8a] mb-6">Upcoming Webinars</h3>
-                    
+                    <h3 className="text-2xl font-bold text-[#1e3a8a] mb-6">Upcoming Schedule</h3>
+
                     <div className="space-y-4">
-                      {upcomingWebinars.map((webinar, index) => (
+                      {upcomingWebinars.slice(0, 3).map((webinar, index) => (
                         <div key={index} className="border-l-4 border-[#f97316] pl-4 py-2">
                           <h4 className="font-semibold text-[#1e3a8a] mb-1">{webinar.title}</h4>
                           <div className="text-sm text-gray-600 space-y-1">
@@ -345,12 +276,11 @@ export default function Webinars() {
                               <Clock className="w-3 h-3" />
                               <span>{webinar.time}</span>
                             </p>
-                            <p className="text-[#f97316] font-medium">{webinar.speaker}</p>
                           </div>
                         </div>
                       ))}
                     </div>
-                    
+
                     <div className="mt-6 pt-6 border-t border-gray-200">
                       <AuthButton
                         requireAuth={true}
@@ -365,7 +295,7 @@ export default function Webinars() {
                   {/* Learning Resources */}
                   <div className="bg-gradient-to-br from-blue-50 to-[#f97316]/5 rounded-2xl p-6 border border-blue-100">
                     <h3 className="text-xl font-bold text-[#1e3a8a] mb-4">Learning Resources</h3>
-                    
+
                     <div className="space-y-3">
                       <a href="/insights" className="flex items-center text-[#1e3a8a] hover:text-[#f97316] transition-colors font-medium">
                         <BookOpen className="w-4 h-4 mr-2" />
@@ -394,14 +324,14 @@ export default function Webinars() {
         <section className="relative overflow-hidden">
           <div className="relative bg-slate-900">
             <div className="absolute inset-0">
-              <img 
-                src="/dlxmedia-hu-pH9Xvw8UFoo-unsplash.jpg" 
+              <img
+                src="/dlxmedia-hu-pH9Xvw8UFoo-unsplash.jpg"
                 alt="Professional podcast recording studio setup"
                 className="w-full h-full object-cover opacity-40"
               />
               <div className="absolute inset-0 bg-black/50"></div>
             </div>
-            
+
             <div className="relative z-10 container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl py-16">
               <div className="text-center max-w-4xl mx-auto">
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-6">
@@ -410,7 +340,7 @@ export default function Webinars() {
                 <p className="text-white/90 mb-10 text-lg leading-relaxed max-w-3xl mx-auto">
                   Share your expertise with our community. We're always looking for industry experts to present their insights.
                 </p>
-                
+
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-10 bg-[#f97316] hover:bg-orange-500 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 text-lg">
                     Download Our Guide
@@ -428,145 +358,55 @@ export default function Webinars() {
         </section>
       </div>
 
-      {/* Debug Console Toggle Button */}
-      <div className="fixed bottom-4 right-4 z-40">
-        <button
-          onClick={() => setShowDebugConsole(!showDebugConsole)}
-          className="bg-gray-900 text-white px-4 py-2 rounded-full shadow-lg hover:bg-gray-800 transition-colors font-mono text-sm"
+      {/* Coming Soon Modal */}
+      {selectedWebinar && (
+        <div
+          className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50"
+          onClick={() => setSelectedWebinar(null)}
         >
-          {showDebugConsole ? '🔽 Hide Debug' : '🔧 Show Debug Process'}
-        </button>
-      </div>
-
-      {/* Debug Console */}
-      {showDebugConsole && (
-        <div className="fixed bottom-16 right-4 w-96 max-h-80 bg-gray-900 text-green-400 rounded-lg shadow-2xl z-40 overflow-hidden">
-          <div className="bg-gray-800 px-4 py-2 flex justify-between items-center">
-            <span className="font-mono text-sm text-white">🖥️ Debug Console</span>
-            <button
-              onClick={clearDebugLogs}
-              className="text-xs bg-red-600 text-white px-2 py-1 rounded hover:bg-red-500"
-            >
-              Clear
-            </button>
-          </div>
-          <div className="p-4 font-mono text-xs overflow-y-auto max-h-64 space-y-1">
-            {debugLogs.length === 0 ? (
-              <div className="text-gray-500">🔄 Waiting for user interaction...</div>
-            ) : (
-              debugLogs.map((log) => (
-                <div key={log.id} className={`
-                  ${log.status === 'success' ? 'text-green-400' : 
-                    log.status === 'warning' ? 'text-yellow-400' : 
-                    log.status === 'error' ? 'text-red-400' : 'text-[#1e3a8a]'}
-                `}>
-                  <span className="text-gray-400">[{log.timestamp}]</span> {log.step}: {log.details}
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Video Modal */}
-      {showVideoModal && selectedWebinar && (
-        <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
-            
+          <div
+            className="bg-white rounded-2xl max-w-lg w-full overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
             {/* Modal Header */}
-            <div className="flex justify-between items-center p-6 border-b border-gray-200">
-              <div>
-                <h3 className="text-2xl font-bold text-[#1e3a8a]">{selectedWebinar.title}</h3>
-                <p className="text-gray-600 mt-1">
-                  {selectedWebinar.speaker} • {selectedWebinar.duration} • {selectedWebinar.views} views
-                </p>
-              </div>
-              <button 
-                onClick={closeVideoModal}
-                className="text-gray-500 hover:text-gray-700 p-2 rounded-full hover:bg-gray-100"
+            <div className="flex justify-between items-start p-6 border-b border-gray-200">
+              <h3 className="text-xl font-bold text-[#1e3a8a] pr-4">{selectedWebinar.title}</h3>
+              <button
+                onClick={() => setSelectedWebinar(null)}
+                className="text-gray-500 hover:text-gray-700 p-2 rounded-full hover:bg-gray-100 flex-shrink-0"
               >
                 <X className="w-6 h-6" />
               </button>
             </div>
 
-            {/* Video Content */}
-            <div className="aspect-video bg-gray-900">
-              <iframe
-                src={`https://www.youtube.com/embed/${selectedWebinar.youtubeId}?autoplay=1&rel=0`}
-                title={selectedWebinar.title}
-                className="w-full h-full"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                onLoad={() => {
-                  addDebugLog('📺 IFRAME_LOADED', 'YouTube iframe fully loaded and ready', 'success');
-                  addDebugLog('🎵 AUTOPLAY_START', 'Video autoplay initiated by YouTube', 'success');
-                }}
-                onError={() => {
-                  addDebugLog('❌ IFRAME_ERROR', 'Error loading YouTube iframe', 'error');
-                }}
-              />
-            </div>
-
-            {/* Video Details */}
-            <div className="p-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 className="text-lg font-semibold text-[#1e3a8a] mb-3">About This Webinar</h4>
-                  <p className="text-gray-600 mb-4">{selectedWebinar.description}</p>
-                  
-                  <div className="flex items-center space-x-4 text-sm text-gray-500 mb-4">
-                    <div className="flex items-center space-x-1">
-                      <Calendar className="w-4 h-4" />
-                      <span>{selectedWebinar.date}</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Clock className="w-4 h-4" />
-                      <span>{selectedWebinar.duration}</span>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Users className="w-4 h-4" />
-                      <span>{selectedWebinar.views} views</span>
-                    </div>
-                  </div>
-                </div>
-                
-                <div>
-                  <h4 className="text-lg font-semibold text-[#1e3a8a] mb-3">Topics Covered</h4>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {selectedWebinar.topics.map((topic, index) => (
-                      <span 
-                        key={index}
-                        className="px-3 py-1 bg-blue-50 text-[#1e3a8a] text-sm font-medium rounded-full"
-                      >
-                        {topic}
-                      </span>
-                    ))}
-                  </div>
-                  
-                  <h4 className="text-lg font-semibold text-[#1e3a8a] mb-3">Speaker</h4>
-                  <p className="text-gray-600">{selectedWebinar.speaker}</p>
-                </div>
+            {/* Modal Body */}
+            <div className="p-8 text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-[#f97316] to-[#ea580c] rounded-full flex items-center justify-center mx-auto mb-6">
+                <Bell className="w-10 h-10 text-white" />
               </div>
+              <h4 className="text-2xl font-bold text-gray-900 mb-3">Coming Soon</h4>
+              <p className="text-gray-600 mb-2 leading-relaxed">
+                This webinar is scheduled for <span className="font-semibold text-[#1e3a8a]">{selectedWebinar.date}</span> at {selectedWebinar.time}.
+              </p>
+              <p className="text-gray-600 mb-8 leading-relaxed">
+                Registration details will be announced soon. Get notified so you don't miss it!
+              </p>
 
-              {/* Action Buttons */}
-              <div className="flex gap-4 pt-6 border-t border-gray-200 mt-6">
-                <AuthButton
-                  requireAuth={true}
-                  href="/contact"
-                  className="bg-[#f97316] hover:bg-[#ea580c] text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 flex items-center"
-                >
-                  <Users className="mr-2 w-5 h-5" />
-                  Schedule Consultation
-                </AuthButton>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <AuthButton
                   requireAuth={false}
-                  href="/newsletter"
-                  className="border border-[#f97316] text-[#f97316] hover:bg-[#f97316] hover:text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 flex items-center"
+                  href="/contact"
+                  className="bg-[#f97316] hover:bg-[#ea580c] text-white py-3 px-6 rounded-xl font-semibold transition-all duration-300 inline-flex items-center justify-center"
                 >
-                  <Calendar className="mr-2 w-5 h-5" />
+                  <Bell className="w-4 h-4 mr-2" />
                   Get Notified
                 </AuthButton>
+                <button
+                  onClick={() => setSelectedWebinar(null)}
+                  className="border border-gray-300 text-gray-700 hover:bg-gray-50 py-3 px-6 rounded-xl font-semibold transition-all duration-300"
+                >
+                  Close
+                </button>
               </div>
             </div>
           </div>
